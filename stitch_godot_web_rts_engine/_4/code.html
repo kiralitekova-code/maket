@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Domine:wght@700&amp;family=Source+Serif+4:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-tertiary": "#690002", "secondary-container": "#905d01", "error": "#ffb4ab", "surface-container-highest": "#323538", "background": "#111417", "surface": "#111417", "surface-container-low": "#191c1f", "on-tertiary-fixed": "#410001", "on-surface-variant": "#d0c5af", "secondary-fixed": "#ffddb5", "surface-container-high": "#272a2d", "surface-bright": "#37393d", "on-surface": "#e1e2e6", "surface-container-lowest": "#0b0f11", "primary-fixed-dim": "#e9c349", "primary-fixed": "#ffe088", "on-secondary-fixed": "#2a1800", "on-error": "#690005", "secondary": "#fcba5f", "surface-tint": "#e9c349", "on-tertiary-container": "#871a12", "on-background": "#e1e2e6", "on-primary-fixed": "#241a00", "on-primary-container": "#554300", "on-secondary-container": "#ffe4c5", "surface-dim": "#111417", "inverse-surface": "#e1e2e6", "primary-container": "#d4af37", "error-container": "#93000a", "surface-container": "#1d2023", "tertiary": "#ffbfb5", "surface-variant": "#323538", "on-primary": "#3c2f00", "tertiary-fixed-dim": "#ffb4a9", "on-error-container": "#ffdad6", "outline-variant": "#4d4635", "inverse-on-surface": "#2e3134", "tertiary-container": "#ff9688", "outline": "#99907c", "secondary-fixed-dim": "#fcba5f", "on-primary-fixed-variant": "#574500", "inverse-primary": "#735c00", "on-secondary": "#462b00", "on-secondary-fixed-variant": "#643f00", "primary": "#f2ca50", "tertiary-fixed": "#ffdad5", "on-tertiary-fixed-variant": "#8a1c14" }, borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, spacing: { "space-md": "0.75rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "margin-mobile": "0.5rem", "space-lg": "1rem", "space-xl": "1.5rem", "gutter-mobile": "0.5rem", "gutter": "0.75rem", "margin": "1rem" }, fontFamily: { "headline-lg": ["Domine"], "headline-md": ["Domine"], "label-lg": ["\"Source Serif 4\""], "label-sm": ["\"Source Serif 4\""], "headline-lg-mobile": ["Domine"], "body-sm": ["\"Source Serif 4\""], "label-md": ["\"Source Serif 4\""], "body-md": ["\"Source Serif 4\""], "headline-sm": ["Domine"], "body-lg": ["\"Source Serif 4\""] }, fontSize: { "headline-lg": ["32px", { lineHeight: "40px", fontWeight: "700" }], "headline-md": ["20px", { lineHeight: "28px", fontWeight: "700" }], "label-lg": ["14px", { lineHeight: "18px", fontWeight: "600" }], "label-sm": ["9px", { lineHeight: "12px", fontWeight: "600" }], "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "700" }], "body-sm": ["12px", { lineHeight: "16px", fontWeight: "400" }], "label-md": ["11px", { lineHeight: "14px", fontWeight: "600" }], "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "headline-sm": ["16px", { lineHeight: "24px", fontWeight: "700" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface antialiased flex flex-col min-h-screen selection:bg-primary selection:text-on-primary"><header class="fixed top-0 w-full z-50 pt-safe bg-surface-container-low/95 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.6)]"><div class="h-16 px-gutter-mobile flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs"><button aria-label="Return" class="w-11 h-11 flex items-center justify-center rounded-lg bg-surface-container-high text-primary hover:text-primary-fixed active:bg-surface-container-highest transition-colors shadow-[inset_1px_1px_2px_rgba(255,255,255,0.08)]" onclick="history.back()"><span class="material-symbols-outlined text-[20px]">arrow_back</span></button><div class="flex flex-col"><h1 class="font-headline-sm text-headline-sm text-primary tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] uppercase leading-tight truncate">Army Dock</h1><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Barracks &amp; Siege Foundry</span></div></div><div class="flex items-center gap-space-xs"><div class="flex items-center gap-1 bg-surface-container-lowest px-space-sm py-1 rounded-full shadow-[inset_1px_2px_4px_rgba(0,0,0,0.7)]"><span class="material-symbols-outlined text-secondary text-[16px]">monetization_on</span><span class="font-label-md text-label-md text-on-surface font-bold">14,850</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 bg-surface min-h-screen pb-safe"><div class="flex flex-col w-full text-on-surface">
+<!-- Top Capacity & Kingdom Logistics Bar -->
+<section class="px-gutter-mobile pt-space-sm pb-space-xs flex flex-col gap-space-xs">
+<div class="bg-surface-container-low rounded-xl p-space-sm shadow-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">fort</span>
+<span class="font-headline-sm text-headline-sm text-primary uppercase tracking-wide">Казармы Цитадели</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-lowest px-space-sm py-0.5 rounded-full">
+<span class="material-symbols-outlined text-secondary text-[14px]">groups</span>
+<span class="font-label-md text-label-md text-secondary font-bold">42 / 60</span>
+</div>
+</div>
+<!-- Capacity Meter -->
+<div class="w-full bg-surface-container-lowest h-2 rounded-full overflow-hidden mt-space-xs flex p-0.5">
+<div class="bg-primary h-full rounded-full transition-all duration-500 shadow-sm" style="width: 70%;"></div>
+</div>
+<!-- Kingdom Supply Indicators -->
+<div class="grid grid-cols-4 gap-space-xs mt-space-xs pt-space-xs">
+<div class="flex flex-col items-center bg-surface-container rounded-lg py-1 px-0.5">
+<div class="flex items-center gap-0.5 text-secondary">
+<span class="material-symbols-outlined text-[13px]">monetization_on</span>
+<span class="font-label-sm text-label-sm">Золото</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-bold">14,850</span>
+</div>
+<div class="flex flex-col items-center bg-surface-container rounded-lg py-1 px-0.5">
+<div class="flex items-center gap-0.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[13px]">forest</span>
+<span class="font-label-sm text-label-sm">Древесина</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-bold">3,420</span>
+</div>
+<div class="flex flex-col items-center bg-surface-container rounded-lg py-1 px-0.5">
+<div class="flex items-center gap-0.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[13px]">swords</span>
+<span class="font-label-sm text-label-sm">Оружие</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-bold">88</span>
+</div>
+<div class="flex flex-col items-center bg-surface-container rounded-lg py-1 px-0.5">
+<div class="flex items-center gap-0.5 text-primary">
+<span class="material-symbols-outlined text-[13px]">shield</span>
+<span class="font-label-sm text-label-sm">Латы</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-bold">19</span>
+</div>
+</div>
+</div>
+<!-- Category Filter Tabs -->
+<div class="flex items-center gap-space-xs overflow-x-auto no-scrollbar py-1">
+<button class="flex items-center gap-1.5 px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-primary transition-colors shrink-0">
+<span class="material-symbols-outlined text-[16px]">shield_person</span>
+<span class="font-label-md text-label-md">Пехота</span>
+</button>
+<button class="flex items-center gap-1.5 px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-primary transition-colors shrink-0">
+<span class="material-symbols-outlined text-[16px]">adjust</span>
+<span class="font-label-md text-label-md">Стрелки</span>
+</button>
+<button class="flex items-center gap-1.5 px-space-md py-1.5 rounded-lg bg-primary text-on-primary font-bold shadow-md shrink-0">
+<span class="material-symbols-outlined text-[16px]">sports_martial_arts</span>
+<span class="font-label-md text-label-md">Кавалерия</span>
+</button>
+<button class="flex items-center gap-1.5 px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-primary transition-colors shrink-0">
+<span class="material-symbols-outlined text-[16px]">construction</span>
+<span class="font-label-md text-label-md">Осадные</span>
+</button>
+</div>
+</section>
+<!-- Unit Roster Carousel / Horizontal Slate -->
+<section class="px-gutter-mobile py-space-xs flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-label-lg text-on-surface font-bold tracking-wide uppercase">Доступные полки</span>
+<span class="font-label-sm text-label-sm text-secondary">Уровень кузницы: IV</span>
+</div>
+<div class="grid grid-cols-2 gap-space-xs">
+<!-- 1. Копейщик -->
+<div class="unit-card bg-surface-container-low hover:bg-surface-container p-space-sm rounded-xl flex flex-col justify-between transition-all cursor-pointer shadow-sm" role="button" tabindex="0">
+<div class="flex items-start justify-between gap-1">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Копейщик</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant leading-tight">Анти-кавалерия</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-[16px]">straighten</span>
+</div>
+<div class="my-space-xs overflow-hidden rounded-lg h-16 w-full">
+<img class="w-full h-full object-cover" data-alt="Medieval pikeman in chainmail and leather tunic holding a long spiked spear in defensive formation, mist and castle wall background, dramatic lighting, oil painting RTS style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFS705IIJGekHeWwHLS-u4u4crEOd-L53UF6uYO4gTNTrWibvUkrCBgswLFEFZ0Wo_kDItvS2pHD_fi6xZu38Pa_jCMPQxtirPkf_3yKWLYMN0_I1Qomzib3iEGdPsQz_GVwqprY2XsDpHkb6_XQuQE_8DUsTEjWjhYjfmD8sTb40Yzgr2qaoLNIYe0w8xhTFrfEl7oMofzFKBZSeLEyPwlubits9mI1H86_gbgQUC"/>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant pt-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary text-[14px]">monetization_on</span>
+<span class="font-label-sm text-label-sm font-bold text-on-surface">25</span>
+</div>
+<span class="font-label-sm text-label-sm">4 сек</span>
+</div>
+</div>
+<!-- 2. Лучник со стены -->
+<div class="unit-card bg-surface-container-low hover:bg-surface-container p-space-sm rounded-xl flex flex-col justify-between transition-all cursor-pointer shadow-sm" role="button" tabindex="0">
+<div class="flex items-start justify-between gap-1">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Лучник стены</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant leading-tight">Дальний бой</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-[16px]">architecture</span>
+</div>
+<div class="my-space-xs overflow-hidden rounded-lg h-16 w-full">
+<img class="w-full h-full object-cover" data-alt="Medieval marksman longbowman aiming from a stone battlement crenelation, leather quiver full of iron arrows, dark sky, detailed gritty RTS concept art" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7CUhPv0pI2njJbZkpty9zQUSOW_T9dnfYqCOLFGW1E5oK0Sv0AcuF8an1QBIvk37mJBQ1FJ49eSss3WNx-i8wRhNYY9LCNB-0vgLeJol_nLUX5GJTDWPEDeOaAd-1rY7XJQy37wuuQvJsfl64bcLwVzMwmFg38NIyArqr887fVdHsdMmQ7SYEi3eXjl6M9UeYZt-rwR8z3ed7dT7NBAph3eaSYbUcvqGykBLqjnYi"/>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant pt-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary text-[14px]">monetization_on</span>
+<span class="font-label-sm text-label-sm font-bold text-on-surface">40</span>
+</div>
+<span class="font-label-sm text-label-sm">6 сек</span>
+</div>
+</div>
+<!-- 3. Рыцарь Ордена (Selected) -->
+<div class="unit-card bg-surface-container-high p-space-sm rounded-xl flex flex-col justify-between cursor-pointer shadow-md shadow-primary-container/20" role="button" tabindex="0">
+<div class="flex items-start justify-between gap-1">
+<div class="flex flex-col">
+<div class="flex items-center gap-1">
+<span class="font-headline-sm text-headline-sm text-primary">Рыцарь Ордена</span>
+<span class="material-symbols-outlined text-primary text-[14px]">stars</span>
+</div>
+<span class="font-body-sm text-body-sm text-secondary leading-tight">Элитная конница</span>
+</div>
+<span class="bg-primary text-on-primary px-1 rounded font-label-sm text-label-sm">АКТИВЕН</span>
+</div>
+<div class="my-space-xs overflow-hidden rounded-lg h-16 w-full relative">
+<img class="w-full h-full object-cover" data-alt="Elite medieval knight in burnished polished steel armor with gold crest on horseback, lance adorned with crimson heraldic pennant, dramatic battlefield backdrop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALOjMkyzkjyQhbBpTv2P1RuNsy33fFi7zhvWrXJ2kKG_X1iA97jw2f_LWa1BJUZivC89Zn6KGzVTk8UMM3R6lPoQk-t0gsLTsncgU5ioLIjgpTJHNQOS1kjv5mfN9XTLNMcoktaKyZPMgwNCK50xxg2q4MJhpq1nayZNbgEGpEzkUiI-sdLukQxNOQIR22Fmq0Z7btebIRJipeXJgzheCdOyD_DTrwyc0gK7gJYkR6"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 to-transparent"></div>
+<span class="absolute bottom-1 left-1 font-label-sm text-label-sm text-secondary-fixed">Урон: 85</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant pt-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary text-[14px]">monetization_on</span>
+<span class="font-label-sm text-label-sm font-bold text-primary">120</span>
+</div>
+<span class="font-label-sm text-label-sm">18 сек</span>
+</div>
+</div>
+<!-- 4. Осадный таран -->
+<div class="unit-card bg-surface-container-low hover:bg-surface-container p-space-sm rounded-xl flex flex-col justify-between transition-all cursor-pointer shadow-sm" role="button" tabindex="0">
+<div class="flex items-start justify-between gap-1">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Осадный таран</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant leading-tight">Прорыв ворот</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-[16px]">door_front</span>
+</div>
+<div class="my-space-xs overflow-hidden rounded-lg h-16 w-full">
+<img class="w-full h-full object-cover" data-alt="Heavy iron-capped wooden battering ram under a covered siege shed with wet hides against fire arrows, stone fortress background, moody cinematic RTS concept art" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqeXBgqKfX-V2ytooiE74_iQKb8qjZ76EJ69ghKX3jxZLQcpOSjSROy2i7C8mweRkNIgCKrfvSkzJkt22c16CXjGrRysknAIjsrltOWdbhQ65DvjRWaFPK7cpX9Ra1BbOtcg4PSyGxyizELq33Gwexr-QgEKIv80gy10aMEO3OeV7agfIA4WXrui21St4CrLvUl1jD4oB_544CFmb2QP_NptNuv6MjTD8bXKiuhF2l"/>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant pt-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary text-[14px]">monetization_on</span>
+<span class="font-label-sm text-label-sm font-bold text-on-surface">200</span>
+</div>
+<span class="font-label-sm text-label-sm">28 сек</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Focused Unit Dossier & Tactical Recruitment Bay -->
+<section class="px-gutter-mobile py-space-sm flex flex-col gap-space-xs">
+<div class="bg-surface-container p-space-md rounded-xl shadow-xl flex flex-col gap-space-md">
+<!-- Title & Morale Badge -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="w-2.5 h-2.5 rounded-full bg-primary animate-pulse"></div>
+<h2 class="font-headline-md text-headline-md text-primary uppercase">Рыцарь Ордена</h2>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-high px-space-sm py-0.5 rounded-full">
+<span class="material-symbols-outlined text-primary text-[15px]">favorite</span>
+<span class="font-label-sm text-label-sm text-primary font-bold">+15% к отваге</span>
+</div>
+</div>
+<!-- Unit Card Main Visual with Overlay Spec Sheet -->
+<div class="relative w-full h-44 rounded-xl overflow-hidden shadow-inner">
+<img class="w-full h-full object-cover" data-alt="Full portrait of a holy templar knight in ornate etched steel plate armor holding a masterwork broadsword, war stallion behind, gothic cathedral banners fluttering in storm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzDqcvFB43U3axlCiA5_YoHELI9J3NeraLvWO5dt-uVGHAgDkLCds01j6WVM3H9oq44RgVFZxhptgmqq8262i7SboIz-3jEoc2OWl7m9IAJ6jhYWglN5MGB4nSGDj2du_CsXq3goIlTGw1TIbUgYBpiRpl5kssD1po56oe4w8SXTLW3VooL89rh5fPqP76bl-f-BuMq3PH-9bJboSIvAMuwUAeeiEpKrzfrczQjMc7"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent"></div>
+<!-- Overlaid Tactical Stat Indicators -->
+<div class="absolute bottom-2 left-2 right-2 flex justify-between items-end">
+<div class="flex flex-col gap-0.5 bg-surface-container-lowest/80 p-1.5 rounded-lg backdrop-blur-sm">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary text-[14px]">shield</span>
+<span class="font-label-sm text-label-sm text-on-surface">Броня: Высокая (80)</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-[14px]">flash_on</span>
+<span class="font-label-sm text-label-sm text-on-surface">Натиск: Кавалерийский удар</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest/90 px-space-sm py-1 rounded-lg text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Базовый урон</span>
+<span class="font-headline-sm text-headline-sm text-secondary">85 ед.</span>
+</div>
+</div>
+</div>
+<!-- Armory Requisites Requirements Grid -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Необходимое снаряжение для найма</span>
+<div class="grid grid-cols-4 gap-space-xs">
+<!-- Item 1: Gold -->
+<div class="flex flex-col items-center bg-surface-container-low p-1.5 rounded-lg">
+<span class="material-symbols-outlined text-secondary text-[16px]">monetization_on</span>
+<span class="font-label-sm text-label-sm font-bold text-on-surface mt-0.5">120</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Золото</span>
+</div>
+<!-- Item 2: Sword -->
+<div class="flex flex-col items-center bg-surface-container-low p-1.5 rounded-lg">
+<span class="material-symbols-outlined text-primary text-[16px]">colorize</span>
+<span class="font-label-sm text-label-sm font-bold text-on-surface mt-0.5">1 меч</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Кузница</span>
+</div>
+<!-- Item 3: Plate Armor -->
+<div class="flex flex-col items-center bg-surface-container-low p-1.5 rounded-lg">
+<span class="material-symbols-outlined text-primary text-[16px]">shield</span>
+<span class="font-label-sm text-label-sm font-bold text-on-surface mt-0.5">1 латы</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Броня</span>
+</div>
+<!-- Item 4: Warhorse -->
+<div class="flex flex-col items-center bg-surface-container-low p-1.5 rounded-lg">
+<span class="material-symbols-outlined text-secondary text-[16px]">pest_control_rodent</span>
+<span class="font-label-sm text-label-sm font-bold text-on-surface mt-0.5">1 конь</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Конюшня</span>
+</div>
+</div>
+</div>
+<!-- Recruitment Stepper & Action Controls -->
+<div class="bg-surface-container-low p-space-sm rounded-xl flex items-center justify-between gap-space-sm">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Численность</span>
+<span class="font-body-sm text-body-sm text-on-surface">Рекрутов: <span class="font-bold text-primary" id="squad-val">5</span></span>
+</div>
+<div class="flex items-center gap-space-sm bg-surface-container-lowest px-2 py-1 rounded-lg">
+<button class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-primary active:bg-surface-bright transition-colors" id="btn-dec">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<span class="font-headline-sm text-headline-sm text-primary w-6 text-center" id="counter-display">5</span>
+<button class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-primary active:bg-surface-bright transition-colors" id="btn-inc">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+<!-- Bold Primary Recruitment Button -->
+<button class="w-full bg-primary hover:bg-primary-fixed text-on-primary py-space-md rounded-xl flex items-center justify-center gap-space-xs font-headline-sm text-headline-sm tracking-wide shadow-lg active:scale-[0.98] transition-transform" id="recruit-btn">
+<span class="material-symbols-outlined text-[20px]">military_tech</span>
+<span id="recruit-btn-label">Нанять отряд (600 🪙)</span>
+</button>
+</div>
+</section>
+<!-- Citadel Active Forge & Training Queue Status -->
+<section class="px-gutter-mobile pb-space-lg flex flex-col gap-space-xs">
+<div class="bg-surface-container-low rounded-xl p-space-sm flex flex-col gap-space-xs shadow-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[16px] animate-spin">cyclone</span>
+<span class="font-label-md text-label-md text-on-surface font-bold">Очередь обучения гарнизона</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-bold">65%</span>
+</div>
+<!-- Queue Progress Indicator -->
+<div class="w-full bg-surface-container-lowest h-2 rounded-full overflow-hidden flex p-0.5">
+<div class="bg-secondary h-full rounded-full transition-all duration-300" style="width: 65%;"></div>
+</div>
+<!-- Active Queue Lineup Badges -->
+<div class="flex items-center justify-between pt-space-xs text-on-surface-variant">
+<div class="flex items-center gap-space-xs">
+<div class="flex items-center gap-1 bg-surface-container px-space-sm py-0.5 rounded-lg">
+<span class="material-symbols-outlined text-secondary text-[13px]">straighten</span>
+<span class="font-label-sm text-label-sm text-on-surface">3 Копейщика</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Осталось: 00:08</span>
+</div>
+<button class="flex items-center gap-1 text-primary hover:underline">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+<span class="font-label-sm text-label-sm font-bold">Ускорить</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+<script>
+  (function initBarracksUI() {
+    let count = 5;
+    const unitCost = 120;
+    const display = document.getElementById('counter-display');
+    const squadVal = document.getElementById('squad-val');
+    const btnLabel = document.getElementById('recruit-btn-label');
+    const btnInc = document.getElementById('btn-inc');
+    const btnDec = document.getElementById('btn-dec');
+    const recruitBtn = document.getElementById('recruit-btn');
+
+    function update() {
+      if (display) display.textContent = count;
+      if (squadVal) squadVal.textContent = count;
+      if (btnLabel) btnLabel.textContent = `Нанять отряд (${count * unitCost} 🪙)`;
+    }
+
+    if (btnInc) {
+      btnInc.addEventListener('click', () => {
+        if (count < 15) {
+          count++;
+          update();
+        }
+      });
+    }
+
+    if (btnDec) {
+      btnDec.addEventListener('click', () => {
+        if (count > 1) {
+          count--;
+          update();
+        }
+      });
+    }
+
+    if (recruitBtn) {
+      recruitBtn.addEventListener('click', () => {
+        const originalText = btnLabel.textContent;
+        btnLabel.textContent = 'Приказ отправлен в гарнизон!';
+        setTimeout(() => {
+          update();
+        }, 1200);
+      });
+    }
+  })();
+</script></main></body></html>
