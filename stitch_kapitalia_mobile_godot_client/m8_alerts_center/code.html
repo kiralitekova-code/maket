@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-tertiary": "#002e6a", "scrim": "#000000", "on-primary-fixed-variant": "#633f00", "error-container": "#93000a", "on-secondary-container": "#004d44", "secondary": "#44e2cd", "primary": "#ffca85", "surface-container": "#1d2025", "secondary-fixed": "#62fae3", "outline-variant": "#514535", "tertiary-fixed": "#d8e2ff", "error": "#ffb4ab", "outline": "#9e8e7c", "surface-container-lowest": "#0b0e13", "on-primary": "#452b00", "inverse-primary": "#835400", "inverse-surface": "#e1e2e9", "on-secondary": "#003731", "on-error": "#690005", "on-background": "#e1e2e9", "secondary-container": "#03c6b2", "text-primary": "#E6EDF3", "text-secondary": "#93A1B0", "info": "#4C8DFF", "on-secondary-fixed": "#00201c", "surface-bright": "#36393f", "tertiary": "#c1d3ff", "on-tertiary-fixed": "#001a42", "on-tertiary-fixed-variant": "#004395", "surface-tint": "#ffb956", "surface": "#151A21", "raised": "#1C232C", "on-surface": "#e1e2e9", "primary-fixed-dim": "#ffb956", "profit": "#2DD4BF", "on-primary-fixed": "#2a1800", "text-muted": "#64748B", "on-primary-container": "#664000", "secondary-fixed-dim": "#3cddc7", "on-error-container": "#ffdad6", "on-surface-variant": "#d6c3af", "inverse-on-surface": "#2e3036", "surface-container-high": "#272a30", "primary-container": "#f2a93b", "on-tertiary-container": "#004598", "border": "#2A323D", "surface-variant": "#32353a", "primary-fixed": "#ffddb5", "tertiary-fixed-dim": "aec6ff", "loss": "#F2555A", "background": "#111319", "surface-dim": "#111319", "surface-container-highest": "#32353a", "on-secondary-fixed-variant": "#005047", "surface-container-low": "#191c21", "tertiary-container": "#96b7ff" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin": "1rem", "space-xl": "1.5rem", "space-md": "0.75rem", "space-lg": "1rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "gutter": "0.5rem" }, fontFamily: { "body-medium": ["Inter"], "body-default": ["Inter"], "label-medium": ["Inter"], "kpi-value": ["JetBrains Mono"], "section-title": ["Inter"], "mono-label": ["JetBrains Mono"], "label-default": ["Inter"], "screen-title": ["Inter"], "mono-data": ["JetBrains Mono"] }, fontSize: { "body-medium": ["15px", { "lineHeight": "20px", "fontWeight": "500" }], "body-default": ["15px", { "lineHeight": "20px", "fontWeight": "400" }], "label-medium": ["13px", { "lineHeight": "16px", "fontWeight": "500" }], "kpi-value": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "section-title": ["17px", { "lineHeight": "22px", "fontWeight": "600" }], "mono-label": ["13px", { "lineHeight": "16px", "fontWeight": "400" }], "label-default": ["13px", { "lineHeight": "16px", "fontWeight": "400" }], "screen-title": ["22px", { "lineHeight": "28px", "fontWeight": "700" }], "mono-data": ["15px", { "lineHeight": "20px", "fontWeight": "500" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;background-color:#111319;color:#e1e2e9;-webkit-tap-highlight-color:transparent;}body{overscroll-behavior-y:none;}.pb-safe{padding-bottom:calc(34px + env(safe-area-inset-bottom,0px));}.pt-safe{padding-top:calc(44px + env(safe-area-inset-top,0px));}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}@keyframes pulse-subtle{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.85);}}.pulse-dot{animation:pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background font-body-default text-body-default min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="h-[84px] flex flex-col"><div class="h-14 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-lg bg-raised flex items-center justify-center shadow-inner"><span class="font-kpi-value text-[17px] font-bold text-primary-container tracking-wider">K</span></div></div><div class="flex-1 text-center px-space-xs"><h1 class="font-screen-title text-screen-title text-text-primary tracking-tight truncate">Home</h1></div><div class="flex items-center gap-space-xs"><button aria-label="Notifications" class="w-11 h-11 relative flex items-center justify-center text-text-secondary active:scale-95 transition-transform"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-primary-container ring-2 ring-surface"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0 ml-1"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div><div class="h-7 px-margin bg-surface-container-lowest/80 backdrop-blur-md flex items-center justify-between"><div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-text-muted text-[14px]">schedule</span><span class="font-mono-label text-mono-label text-text-muted font-mono">Week 12 · Thu</span></div><div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-primary-container/15"><span class="w-1.5 h-1.5 rounded-full bg-primary-container pulse-dot"></span><span class="font-mono-label text-mono-label text-primary font-mono">Next tick 02:14:33</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full px-margin pt-[128px] pb-[106px] bg-background min-h-screen"><div class="flex flex-col w-full gap-space-md">
+<!-- Screen Header Extension & Batch Action -->
+<div class="flex items-center justify-between px-space-xs pt-1">
+<div class="flex items-center gap-space-xs">
+<span class="font-section-title text-section-title text-text-primary tracking-tight">Оперативные события</span>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-error-container text-error text-[11px] font-mono-label font-bold">3 КРИТ</span>
+</div>
+<button class="flex items-center gap-1 px-space-sm py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high active:scale-95 transition-all text-text-secondary" id="mark-all-read-btn">
+<span class="material-symbols-outlined text-[16px] text-primary-container">done_all</span>
+<span class="font-label-default text-[12px] text-text-secondary select-none">Прочитать все</span>
+</button>
+</div>
+<!-- Filter Chips (Horizontally Scrollable) -->
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar -mx-margin px-margin py-0.5 scroll-smooth">
+<button class="filter-pill shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-container text-on-primary-container font-label-medium text-label-medium shadow-sm transition-transform active:scale-95" data-filter="all">
+<span>Все</span>
+<span class="px-1.5 py-0.2 rounded-full bg-black/20 text-[11px] font-mono">12</span>
+</button>
+<button class="filter-pill shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-text-secondary hover:text-text-primary transition-all active:scale-95" data-filter="critical">
+<span class="w-1.5 h-1.5 rounded-full bg-loss"></span>
+<span class="font-label-medium text-label-medium">Критические</span>
+<span class="px-1.5 py-0.2 rounded-full bg-error-container/60 text-error text-[11px] font-mono">3</span>
+</button>
+<button class="filter-pill shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-text-secondary hover:text-text-primary transition-all active:scale-95" data-filter="supply">
+<span class="font-label-medium text-label-medium">Поставки</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container-high text-text-muted text-[11px] font-mono">4</span>
+</button>
+<button class="filter-pill shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-text-secondary hover:text-text-primary transition-all active:scale-95" data-filter="market">
+<span class="font-label-medium text-label-medium">Рынок</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container-high text-text-muted text-[11px] font-mono">3</span>
+</button>
+<button class="filter-pill shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-text-secondary hover:text-text-primary transition-all active:scale-95" data-filter="system">
+<span class="font-label-medium text-label-medium">Система</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container-high text-text-muted text-[11px] font-mono">2</span>
+</button>
+</div>
+<!-- Priority Banner / Tactical Summary Strip -->
+<div class="flex items-center justify-between p-space-sm rounded-xl bg-surface-container-low shadow-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-lg bg-error-container/40 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-loss text-[18px]">warning</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-medium text-label-medium text-text-primary truncate">2 завода требуют вмешательства</span>
+<span class="font-mono-label text-mono-label text-text-muted text-[11px]">Остановка конвейеров через ~1 такт</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-muted text-[18px]">chevron_right</span>
+</div>
+<!-- Alerts Feed -->
+<div class="flex flex-col gap-space-sm w-full">
+<!-- Card 1: Critical Emergency (Flour Deficit) -->
+<div class="alert-card group relative overflow-hidden rounded-xl bg-surface shadow-sm transition-all" data-category="critical">
+<!-- High priority color indicator bar -->
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-loss"></div>
+<div class="p-space-md pl-4 flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-7 h-7 rounded-lg bg-error-container/40 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-loss text-[16px]">e911_emergency</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-medium text-[11px] uppercase tracking-wider text-loss font-semibold">Угроза простоя</span>
+<h2 class="font-section-title text-[14px] text-text-primary leading-tight truncate">КРИТИЧЕСКИЙ ДЕФИЦИТ: Пекарный завод №2</h2>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 font-mono-label text-[11px] text-loss bg-error-container/30 px-1.5 py-0.5 rounded shrink-0">
+<span class="w-1.5 h-1.5 rounded-full bg-loss pulse-dot"></span>
+            2 мин
+          </span>
+</div>
+<p class="font-body-default text-[13px] text-text-secondary leading-relaxed">
+          Запас муки на исходе (хватит на <span class="text-text-primary font-medium">2 тика</span>). Риск полной остановки конвейера через <span class="font-mono text-loss font-semibold">04:28</span>.
+        </p>
+<!-- Dynamic Context Bar -->
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-lowest">
+<div class="flex items-center gap-2">
+<span class="font-mono-label text-[11px] text-text-muted">Остаток склада:</span>
+<span class="font-mono-data text-[12px] text-loss font-bold">14.2 / 120 т</span>
+</div>
+<span class="font-mono-label text-[11px] text-text-muted">Тик 12.4</span>
+</div>
+<!-- Quick Action Buttons -->
+<div class="grid grid-cols-2 gap-2 pt-0.5">
+<button class="h-10 px-3 rounded-lg bg-primary-container hover:bg-surface-tint active:scale-[0.98] transition-transform flex items-center justify-center gap-1.5 text-on-primary-container shadow-sm">
+<span class="material-symbols-outlined text-[17px]">shopping_cart_checkout</span>
+<span class="font-label-medium text-label-medium font-semibold">Закупить на бирже</span>
+</button>
+<button class="mute-action-btn h-10 px-3 rounded-lg bg-surface-container hover:bg-surface-container-high active:scale-[0.98] transition-transform flex items-center justify-center gap-1.5 text-text-secondary">
+<span class="material-symbols-outlined text-[17px]">notifications_off</span>
+<span class="font-label-medium text-label-medium">Заглушить</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2: Contract Disruption -->
+<div class="alert-card group relative overflow-hidden rounded-xl bg-surface shadow-sm" data-category="critical">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary-container"></div>
+<div class="p-space-md pl-4 flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-7 h-7 rounded-lg bg-primary-container/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary-container text-[16px]">schedule</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-medium text-[11px] uppercase tracking-wider text-primary font-semibold">Нарушение SLA</span>
+<h2 class="font-section-title text-[14px] text-text-primary leading-tight truncate">Срыв такта поставки: ООО ЗерноТрейд</h2>
+</div>
+</div>
+<span class="font-mono-label text-[11px] text-text-muted shrink-0">18 мин назад</span>
+</div>
+<p class="font-body-default text-[13px] text-text-secondary leading-relaxed">
+          Контракт №412 задержан на <span class="text-text-primary font-medium">1 такт</span>. Начислена неустойка контрагенту: <span class="font-mono text-profit font-semibold">+18 200 CR</span>.
+        </p>
+<div class="flex items-center justify-between pt-1">
+<span class="font-mono-label text-[11px] text-text-muted">Тик 12.3 · Транзит A-4</span>
+<button class="h-9 px-3 rounded-lg bg-surface-container hover:bg-surface-container-high active:scale-95 transition-transform flex items-center gap-1 text-primary-container">
+<span class="font-label-medium text-[13px] font-semibold">Открыть контракт</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3: Market Alert (Sugar Price Surge) -->
+<div class="alert-card group relative overflow-hidden rounded-xl bg-surface shadow-sm" data-category="market">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-profit"></div>
+<div class="p-space-md pl-4 flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-7 h-7 rounded-lg bg-profit/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-profit text-[16px]">trending_up</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-medium text-[11px] uppercase tracking-wider text-profit font-semibold">Рыночный арбитраж</span>
+<h2 class="font-section-title text-[14px] text-text-primary leading-tight truncate">Скачок спроса: Сахар-песок (+14%)</h2>
+</div>
+</div>
+<span class="font-mono-label text-[11px] text-text-muted shrink-0">1 ч назад</span>
+</div>
+<p class="font-body-default text-[13px] text-text-secondary leading-relaxed">
+          Цена в Нордхейме выросла до <span class="font-mono text-text-primary font-semibold">5 420 CR/т</span>. Доступно к реализации 45 т со Склада №3.
+        </p>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-profit text-[15px]">insights</span>
+<span class="font-mono-label text-[11px] text-profit font-medium">Маржа сделки +28%</span>
+</div>
+<button class="h-9 px-3 rounded-lg bg-profit/15 hover:bg-profit/25 text-profit active:scale-95 transition-transform flex items-center gap-1">
+<span class="font-label-medium text-[13px] font-semibold">К стакану цен</span>
+<span class="material-symbols-outlined text-[16px]">candlestick_chart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 4: Interactive Swiped Row Example -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-lowest">
+<!-- Underlying Quick Actions Revealed on Swipe -->
+<div class="absolute inset-0 flex items-center justify-between px-3">
+<div class="flex items-center gap-1.5 text-profit pl-1">
+<span class="material-symbols-outlined text-[20px]">archive</span>
+<span class="font-label-medium text-[12px] font-semibold">В архив</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 rounded-lg bg-surface-container-high text-text-secondary flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[20px]">notifications_off</span>
+</button>
+<button class="w-10 h-10 rounded-lg bg-error-container text-error flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+<!-- Swiped Foreground Surface (Shifted -54px for demonstration) -->
+<div class="relative z-10 p-space-md bg-surface rounded-xl shadow-md transition-transform duration-200 translate-x-[-64px] active:translate-x-0 cursor-grab" id="swipeable-demo">
+<div class="flex items-center justify-between gap-2">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-lg bg-info/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-info text-[18px]">local_shipping</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-section-title text-[14px] text-text-primary truncate">Отгрузка #892 в пути</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+</div>
+<span class="font-body-default text-[12px] text-text-secondary truncate">Колонна зерновозов прибывает через 18 мин</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0">
+<span class="font-mono-label text-[11px] text-text-muted">Тик 12.2</span>
+<span class="font-mono-label text-[10px] text-text-muted mt-0.5">← свайп</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 5: Operational Success (Modernization Complete) -->
+<div class="alert-card group relative overflow-hidden rounded-xl bg-surface shadow-sm" data-category="system">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-secondary-container"></div>
+<div class="p-space-md pl-4 flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-7 h-7 rounded-lg bg-secondary-container/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-medium text-[11px] uppercase tracking-wider text-secondary font-semibold">Инженерия</span>
+<h2 class="font-section-title text-[14px] text-text-primary leading-tight truncate">Модернизация печей завершена</h2>
+</div>
+</div>
+<span class="font-mono-label text-[11px] text-text-muted shrink-0">3 ч назад</span>
+</div>
+<p class="font-body-default text-[13px] text-text-secondary leading-relaxed">
+          Печи завода №1 переведены на энергосберегающий режим (<span class="font-mono text-profit font-semibold">-12% расход энергии</span>). Себестоимость партии хлеба снижена на 1.8 CR.
+        </p>
+<div class="flex items-center justify-between pt-1">
+<span class="font-mono-label text-[11px] text-text-muted">Экономия: 4 800 CR / такт</span>
+<button class="h-8 px-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-text-secondary hover:text-text-primary active:scale-95 transition-transform flex items-center gap-1">
+<span class="font-label-medium text-[12px]">В цех #1</span>
+<span class="material-symbols-outlined text-[15px]">arrow_outward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Ambient Autopilot Status Strip (Sticky Bottom Floating Control) -->
+<div class="sticky bottom-1 z-20 mt-2 p-space-sm rounded-xl bg-surface-container/95 backdrop-blur-md shadow-xl flex items-center justify-between">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="relative w-8 h-8 rounded-lg bg-primary-container/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary-container text-[18px]">smart_toy</span>
+<span class="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-profit"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-medium text-[12px] text-text-primary font-semibold leading-tight">Автопилот уведомлений активен</span>
+<span class="font-mono-label text-[11px] text-text-muted truncate">Авто-закупка при критическом остатке &lt; 2 тика</span>
+</div>
+</div>
+<!-- Tactile Toggle Switch -->
+<button aria-checked="true" class="w-11 h-6 rounded-full bg-primary-container transition-colors relative flex items-center px-0.5 shrink-0 focus:outline-none" id="autopilot-toggle" role="switch">
+<span class="w-5 h-5 rounded-full bg-on-primary shadow-sm transform transition-transform translate-x-5"></span>
+</button>
+</div>
+</div>
+<script>
+  // Filter pills behavior
+  const pills = document.querySelectorAll('.filter-pill');
+  const cards = document.querySelectorAll('.alert-card');
+
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      pills.forEach(p => {
+        p.classList.remove('bg-primary-container', 'text-on-primary-container');
+        p.classList.add('bg-surface-container', 'text-text-secondary');
+      });
+      pill.classList.remove('bg-surface-container', 'text-text-secondary');
+      pill.classList.add('bg-primary-container', 'text-on-primary-container');
+
+      const filter = pill.getAttribute('data-filter');
+      cards.forEach(card => {
+        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Swipe gesture simulation tap
+  const swipeDemo = document.getElementById('swipeable-demo');
+  if (swipeDemo) {
+    swipeDemo.addEventListener('click', () => {
+      if (swipeDemo.classList.contains('translate-x-[-64px]')) {
+        swipeDemo.classList.remove('translate-x-[-64px]');
+      } else {
+        swipeDemo.classList.add('translate-x-[-64px]');
+      }
+    });
+  }
+
+  // Autopilot toggle switch
+  const toggleBtn = document.getElementById('autopilot-toggle');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const isChecked = toggleBtn.getAttribute('aria-checked') === 'true';
+      const knob = toggleBtn.firstElementChild;
+      if (isChecked) {
+        toggleBtn.setAttribute('aria-checked', 'false');
+        toggleBtn.classList.remove('bg-primary-container');
+        toggleBtn.classList.add('bg-surface-container-high');
+        knob.classList.remove('translate-x-5', 'bg-on-primary');
+        knob.classList.add('translate-x-0', 'bg-text-muted');
+      } else {
+        toggleBtn.setAttribute('aria-checked', 'true');
+        toggleBtn.classList.remove('bg-surface-container-high');
+        toggleBtn.classList.add('bg-primary-container');
+        knob.classList.remove('translate-x-0', 'bg-text-muted');
+        knob.classList.add('translate-x-5', 'bg-on-primary');
+      }
+    });
+  }
+
+  // Mark all read button micro-delight
+  const markReadBtn = document.getElementById('mark-all-read-btn');
+  if (markReadBtn) {
+    markReadBtn.addEventListener('click', () => {
+      const label = markReadBtn.querySelector('span:last-child');
+      const icon = markReadBtn.querySelector('span:first-child');
+      if (label) label.textContent = 'Готово';
+      if (icon) icon.textContent = 'check';
+      markReadBtn.classList.add('text-profit');
+      setTimeout(() => {
+        if (label) label.textContent = 'Прочитать все';
+        if (icon) icon.textContent = 'done_all';
+        markReadBtn.classList.remove('text-profit');
+      }, 1500);
+    });
+  }
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/95 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.5)]" data-active-classes="text-primary-container font-semibold"><div class="h-14 px-gutter flex items-center justify-around"><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-text-muted active:scale-95 transition-transform" data-path="home" href="#"><span class="material-symbols-outlined text-[22px]">dashboard</span><span class="font-label-default text-[11px] leading-tight">Home</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-text-muted active:scale-95 transition-transform" data-path="enterprises" href="#"><span class="material-symbols-outlined text-[22px]">domain</span><span class="font-label-default text-[11px] leading-tight">Enterprises</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-text-muted active:scale-95 transition-transform" data-path="market" href="#"><span class="material-symbols-outlined text-[22px]">candlestick_chart</span><span class="font-label-default text-[11px] leading-tight">Market</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-text-muted active:scale-95 transition-transform" data-path="reports" href="#"><span class="material-symbols-outlined text-[22px]">analytics</span><span class="font-label-default text-[11px] leading-tight">Reports</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-text-muted active:scale-95 transition-transform" data-path="more" href="#"><span class="material-symbols-outlined text-[22px]">tune</span><span class="font-label-default text-[11px] leading-tight">More</span></a></div></nav></body></html>

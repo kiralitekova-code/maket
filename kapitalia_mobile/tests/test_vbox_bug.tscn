@@ -1,0 +1,41 @@
+[gd_scene load_steps=1 format=3]
+
+[node name="Root" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Scroll"]
+layout_mode = 2
+
+# Этот ребёнок должен сломаться (layout_mode=1 + anchors)
+[node name="SegmentRow" type="HBoxContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TestBtn" type="Button" parent="Scroll/VBox/SegmentRow"]
+layout_mode = 1
+size_flags_horizontal = 2
+text = "Test Button"
+
+[node name="OtherBtn" type="Button" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+custom_minimum_size = Vector2(0, 52)
+text = "Other"

@@ -1,0 +1,480 @@
+[gd_scene load_steps=1 format=3]
+
+[node name="M7Reports" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Scroll"]
+layout_mode = 2
+
+[node name="WeekSelector" type="HBoxContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WeekPrev" type="Button" parent="Scroll/VBox/WeekSelector"]
+layout_mode = 1
+text = "◀"
+custom_minimum_size = Vector2(36, 36)
+
+[node name="Week10" type="Button" parent="Scroll/VBox/WeekSelector"]
+layout_mode = 1
+custom_minimum_size = Vector2(0, 36)
+text = "Нед. 10"
+
+[node name="Week11" type="Button" parent="Scroll/VBox/WeekSelector"]
+layout_mode = 1
+custom_minimum_size = Vector2(0, 36)
+text = "Нед. 11"
+
+[node name="Week12" type="Button" parent="Scroll/VBox/WeekSelector"]
+layout_mode = 1
+custom_minimum_size = Vector2(0, 36)
+text = "● Нед. 12 (Текущая)"
+
+[node name="Week13" type="Button" parent="Scroll/VBox/WeekSelector"]
+layout_mode = 1
+custom_minimum_size = Vector2(0, 36)
+text = "Нед. 13 (Прогноз)"
+
+[node name="WeekNext" type="Button" parent="Scroll/VBox/WeekSelector"]
+layout_mode = 1
+text = "▶"
+custom_minimum_size = Vector2(36, 36)
+
+[node name="PnlHeroCard" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PnlHeroVBox" type="VBoxContainer" parent="Scroll/VBox/PnlHeroCard"]
+layout_mode = 2
+
+[node name="PnlTitle" type="Label" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Чистая прибыль · +14.2%"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PnlAmount" type="Label" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "+1 248 600 CR"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SparklineCard" type="PanelContainer" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SparklineVBox" type="VBoxContainer" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/SparklineCard"]
+layout_mode = 2
+
+[node name="SparklineHeader" type="HBoxContainer" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/SparklineCard/SparklineVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SparklineTitle" type="Label" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/SparklineCard/SparklineVBox/SparklineHeader"]
+layout_mode = 1
+text = "Динамика за 7 дней (Пн — Вс)"
+size_flags_horizontal = 3
+
+[node name="SparklineAvg" type="Label" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/SparklineCard/SparklineVBox/SparklineHeader"]
+layout_mode = 1
+text = "Ср. +178 371 CR/д"
+
+[node name="SparklineBars" type="HBoxContainer" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/SparklineCard/SparklineVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 56)
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BarMon" type="PanelContainer" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/SparklineCard/SparklineVBox/SparklineBars"]
+layout_mode = 1
+size_flags_horizontal = 2
+custom_minimum_size = Vector2(0, 56)
+
+[node name="MonLabel" type="Label" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/SparklineCard/SparklineVBox/SparklineBars/BarMon"]
+layout_mode = 0
+anchors_preset = 0
+offset_bottom = 28.0
+grow_horizontal = 2
+text = "ПН"
+
+[node name="BarTue" type="PanelContainer" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/SparklineCard/SparklineVBox/SparklineBars"]
+layout_mode = 1
+size_flags_horizontal = 2
+custom_minimum_size = Vector2(0, 56)
+
+[node name="TueLabel" type="Label" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/SparklineCard/SparklineVBox/SparklineBars/BarTue"]
+layout_mode = 0
+anchors_preset = 0
+offset_bottom = 28.0
+grow_horizontal = 2
+text = "ВТ"
+
+[node name="BarWed" type="PanelContainer" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/SparklineCard/SparklineVBox/SparklineBars"]
+layout_mode = 1
+size_flags_horizontal = 2
+custom_minimum_size = Vector2(0, 56)
+
+[node name="WedLabel" type="Label" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/SparklineCard/SparklineVBox/SparklineBars/BarWed"]
+layout_mode = 0
+anchors_preset = 0
+offset_bottom = 28.0
+grow_horizontal = 2
+text = "СР"
+
+[node name="BarThu" type="PanelContainer" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/SparklineCard/SparklineVBox/SparklineBars"]
+layout_mode = 1
+size_flags_horizontal = 2
+custom_minimum_size = Vector2(0, 56)
+
+[node name="ThuLabel" type="Label" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/SparklineCard/SparklineVBox/SparklineBars/BarThu"]
+layout_mode = 0
+anchors_preset = 0
+offset_bottom = 28.0
+grow_horizontal = 2
+text = "ЧТ"
+
+[node name="BarFri" type="PanelContainer" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/SparklineCard/SparklineVBox/SparklineBars"]
+layout_mode = 1
+size_flags_horizontal = 2
+custom_minimum_size = Vector2(0, 56)
+
+[node name="FriLabel" type="Label" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/SparklineCard/SparklineVBox/SparklineBars/BarFri"]
+layout_mode = 0
+anchors_preset = 0
+offset_bottom = 28.0
+grow_horizontal = 2
+text = "ПТ"
+
+[node name="BarSat" type="PanelContainer" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/SparklineCard/SparklineVBox/SparklineBars"]
+layout_mode = 1
+size_flags_horizontal = 2
+custom_minimum_size = Vector2(0, 56)
+
+[node name="SatLabel" type="Label" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/SparklineCard/SparklineVBox/SparklineBars/BarSat"]
+layout_mode = 0
+anchors_preset = 0
+offset_bottom = 28.0
+grow_horizontal = 2
+text = "СБ"
+
+[node name="BarSun" type="PanelContainer" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/SparklineCard/SparklineVBox/SparklineBars"]
+layout_mode = 1
+size_flags_horizontal = 2
+custom_minimum_size = Vector2(0, 56)
+
+[node name="SunLabel" type="Label" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/SparklineCard/SparklineVBox/SparklineBars/BarSun"]
+layout_mode = 0
+anchors_preset = 0
+offset_bottom = 28.0
+grow_horizontal = 2
+text = "ВС"
+
+[node name="MetricsGrid" type="GridContainer" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+columns = 3
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MetricRevenue" type="Label" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/MetricsGrid"]
+layout_mode = 1
+text = "Выручка: 3 840 000\n+9.1%"
+
+[node name="MetricExpenses" type="Label" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/MetricsGrid"]
+layout_mode = 1
+text = "Расходы: 2 591 400\n67.4% выручки"
+
+[node name="MetricTaxes" type="Label" parent="Scroll/VBox/PnlHeroCard/PnlHeroVBox/MetricsGrid"]
+layout_mode = 1
+text = "Налоги: 142 800\nСтавка 3.7%"
+
+[node name="IncomeSection" type="Label" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "📈 Доходы по направлениям"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Income1" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 64)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Income1Inner" type="HBoxContainer" parent="Scroll/VBox/Income1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Income1Desc" type="Label" parent="Scroll/VBox/Income1/Income1Inner"]
+layout_mode = 1
+text = "🍞 Хлебобулочные\nНордхейм · Фабрика #1"
+size_flags_horizontal = 3
+
+[node name="Income1Amt" type="Label" parent="Scroll/VBox/Income1/Income1Inner"]
+layout_mode = 1
+text = "2 150 000 CR\n+8.0%"
+
+[node name="Income2" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 64)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Income2Inner" type="HBoxContainer" parent="Scroll/VBox/Income2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Income2Desc" type="Label" parent="Scroll/VBox/Income2/Income2Inner"]
+layout_mode = 1
+text = "🌾 Оптовые поставки зерна\nВаллен · Элеваторный хаб"
+size_flags_horizontal = 3
+
+[node name="Income2Amt" type="Label" parent="Scroll/VBox/Income2/Income2Inner"]
+layout_mode = 1
+text = "1 120 000 CR\n+22.4%"
+
+[node name="Income3" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 64)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Income3Inner" type="HBoxContainer" parent="Scroll/VBox/Income3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Income3Desc" type="Label" parent="Scroll/VBox/Income3/Income3Inner"]
+layout_mode = 1
+text = "⚡ Энергоснабжение\nКронстад · Подстанция 4"
+size_flags_horizontal = 3
+
+[node name="Income3Amt" type="Label" parent="Scroll/VBox/Income3/Income3Inner"]
+layout_mode = 1
+text = "570 000 CR\n-3.1%"
+
+[node name="ExpenseSection" type="Label" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "📉 Операционные расходы"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Expense1" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 64)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Expense1Inner" type="HBoxContainer" parent="Scroll/VBox/Expense1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Expense1Desc" type="Label" parent="Scroll/VBox/Expense1/Expense1Inner"]
+layout_mode = 1
+text = "📦 Закупка сырья\nМука, сахар, зерно"
+size_flags_horizontal = 3
+
+[node name="Expense1Amt" type="Label" parent="Scroll/VBox/Expense1/Expense1Inner"]
+layout_mode = 1
+text = "1 420 000 CR\n54.8%"
+
+[node name="Expense2" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 64)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Expense2Inner" type="HBoxContainer" parent="Scroll/VBox/Expense2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Expense2Desc" type="Label" parent="Scroll/VBox/Expense2/Expense2Inner"]
+layout_mode = 1
+text = "👥 Зарплатный фонд\n182 штатных"
+size_flags_horizontal = 3
+
+[node name="Expense2Amt" type="Label" parent="Scroll/VBox/Expense2/Expense2Inner"]
+layout_mode = 1
+text = "680 000 CR\n26.2%"
+
+[node name="Expense3" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 64)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Expense3Inner" type="HBoxContainer" parent="Scroll/VBox/Expense3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Expense3Desc" type="Label" parent="Scroll/VBox/Expense3/Expense3Inner"]
+layout_mode = 1
+text = "🚚 Логистика и доставка\n14 рейсов"
+size_flags_horizontal = 3
+
+[node name="Expense3Amt" type="Label" parent="Scroll/VBox/Expense3/Expense3Inner"]
+layout_mode = 1
+text = "310 000 CR\n12.0%"
+
+[node name="Expense4" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 64)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Expense4Inner" type="HBoxContainer" parent="Scroll/VBox/Expense4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Expense4Desc" type="Label" parent="Scroll/VBox/Expense4/Expense4Inner"]
+layout_mode = 1
+text = "🔧 Амортизация и ТО\nРемонт линий"
+size_flags_horizontal = 3
+
+[node name="Expense4Amt" type="Label" parent="Scroll/VBox/Expense4/Expense4Inner"]
+layout_mode = 1
+text = "181 400 CR\n7.0%"
+
+[node name="MarginCard" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 56)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginInner" type="HBoxContainer" parent="Scroll/VBox/MarginCard"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginText" type="Label" parent="Scroll/VBox/MarginCard/MarginInner"]
+layout_mode = 1
+text = "Чистая рентабельность\nМаржинальность 32.5% (+2.1 п.п.)"
+size_flags_horizontal = 3
+
+[node name="ActionGrid" type="GridContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+columns = 2
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ExportCsvBtn" type="Button" parent="Scroll/VBox/ActionGrid"]
+layout_mode = 1
+custom_minimum_size = Vector2(0, 48)
+text = "📥 Выписка (CSV)"
+
+[node name="AnalyticsBtn" type="Button" parent="Scroll/VBox/ActionGrid"]
+layout_mode = 1
+custom_minimum_size = Vector2(0, 48)
+text = "📊 Аналитика →"
+
+[node name="DividendsBtn" type="Button" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "💰 Распределить дивиденды недели"
+custom_minimum_size = Vector2(0, 48)
+grow_horizontal = 2
+grow_vertical = 2

@@ -1,0 +1,525 @@
+[gd_scene load_steps=1 format=3]
+
+[node name="M8Alerts" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Scroll"]
+layout_mode = 2
+
+# Заголовок экрана + бейдж критичности + кнопка «Прочитать все»
+[node name="HeaderRow" type="HBoxContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SectionTitle" type="Label" parent="Scroll/VBox/HeaderRow"]
+layout_mode = 1
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+text = "Оперативные события"
+
+[node name="CritBadge" type="PanelContainer" parent="Scroll/VBox/HeaderRow"]
+layout_mode = 1
+custom_minimum_size = Vector2(0, 26)
+
+[node name="CritBadgeLabel" type="Label" parent="Scroll/VBox/HeaderRow/CritBadge"]
+layout_mode = 1
+text = "3 КРИТ"
+theme_override_colors/font_color = Color(1, 0.333, 0.353, 1)
+theme_override_font_sizes/font_size = 11
+
+[node name="MarkAllBtn" type="Button" parent="Scroll/VBox/HeaderRow"]
+layout_mode = 1
+text = "✓ Прочитать все"
+custom_minimum_size = Vector2(0, 44)
+
+# Фильтры-чипы (горизонтальный скролл)
+[node name="ChipScroll" type="ScrollContainer" parent="Scroll/VBox"]
+layout_mode = 1
+horizontal_scroll_mode = 2
+vertical_scroll_mode = 0
+
+[node name="ChipRow" type="HBoxContainer" parent="Scroll/VBox/ChipScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ChipAll" type="Button" parent="Scroll/VBox/ChipScroll/ChipRow"]
+layout_mode = 1
+text = "Все · 12"
+custom_minimum_size = Vector2(0, 40)
+size_flags_vertical = 0
+
+[node name="ChipCritical" type="Button" parent="Scroll/VBox/ChipScroll/ChipRow"]
+layout_mode = 1
+text = "Критические · 3"
+custom_minimum_size = Vector2(0, 40)
+size_flags_vertical = 0
+
+[node name="ChipSupply" type="Button" parent="Scroll/VBox/ChipScroll/ChipRow"]
+layout_mode = 1
+text = "Поставки · 4"
+custom_minimum_size = Vector2(0, 40)
+size_flags_vertical = 0
+
+[node name="ChipMarket" type="Button" parent="Scroll/VBox/ChipScroll/ChipRow"]
+layout_mode = 1
+text = "Рынок · 3"
+custom_minimum_size = Vector2(0, 40)
+size_flags_vertical = 0
+
+[node name="ChipSystem" type="Button" parent="Scroll/VBox/ChipScroll/ChipRow"]
+layout_mode = 1
+text = "Система · 2"
+custom_minimum_size = Vector2(0, 40)
+size_flags_vertical = 0
+
+# Приоритетный баннер / тактическая сводка
+[node name="PriorityBanner" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BannerInner" type="HBoxContainer" parent="Scroll/VBox/PriorityBanner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BannerIcon" type="Label" parent="Scroll/VBox/PriorityBanner/BannerInner"]
+layout_mode = 1
+text = "⚠️"
+custom_minimum_size = Vector2(36, 36)
+
+[node name="BannerTextVBox" type="VBoxContainer" parent="Scroll/VBox/PriorityBanner/BannerInner"]
+layout_mode = 1
+size_flags_horizontal = 3
+
+[node name="BannerTitle" type="Label" parent="Scroll/VBox/PriorityBanner/BannerInner/BannerTextVBox"]
+layout_mode = 1
+text = "2 завода требуют вмешательства"
+
+[node name="BannerSub" type="Label" parent="Scroll/VBox/PriorityBanner/BannerInner/BannerTextVBox"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.392, 0.455, 0.545, 1)
+theme_override_font_sizes/font_size = 11
+text = "Остановка конвейеров через ~1 такт"
+
+# ── КАРТОЧКА 1 · КРИТИЧЕСКАЯ · дефицит муки ──
+[node name="Alert1" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Alert1VBox" type="VBoxContainer" parent="Scroll/VBox/Alert1"]
+layout_mode = 2
+
+[node name="Alert1Header" type="HBoxContainer" parent="Scroll/VBox/Alert1/Alert1VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Alert1Tag" type="Label" parent="Scroll/VBox/Alert1/Alert1VBox/Alert1Header"]
+layout_mode = 1
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.949, 0.333, 0.353, 1)
+text = "УГРОЗА ПРОСТОЯ"
+theme_override_font_sizes/font_size = 11
+
+[node name="Alert1Time" type="Label" parent="Scroll/VBox/Alert1/Alert1VBox/Alert1Header"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.949, 0.333, 0.353, 1)
+theme_override_font_sizes/font_size = 11
+text = "● 2 мин"
+
+[node name="Alert1Title" type="Label" parent="Scroll/VBox/Alert1/Alert1VBox"]
+layout_mode = 1
+theme_override_font_sizes/font_size = 14
+text = "КРИТИЧЕСКИЙ ДЕФИЦИТ: Пекарный завод №2"
+
+[node name="Alert1Desc" type="Label" parent="Scroll/VBox/Alert1/Alert1VBox"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.576, 0.631, 0.69, 1)
+theme_override_font_sizes/font_size = 13
+text = "Запас муки на исходе (хватит на 2 тика). Риск полной остановки конвейера через 04:28."
+
+[node name="Alert1Context" type="PanelContainer" parent="Scroll/VBox/Alert1/Alert1VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Alert1ContextInner" type="HBoxContainer" parent="Scroll/VBox/Alert1/Alert1VBox/Alert1Context"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Alert1Stock" type="Label" parent="Scroll/VBox/Alert1/Alert1VBox/Alert1Context/Alert1ContextInner"]
+layout_mode = 1
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 12
+text = "Остаток склада: 14.2 / 120 т"
+
+[node name="Alert1Tick" type="Label" parent="Scroll/VBox/Alert1/Alert1VBox/Alert1Context/Alert1ContextInner"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.392, 0.455, 0.545, 1)
+theme_override_font_sizes/font_size = 11
+text = "Тик 12.4"
+
+[node name="Alert1Actions" type="GridContainer" parent="Scroll/VBox/Alert1/Alert1VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+columns = 2
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Alert1Buy" type="Button" parent="Scroll/VBox/Alert1/Alert1VBox/Alert1Actions"]
+layout_mode = 1
+text = "🛒 Закупить на бирже"
+custom_minimum_size = Vector2(0, 40)
+
+[node name="Alert1Mute" type="Button" parent="Scroll/VBox/Alert1/Alert1VBox/Alert1Actions"]
+layout_mode = 1
+text = "🔕 Заглушить"
+custom_minimum_size = Vector2(0, 40)
+
+# ── КАРТОЧКА 2 · КРИТИЧЕСКАЯ · срыв SLA ──
+[node name="Alert2" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Alert2VBox" type="VBoxContainer" parent="Scroll/VBox/Alert2"]
+layout_mode = 2
+
+[node name="Alert2Header" type="HBoxContainer" parent="Scroll/VBox/Alert2/Alert2VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Alert2Tag" type="Label" parent="Scroll/VBox/Alert2/Alert2VBox/Alert2Header"]
+layout_mode = 1
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.949, 0.663, 0.231, 1)
+text = "НАРУШЕНИЕ SLA"
+theme_override_font_sizes/font_size = 11
+
+[node name="Alert2Time" type="Label" parent="Scroll/VBox/Alert2/Alert2VBox/Alert2Header"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.392, 0.455, 0.545, 1)
+theme_override_font_sizes/font_size = 11
+text = "18 мин назад"
+
+[node name="Alert2Title" type="Label" parent="Scroll/VBox/Alert2/Alert2VBox"]
+layout_mode = 1
+theme_override_font_sizes/font_size = 14
+text = "Срыв такта поставки: ООО ЗерноТрейд"
+
+[node name="Alert2Desc" type="Label" parent="Scroll/VBox/Alert2/Alert2VBox"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.576, 0.631, 0.69, 1)
+theme_override_font_sizes/font_size = 13
+text = "Контракт №412 задержан на 1 такт. Начислена неустойка контрагенту: +18 200 CR."
+
+[node name="Alert2Footer" type="HBoxContainer" parent="Scroll/VBox/Alert2/Alert2VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Alert2Tick" type="Label" parent="Scroll/VBox/Alert2/Alert2VBox/Alert2Footer"]
+layout_mode = 1
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.392, 0.455, 0.545, 1)
+theme_override_font_sizes/font_size = 11
+text = "Тик 12.3 · Транзит A-4"
+
+[node name="Alert2Open" type="Button" parent="Scroll/VBox/Alert2/Alert2VBox/Alert2Footer"]
+layout_mode = 1
+text = "Открыть контракт →"
+custom_minimum_size = Vector2(0, 40)
+
+# ── КАРТОЧКА 3 · РЫНОК · скачок спроса ──
+[node name="Alert3" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Alert3VBox" type="VBoxContainer" parent="Scroll/VBox/Alert3"]
+layout_mode = 2
+
+[node name="Alert3Header" type="HBoxContainer" parent="Scroll/VBox/Alert3/Alert3VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Alert3Tag" type="Label" parent="Scroll/VBox/Alert3/Alert3VBox/Alert3Header"]
+layout_mode = 1
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.176, 0.831, 0.749, 1)
+text = "РЫНОЧНЫЙ АРБИТРАЖ"
+theme_override_font_sizes/font_size = 11
+
+[node name="Alert3Time" type="Label" parent="Scroll/VBox/Alert3/Alert3VBox/Alert3Header"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.392, 0.455, 0.545, 1)
+theme_override_font_sizes/font_size = 11
+text = "1 ч назад"
+
+[node name="Alert3Title" type="Label" parent="Scroll/VBox/Alert3/Alert3VBox"]
+layout_mode = 1
+theme_override_font_sizes/font_size = 14
+text = "Скачок спроса: Сахар-песок (+14%)"
+
+[node name="Alert3Desc" type="Label" parent="Scroll/VBox/Alert3/Alert3VBox"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.576, 0.631, 0.69, 1)
+theme_override_font_sizes/font_size = 13
+text = "Цена в Нордхейме выросла до 5 420 CR/т. Доступно к реализации 45 т со Склада №3."
+
+[node name="Alert3Footer" type="HBoxContainer" parent="Scroll/VBox/Alert3/Alert3VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Alert3Margin" type="Label" parent="Scroll/VBox/Alert3/Alert3VBox/Alert3Footer"]
+layout_mode = 1
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.176, 0.831, 0.749, 1)
+theme_override_font_sizes/font_size = 11
+text = "Маржа сделки +28%"
+
+[node name="Alert3ToBook" type="Button" parent="Scroll/VBox/Alert3/Alert3VBox/Alert3Footer"]
+layout_mode = 1
+text = "К стакану цен 📊"
+custom_minimum_size = Vector2(0, 40)
+
+# ── КАРТОЧКА 4 · СВАЙП-ДЕМО · отгрузка ──
+[node name="Alert4" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Alert4VBox" type="VBoxContainer" parent="Scroll/VBox/Alert4"]
+layout_mode = 2
+
+[node name="Alert4Header" type="HBoxContainer" parent="Scroll/VBox/Alert4/Alert4VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Alert4Icon" type="Label" parent="Scroll/VBox/Alert4/Alert4VBox/Alert4Header"]
+layout_mode = 1
+text = "🚚"
+custom_minimum_size = Vector2(32, 32)
+
+[node name="Alert4TextVBox" type="VBoxContainer" parent="Scroll/VBox/Alert4/Alert4VBox/Alert4Header"]
+layout_mode = 1
+size_flags_horizontal = 3
+
+[node name="Alert4Title" type="Label" parent="Scroll/VBox/Alert4/Alert4VBox/Alert4Header/Alert4TextVBox"]
+layout_mode = 1
+theme_override_font_sizes/font_size = 14
+text = "Отгрузка #892 в пути"
+
+[node name="Alert4Sub" type="Label" parent="Scroll/VBox/Alert4/Alert4VBox/Alert4Header/Alert4TextVBox"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.576, 0.631, 0.69, 1)
+theme_override_font_sizes/font_size = 12
+text = "Колонна зерновозов прибывает через 18 мин"
+
+[node name="Alert4Meta" type="Label" parent="Scroll/VBox/Alert4/Alert4VBox/Alert4Header"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.392, 0.455, 0.545, 1)
+theme_override_font_sizes/font_size = 11
+text = "Тик 12.2\n← свайп"
+horizontal_alignment = 2
+
+[node name="Alert4SwipeActions" type="HBoxContainer" parent="Scroll/VBox/Alert4/Alert4VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Alert4Archive" type="Button" parent="Scroll/VBox/Alert4/Alert4VBox/Alert4SwipeActions"]
+layout_mode = 1
+text = "🗄 В архив"
+custom_minimum_size = Vector2(0, 40)
+
+[node name="Alert4Mute2" type="Button" parent="Scroll/VBox/Alert4/Alert4VBox/Alert4SwipeActions"]
+layout_mode = 1
+text = "🔕"
+custom_minimum_size = Vector2(48, 40)
+
+[node name="Alert4Delete" type="Button" parent="Scroll/VBox/Alert4/Alert4VBox/Alert4SwipeActions"]
+layout_mode = 1
+text = "🗑"
+custom_minimum_size = Vector2(48, 40)
+
+# ── КАРТОЧКА 5 · СИСТЕМА · модернизация ──
+[node name="Alert5" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Alert5VBox" type="VBoxContainer" parent="Scroll/VBox/Alert5"]
+layout_mode = 2
+
+[node name="Alert5Header" type="HBoxContainer" parent="Scroll/VBox/Alert5/Alert5VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Alert5Tag" type="Label" parent="Scroll/VBox/Alert5/Alert5VBox/Alert5Header"]
+layout_mode = 1
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.267, 0.886, 0.804, 1)
+text = "ИНЖЕНЕРИЯ"
+theme_override_font_sizes/font_size = 11
+
+[node name="Alert5Time" type="Label" parent="Scroll/VBox/Alert5/Alert5VBox/Alert5Header"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.392, 0.455, 0.545, 1)
+theme_override_font_sizes/font_size = 11
+text = "3 ч назад"
+
+[node name="Alert5Title" type="Label" parent="Scroll/VBox/Alert5/Alert5VBox"]
+layout_mode = 1
+theme_override_font_sizes/font_size = 14
+text = "Модернизация печей завершена"
+
+[node name="Alert5Desc" type="Label" parent="Scroll/VBox/Alert5/Alert5VBox"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.576, 0.631, 0.69, 1)
+theme_override_font_sizes/font_size = 13
+text = "Печи завода №1 переведены на энергосберегающий режим (-12% расход энергии). Себестоимость партии снижена на 1.8 CR."
+
+[node name="Alert5Footer" type="HBoxContainer" parent="Scroll/VBox/Alert5/Alert5VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Alert5Savings" type="Label" parent="Scroll/VBox/Alert5/Alert5VBox/Alert5Footer"]
+layout_mode = 1
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.392, 0.455, 0.545, 1)
+theme_override_font_sizes/font_size = 11
+text = "Экономия: 4 800 CR / такт"
+
+[node name="Alert5ToShop" type="Button" parent="Scroll/VBox/Alert5/Alert5VBox/Alert5Footer"]
+layout_mode = 1
+text = "В цех #1"
+custom_minimum_size = Vector2(0, 36)
+
+[node name="Spacer" type="Control" parent="Scroll/VBox"]
+layout_mode = 1
+custom_minimum_size = Vector2(0, 8)
+
+# ── ВНИЖНЕЕ ЛЯПАС · тумблер автопилота уведомлений ──
+[node name="AutopilotStrip" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AutopilotInner" type="HBoxContainer" parent="Scroll/VBox/AutopilotStrip"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AutopilotIcon" type="Label" parent="Scroll/VBox/AutopilotStrip/AutopilotInner"]
+layout_mode = 1
+text = "🤖"
+custom_minimum_size = Vector2(36, 36)
+
+[node name="AutopilotTextVBox" type="VBoxContainer" parent="Scroll/VBox/AutopilotStrip/AutopilotInner"]
+layout_mode = 1
+size_flags_horizontal = 3
+
+[node name="AutopilotTitle" type="Label" parent="Scroll/VBox/AutopilotStrip/AutopilotInner/AutopilotTextVBox"]
+layout_mode = 1
+theme_override_font_sizes/font_size = 12
+text = "Автопилот уведомлений активен"
+
+[node name="AutopilotSub" type="Label" parent="Scroll/VBox/AutopilotStrip/AutopilotInner/AutopilotTextVBox"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.392, 0.455, 0.545, 1)
+theme_override_font_sizes/font_size = 11
+text = "Авто-закупка при критическом остатке < 2 тика"
+
+[node name="AutopilotToggle" type="Button" parent="Scroll/VBox/AutopilotStrip/AutopilotInner"]
+layout_mode = 1
+text = "ВКЛ ●"
+custom_minimum_size = Vector2(64, 44)

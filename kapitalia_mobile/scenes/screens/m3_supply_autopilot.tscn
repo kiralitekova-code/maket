@@ -1,0 +1,268 @@
+[gd_scene load_steps=1 format=3]
+
+[node name="M3SupplyAutopilot" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Scroll"]
+layout_mode = 2
+
+[node name="HeaderRow" type="HBoxContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Scroll/VBox/HeaderRow"]
+layout_mode = 1
+text = "🚀 Автопилот снабжения"
+size_flags_horizontal = 3
+
+[node name="ToggleAutopilot" type="Button" parent="Scroll/VBox/HeaderRow"]
+layout_mode = 1
+text = "ВКЛ"
+custom_minimum_size = Vector2(64, 40)
+
+[node name="SettingsCard" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SettingsVBox" type="VBoxContainer" parent="Scroll/VBox/SettingsCard"]
+layout_mode = 2
+
+[node name="Setting1" type="HBoxContainer" parent="Scroll/VBox/SettingsCard/SettingsVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Setting1Label" type="Label" parent="Scroll/VBox/SettingsCard/SettingsVBox/Setting1"]
+layout_mode = 1
+text = "Авто-закупка при остатке < 2 тиков"
+size_flags_horizontal = 3
+
+[node name="Setting1Toggle" type="Button" parent="Scroll/VBox/SettingsCard/SettingsVBox/Setting1"]
+layout_mode = 1
+text = "ON"
+custom_minimum_size = Vector2(48, 32)
+
+[node name="Setting2" type="HBoxContainer" parent="Scroll/VBox/SettingsCard/SettingsVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Setting2Label" type="Label" parent="Scroll/VBox/SettingsCard/SettingsVBox/Setting2"]
+layout_mode = 1
+text = "Делегировать логистику"
+size_flags_horizontal = 3
+
+[node name="Setting2Toggle" type="Button" parent="Scroll/VBox/SettingsCard/SettingsVBox/Setting2"]
+layout_mode = 1
+text = "OFF"
+custom_minimum_size = Vector2(48, 32)
+
+[node name="Setting3" type="HBoxContainer" parent="Scroll/VBox/SettingsCard/SettingsVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Setting3Label" type="Label" parent="Scroll/VBox/SettingsCard/SettingsVBox/Setting3"]
+layout_mode = 1
+text = "Бюджет на авто-покупки (неделя)"
+size_flags_horizontal = 3
+
+[node name="Setting3Budget" type="LineEdit" parent="Scroll/VBox/SettingsCard/SettingsVBox/Setting3"]
+layout_mode = 1
+text = "500 000 CR"
+custom_minimum_size = Vector2(120, 40)
+
+[node name="Setting4" type="HBoxContainer" parent="Scroll/VBox/SettingsCard/SettingsVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Setting4Label" type="Label" parent="Scroll/VBox/SettingsCard/SettingsVBox/Setting4"]
+layout_mode = 1
+text = "Приоритет: Цена → Качество → Скорость"
+size_flags_horizontal = 3
+
+[node name="Setting4Edit" type="Button" parent="Scroll/VBox/SettingsCard/SettingsVBox/Setting4"]
+layout_mode = 1
+text = "↕"
+custom_minimum_size = Vector2(48, 32)
+
+[node name="SuppliersTitle" type="Label" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Поставщики (4 активных)"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Supplier1" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 72)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="S1Inner" type="VBoxContainer" parent="Scroll/VBox/Supplier1"]
+layout_mode = 2
+
+[node name="S1Header" type="HBoxContainer" parent="Scroll/VBox/Supplier1/S1Inner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="S1Name" type="Label" parent="Scroll/VBox/Supplier1/S1Inner/S1Header"]
+layout_mode = 1
+text = "ЗерноТрейд ООО"
+size_flags_horizontal = 3
+
+[node name="S1Status" type="Label" parent="Scroll/VBox/Supplier1/S1Inner/S1Header"]
+layout_mode = 1
+text = "✅ Активен"
+
+[node name="S1Detail" type="Label" parent="Scroll/VBox/Supplier1/S1Inner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Мука пшеничная · Валлен · Контракт №412 · Следующая поставка: 120 т (1 тик)"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Supplier2" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 72)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="S2Inner" type="VBoxContainer" parent="Scroll/VBox/Supplier2"]
+layout_mode = 2
+
+[node name="S2Header" type="HBoxContainer" parent="Scroll/VBox/Supplier2/S2Inner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="S2Name" type="Label" parent="Scroll/VBox/Supplier2/S2Inner/S2Header"]
+layout_mode = 1
+text = "СахарСнаб АГ"
+size_flags_horizontal = 3
+
+[node name="S2Status" type="Label" parent="Scroll/VBox/Supplier2/S2Inner/S2Header"]
+layout_mode = 1
+text = "⚠️ Задержка"
+
+[node name="S2Detail" type="Label" parent="Scroll/VBox/Supplier2/S2Inner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Сахар-песок · Нордхейм · Контракт №387 · Задержка 1 такт"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Supplier3" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 72)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="S3Inner" type="VBoxContainer" parent="Scroll/VBox/Supplier3"]
+layout_mode = 2
+
+[node name="S3Name" type="Label" parent="Scroll/VBox/Supplier3/S3Inner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "СеверМеталл · Железная руда 62% · Остервик · Стабильно"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Supplier4" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 72)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="S4Inner" type="VBoxContainer" parent="Scroll/VBox/Supplier4"]
+layout_mode = 2
+
+[node name="S4Name" type="Label" parent="Scroll/VBox/Supplier4/S4Inner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "КронстадЭнерго · Дизель L-62 · Кронстад · Стабильно"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AddSupplierBtn" type="Button" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "➕ Добавить поставщика"
+custom_minimum_size = Vector2(0, 48)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EditContractsBtn" type="Button" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "📝 Управление контрактами"
+custom_minimum_size = Vector2(0, 48)
+grow_horizontal = 2
+grow_vertical = 2

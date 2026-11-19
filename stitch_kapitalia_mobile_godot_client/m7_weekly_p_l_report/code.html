@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-tertiary": "#002e6a", "scrim": "#000000", "on-primary-fixed-variant": "#633f00", "error-container": "#93000a", "on-secondary-container": "#004d44", "secondary": "#44e2cd", "primary": "#ffca85", "surface-container": "#1d2025", "secondary-fixed": "#62fae3", "outline-variant": "#514535", "tertiary-fixed": "#d8e2ff", "error": "#ffb4ab", "outline": "#9e8e7c", "surface-container-lowest": "#0b0e13", "on-primary": "#452b00", "inverse-primary": "#835400", "inverse-surface": "#e1e2e9", "on-secondary": "#003731", "on-error": "#690005", "on-background": "#e1e2e9", "secondary-container": "#03c6b2", "text-primary": "#E6EDF3", "text-secondary": "#93A1B0", "info": "#4C8DFF", "on-secondary-fixed": "#00201c", "surface-bright": "#36393f", "tertiary": "#c1d3ff", "on-tertiary-fixed": "#001a42", "on-tertiary-fixed-variant": "#004395", "surface-tint": "#ffb956", "surface": "#151A21", "raised": "#1C232C", "on-surface": "#e1e2e9", "primary-fixed-dim": "#ffb956", "profit": "#2DD4BF", "on-primary-fixed": "#2a1800", "text-muted": "#64748B", "on-primary-container": "#664000", "secondary-fixed-dim": "#3cddc7", "on-error-container": "#ffdad6", "on-surface-variant": "#d6c3af", "inverse-on-surface": "#2e3036", "surface-container-high": "#272a30", "primary-container": "#f2a93b", "on-tertiary-container": "#004598", "border": "#2A323D", "surface-variant": "#32353a", "primary-fixed": "#ffddb5", "tertiary-fixed-dim": "aec6ff", "loss": "#F2555A", "background": "#111319", "surface-dim": "#111319", "surface-container-highest": "#32353a", "on-secondary-fixed-variant": "#005047", "surface-container-low": "#191c21", "tertiary-container": "#96b7ff" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin": "1rem", "space-xl": "1.5rem", "space-md": "0.75rem", "space-lg": "1rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "gutter": "0.5rem" }, fontFamily: { "body-medium": ["Inter"], "body-default": ["Inter"], "label-medium": ["Inter"], "kpi-value": ["JetBrains Mono"], "section-title": ["Inter"], "mono-label": ["JetBrains Mono"], "label-default": ["Inter"], "screen-title": ["Inter"], "mono-data": ["JetBrains Mono"] }, fontSize: { "body-medium": ["15px", { "lineHeight": "20px", "fontWeight": "500" }], "body-default": ["15px", { "lineHeight": "20px", "fontWeight": "400" }], "label-medium": ["13px", { "lineHeight": "16px", "fontWeight": "500" }], "kpi-value": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "section-title": ["17px", { "lineHeight": "22px", "fontWeight": "600" }], "mono-label": ["13px", { "lineHeight": "16px", "fontWeight": "400" }], "label-default": ["13px", { "lineHeight": "16px", "fontWeight": "400" }], "screen-title": ["22px", { "lineHeight": "28px", "fontWeight": "700" }], "mono-data": ["15px", { "lineHeight": "20px", "fontWeight": "500" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;background-color:#111319;color:#e1e2e9;-webkit-tap-highlight-color:transparent;}body{overscroll-behavior-y:none;}.pb-safe{padding-bottom:calc(34px + env(safe-area-inset-bottom,0px));}.pt-safe{padding-top:calc(44px + env(safe-area-inset-top,0px));}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}@keyframes pulse-subtle{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.85);}}.pulse-dot{animation:pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background font-body-default text-body-default min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="h-[84px] flex flex-col"><div class="h-14 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-lg bg-raised flex items-center justify-center shadow-inner"><span class="font-kpi-value text-[17px] font-bold text-primary-container tracking-wider">K</span></div></div><div class="flex-1 text-center px-space-xs"><h1 class="font-screen-title text-screen-title text-text-primary tracking-tight truncate">Home</h1></div><div class="flex items-center gap-space-xs"><button aria-label="Notifications" class="w-11 h-11 relative flex items-center justify-center text-text-secondary active:scale-95 transition-transform"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-primary-container ring-2 ring-surface"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0 ml-1"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div><div class="h-7 px-margin bg-surface-container-lowest/80 backdrop-blur-md flex items-center justify-between"><div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-text-muted text-[14px]">schedule</span><span class="font-mono-label text-mono-label text-text-muted font-mono">Week 12 · Thu</span></div><div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-primary-container/15"><span class="w-1.5 h-1.5 rounded-full bg-primary-container pulse-dot"></span><span class="font-mono-label text-mono-label text-primary font-mono">Next tick 02:14:33</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full px-margin pt-[128px] pb-[106px] bg-background min-h-screen"><div class="flex flex-col w-full gap-space-lg">
+<!-- Week Horizon Selector Carousel -->
+<div class="flex items-center gap-space-xs overflow-x-auto no-scrollbar py-0.5 -mx-margin px-margin">
+<button aria-label="Предыдущие недели" class="shrink-0 flex items-center justify-center w-9 h-9 rounded-lg bg-surface text-text-muted active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="shrink-0 px-3 h-9 rounded-lg bg-surface text-text-secondary font-label-medium text-label-medium active:scale-95 transition-transform">
+      Неделя 10
+    </button>
+<button class="shrink-0 px-3 h-9 rounded-lg bg-surface text-text-secondary font-label-medium text-label-medium active:scale-95 transition-transform">
+      Неделя 11
+    </button>
+<button class="shrink-0 px-3.5 h-9 rounded-lg bg-primary-container text-on-primary-container font-label-medium text-label-medium shadow-sm flex items-center gap-1.5 active:scale-95 transition-transform">
+<span class="w-1.5 h-1.5 rounded-full bg-on-primary-container pulse-dot"></span>
+<span>Неделя 12 (Текущая)</span>
+</button>
+<button class="shrink-0 px-3 h-9 rounded-lg bg-surface text-text-muted font-label-medium text-label-medium flex items-center gap-1 opacity-80 active:scale-95 transition-transform">
+<span>Неделя 13</span>
+<span class="text-[10px] px-1 py-0.2 rounded bg-surface-variant text-text-muted uppercase tracking-wider font-mono">Прогноз</span>
+</button>
+<button aria-label="Следующие недели" class="shrink-0 flex items-center justify-center w-9 h-9 rounded-lg bg-surface text-text-muted active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+<!-- Executive Summary P&L Hero Card -->
+<div class="w-full bg-surface rounded-xl p-space-lg flex flex-col gap-space-md shadow-md relative overflow-hidden">
+<!-- Subtle tactile accent glow in corner -->
+<div class="absolute -right-12 -top-12 w-36 h-36 rounded-full bg-profit/10 blur-2xl pointer-events-none"></div>
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col">
+<span class="font-label-default text-label-default text-text-secondary flex items-center gap-1">
+          Чистая прибыль
+          <span class="material-symbols-outlined text-[15px] text-text-muted">info</span>
+</span>
+<div class="flex items-baseline gap-2 mt-0.5">
+<span class="font-kpi-value text-kpi-value text-profit tracking-tight">+1 248 600</span>
+<span class="font-mono-label text-mono-label text-profit font-semibold">CR</span>
+</div>
+</div>
+<div class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-profit/15 text-profit">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+<span class="font-mono-label text-[11px] font-semibold tracking-tight">+14.2%</span>
+</div>
+</div>
+<!-- 7-Day Performance Sparkline / Micro Histogram -->
+<div class="bg-raised rounded-lg p-space-sm flex flex-col gap-1.5">
+<div class="flex items-center justify-between text-[11px] font-mono-label text-text-muted px-0.5">
+<span>Динамика за 7 дней (Пн - Вс)</span>
+<span class="text-text-primary font-mono">Ср. +178 371 CR/д</span>
+</div>
+<div class="h-14 w-full flex items-end justify-between gap-1.5 pt-2 px-1">
+<!-- Day 1: Mon -->
+<div class="flex-1 flex flex-col items-center gap-1 h-full justify-end group">
+<div class="w-full bg-profit/40 rounded-t-sm transition-all group-hover:bg-profit" style="height: 48%;"></div>
+<span class="font-mono text-[9px] text-text-muted">ПН</span>
+</div>
+<!-- Day 2: Tue -->
+<div class="flex-1 flex flex-col items-center gap-1 h-full justify-end group">
+<div class="w-full bg-profit/50 rounded-t-sm transition-all group-hover:bg-profit" style="height: 62%;"></div>
+<span class="font-mono text-[9px] text-text-muted">ВТ</span>
+</div>
+<!-- Day 3: Wed -->
+<div class="flex-1 flex flex-col items-center gap-1 h-full justify-end group">
+<div class="w-full bg-profit/65 rounded-t-sm transition-all group-hover:bg-profit" style="height: 74%;"></div>
+<span class="font-mono text-[9px] text-text-muted">СР</span>
+</div>
+<!-- Day 4: Thu (Current) -->
+<div class="flex-1 flex flex-col items-center gap-1 h-full justify-end group">
+<div class="w-full bg-primary-container rounded-t-sm shadow-sm" style="height: 92%;"></div>
+<span class="font-mono text-[9px] text-primary-container font-bold">ЧТ</span>
+</div>
+<!-- Day 5: Fri (Est) -->
+<div class="flex-1 flex flex-col items-center gap-1 h-full justify-end opacity-40">
+<div class="w-full bg-profit/30 rounded-t-sm" style="height: 55%;"></div>
+<span class="font-mono text-[9px] text-text-muted">ПТ</span>
+</div>
+<!-- Day 6: Sat (Est) -->
+<div class="flex-1 flex flex-col items-center gap-1 h-full justify-end opacity-40">
+<div class="w-full bg-profit/30 rounded-t-sm" style="height: 40%;"></div>
+<span class="font-mono text-[9px] text-text-muted">СБ</span>
+</div>
+<!-- Day 7: Sun (Est) -->
+<div class="flex-1 flex flex-col items-center gap-1 h-full justify-end opacity-40">
+<div class="w-full bg-profit/30 rounded-t-sm" style="height: 68%;"></div>
+<span class="font-mono text-[9px] text-text-muted">ВС</span>
+</div>
+</div>
+</div>
+<!-- Financial Core Metrics Triad -->
+<div class="grid grid-cols-3 gap-space-xs pt-1">
+<div class="bg-raised rounded-lg p-2.5 flex flex-col">
+<span class="font-label-default text-[11px] text-text-muted leading-tight">Выручка</span>
+<span class="font-mono-data text-[13px] text-text-primary mt-1 font-semibold truncate">3 840 000</span>
+<span class="text-[10px] text-profit font-mono mt-0.5">+9.1%</span>
+</div>
+<div class="bg-raised rounded-lg p-2.5 flex flex-col">
+<span class="font-label-default text-[11px] text-text-muted leading-tight">Расходы</span>
+<span class="font-mono-data text-[13px] text-loss mt-1 font-semibold truncate">2 591 400</span>
+<span class="text-[10px] text-text-muted font-mono mt-0.5">67.4% выручки</span>
+</div>
+<div class="bg-raised rounded-lg p-2.5 flex flex-col">
+<span class="font-label-default text-[11px] text-text-muted leading-tight">Налоги/Сборы</span>
+<span class="font-mono-data text-[13px] text-text-secondary mt-1 font-semibold truncate">142 800</span>
+<span class="text-[10px] text-text-muted font-mono mt-0.5">Ставка 3.7%</span>
+</div>
+</div>
+</div>
+<!-- Section 1: Income Breakdown (Доходы по направлениям) -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-profit"></div>
+<h2 class="font-section-title text-section-title text-text-primary">Доходы по направлениям</h2>
+<span class="px-1.5 py-0.2 rounded bg-surface text-text-muted font-mono text-[11px]">3</span>
+</div>
+<button class="font-label-medium text-label-medium text-primary active:opacity-70 transition-opacity">Свернуть</button>
+</div>
+<div class="flex flex-col gap-2">
+<!-- Income Item 1 -->
+<div class="h-16 bg-surface rounded-lg px-space-md flex items-center justify-between shadow-sm active:bg-raised transition-colors">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-9 h-9 rounded-lg bg-raised flex items-center justify-center shrink-0 text-primary-container">
+<span class="material-symbols-outlined text-[20px]">bakery_dining</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-medium text-body-medium text-text-primary truncate">Хлебобулочные изделия</span>
+<span class="font-label-default text-label-default text-text-muted truncate">Нордхейм · Фабрика #1</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0 pl-2">
+<span class="font-mono-data text-mono-data text-text-primary">2 150 000 CR</span>
+<span class="font-mono-label text-[11px] text-profit font-semibold">+8.0%</span>
+</div>
+</div>
+<!-- Income Item 2 -->
+<div class="h-16 bg-surface rounded-lg px-space-md flex items-center justify-between shadow-sm active:bg-raised transition-colors">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-9 h-9 rounded-lg bg-raised flex items-center justify-center shrink-0 text-profit">
+<span class="material-symbols-outlined text-[20px]">grain</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-medium text-body-medium text-text-primary truncate">Оптовые поставки зерна</span>
+<span class="font-label-default text-label-default text-text-muted truncate">Валлен · Элеваторный хаб</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0 pl-2">
+<span class="font-mono-data text-mono-data text-text-primary">1 120 000 CR</span>
+<span class="font-mono-label text-[11px] text-profit font-semibold">+22.4%</span>
+</div>
+</div>
+<!-- Income Item 3 -->
+<div class="h-16 bg-surface rounded-lg px-space-md flex items-center justify-between shadow-sm active:bg-raised transition-colors">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-9 h-9 rounded-lg bg-raised flex items-center justify-center shrink-0 text-info">
+<span class="material-symbols-outlined text-[20px]">bolt</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-medium text-body-medium text-text-primary truncate">Энергоснабжение</span>
+<span class="font-label-default text-label-default text-text-muted truncate">Кронстад · Подстанция 4</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0 pl-2">
+<span class="font-mono-data text-mono-data text-text-primary">570 000 CR</span>
+<span class="font-mono-label text-[11px] text-loss font-semibold">-3.1%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 2: Operating Expenses Breakdown (Операционные расходы) -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-loss"></div>
+<h2 class="font-section-title text-section-title text-text-primary">Операционные расходы</h2>
+<span class="px-1.5 py-0.2 rounded bg-surface text-text-muted font-mono text-[11px]">4</span>
+</div>
+<button class="font-label-medium text-label-medium text-primary active:opacity-70 transition-opacity">Свернуть</button>
+</div>
+<div class="flex flex-col gap-2">
+<!-- Expense Item 1 -->
+<div class="h-16 bg-surface rounded-lg px-space-md flex items-center justify-between shadow-sm active:bg-raised transition-colors">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-9 h-9 rounded-lg bg-raised flex items-center justify-center shrink-0 text-text-secondary">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-medium text-body-medium text-text-primary truncate">Закупка сырья</span>
+<span class="font-label-default text-label-default text-text-muted truncate">Мука высш. сорт, сахар, зерно</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0 pl-2">
+<span class="font-mono-data text-mono-data text-text-primary">1 420 000 CR</span>
+<span class="font-mono-label text-[11px] text-text-muted">54.8% расходов</span>
+</div>
+</div>
+<!-- Expense Item 2 -->
+<div class="h-16 bg-surface rounded-lg px-space-md flex items-center justify-between shadow-sm active:bg-raised transition-colors">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-9 h-9 rounded-lg bg-raised flex items-center justify-center shrink-0 text-text-secondary">
+<span class="material-symbols-outlined text-[20px]">badge</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-medium text-body-medium text-text-primary truncate">Зарплатный фонд (ФОТ)</span>
+<span class="font-label-default text-label-default text-text-muted truncate">182 штатных сотрудника</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0 pl-2">
+<span class="font-mono-data text-mono-data text-text-primary">680 000 CR</span>
+<span class="font-mono-label text-[11px] text-text-muted">26.2% расходов</span>
+</div>
+</div>
+<!-- Expense Item 3 -->
+<div class="h-16 bg-surface rounded-lg px-space-md flex items-center justify-between shadow-sm active:bg-raised transition-colors">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-9 h-9 rounded-lg bg-raised flex items-center justify-center shrink-0 text-text-secondary">
+<span class="material-symbols-outlined text-[20px]">local_shipping</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-medium text-body-medium text-text-primary truncate">Логистика и доставка</span>
+<span class="font-label-default text-label-default text-text-muted truncate">14 транзитных рейсов</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0 pl-2">
+<span class="font-mono-data text-mono-data text-text-primary">310 000 CR</span>
+<span class="font-mono-label text-[11px] text-text-muted">12.0% расходов</span>
+</div>
+</div>
+<!-- Expense Item 4 -->
+<div class="h-16 bg-surface rounded-lg px-space-md flex items-center justify-between shadow-sm active:bg-raised transition-colors">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-9 h-9 rounded-lg bg-raised flex items-center justify-center shrink-0 text-text-secondary">
+<span class="material-symbols-outlined text-[20px]">build_circle</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-medium text-body-medium text-text-primary truncate">Амортизация и ТО</span>
+<span class="font-label-default text-label-default text-text-muted truncate">Плановый ремонт линий</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0 pl-2">
+<span class="font-mono-data text-mono-data text-text-primary">181 400 CR</span>
+<span class="font-mono-label text-[11px] text-text-muted">7.0% расходов</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Operational Insights & Margin Ratio Micro Card -->
+<div class="bg-surface rounded-xl p-space-md flex items-center justify-between gap-space-md shadow-sm">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-10 h-10 rounded-lg bg-profit/15 flex items-center justify-center shrink-0 text-profit">
+<span class="material-symbols-outlined text-[22px]">pie_chart</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-medium text-body-medium text-text-primary">Чистая рентабельность</span>
+<span class="font-label-default text-label-default text-text-secondary">Маржинальность 32.5% (+2.1 п.п.)</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-muted text-[20px] shrink-0">chevron_right</span>
+</div>
+<!-- Thumb-Zone Quick Actions & Export Trigger -->
+<div class="flex flex-col gap-2 pt-1 pb-2">
+<div class="grid grid-cols-2 gap-2">
+<button class="h-12 rounded-lg bg-surface hover:bg-raised text-text-primary font-label-medium text-label-medium flex items-center justify-center gap-2 active:scale-98 transition-transform shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-text-secondary">download</span>
+<span>Выписка (CSV)</span>
+</button>
+<button class="h-12 rounded-lg bg-surface hover:bg-raised text-text-primary font-label-medium text-label-medium flex items-center justify-center gap-2 active:scale-98 transition-transform shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-info">insights</span>
+<span>Аналитика →</span>
+</button>
+</div>
+<!-- Sticky primary flow trigger (Thumb Zone compliant 48px height) -->
+<button class="w-full h-12 rounded-lg bg-primary-container text-on-primary-container font-label-medium text-label-medium font-semibold flex items-center justify-center gap-2 shadow-md active:scale-98 transition-transform">
+<span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+<span>Распределить дивиденды недели</span>
+</button>
+</div>
+</div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/95 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.5)]" data-active-classes="text-primary-container font-semibold"><div class="h-14 px-gutter flex items-center justify-around"><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-text-muted active:scale-95 transition-transform" data-path="home" href="#"><span class="material-symbols-outlined text-[22px]">dashboard</span><span class="font-label-default text-[11px] leading-tight">Home</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-text-muted active:scale-95 transition-transform" data-path="enterprises" href="#"><span class="material-symbols-outlined text-[22px]">domain</span><span class="font-label-default text-[11px] leading-tight">Enterprises</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-text-muted active:scale-95 transition-transform" data-path="market" href="#"><span class="material-symbols-outlined text-[22px]">candlestick_chart</span><span class="font-label-default text-[11px] leading-tight">Market</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-text-muted active:scale-95 transition-transform" data-path="reports" href="#"><span class="material-symbols-outlined text-[22px]">analytics</span><span class="font-label-default text-[11px] leading-tight">Reports</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-text-muted active:scale-95 transition-transform" data-path="more" href="#"><span class="material-symbols-outlined text-[22px]">tune</span><span class="font-label-default text-[11px] leading-tight">More</span></a></div></nav></body></html>

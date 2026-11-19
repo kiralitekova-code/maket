@@ -1,0 +1,77 @@
+[gd_scene load_steps=1 format=3]
+
+[node name="M0Home" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 0.1
+anchor_right = 0.5
+anchor_bottom = 0.1
+grow_horizontal = 2
+text = "🏠 Главная"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KPI_Section" type="Label" parent="."]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 100.0
+offset_right = 374.0
+offset_bottom = 220.0
+grow_horizontal = 2
+text = "📊 KPI Карусель:\n• Выручка: 1 870 000 CR (+8.4%)\n• Чистая прибыль: +292 400 CR (+12.1%)\n• Доля рынка: 14.8% (-0.4%)\n• Эффективность: 91.2% (+2.0%)"
+
+[node name="Alerts_Section" type="Label" parent="."]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 240.0
+offset_right = 374.0
+offset_bottom = 360.0
+grow_horizontal = 2
+text = "⚠️ Требует внимания (3):\n• Завод №2: Дефицит муки — Срочно\n• Контракт №412: Запрос изменения\n• Биржа: Дивиденды +48 200 CR"
+
+[node name="Enterprises_Section" type="Label" parent="."]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 380.0
+offset_right = 374.0
+offset_bottom = 520.0
+grow_horizontal = 2
+text = "🏭 Мои предприятия (4):\n• Пекарный завод №2 — РАБОТАЕТ (+312 400 CR, 92%)\n• Мельничный комбинат №1 — НИЗКИЙ ЗАПАС (+184 200 CR, 74%)\n• Сеть пекарен «Утро» — РАБОТАЕТ (+540 100 CR, 98%)\n• Элеватор №4 — ПРОСТОЙ (-14 500 CR, 12%)"
+
+[node name="FastAction" type="Button" parent="."]
+layout_mode = 0
+anchors_preset = 12
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -179.0
+offset_top = -68.0
+offset_right = 179.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "⚡ Срочные закупки сырья"

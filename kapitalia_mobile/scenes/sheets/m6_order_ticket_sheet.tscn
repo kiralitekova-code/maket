@@ -1,0 +1,428 @@
+[gd_scene load_steps=1 format=3]
+
+[node name="M6OrderTicket" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+# ── Заголовок ──
+[node name="HeaderRow" type="HBoxContainer" parent="VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HeaderVBox" type="VBoxContainer" parent="VBox/HeaderRow"]
+layout_mode = 1
+size_flags_horizontal = 3
+
+[node name="TitleRow" type="HBoxContainer" parent="VBox/HeaderRow/HeaderVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StatusDot" type="Label" parent="VBox/HeaderRow/HeaderVBox/TitleRow"]
+layout_mode = 1
+text = "●"
+theme_override_colors/font_color = Color(0.176, 0.831, 0.749, 1)
+
+[node name="SheetTitle" type="Label" parent="VBox/HeaderRow/HeaderVBox/TitleRow"]
+layout_mode = 1
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Купить: Мука пшеничная"
+
+[node name="CloseBtn" type="Button" parent="VBox/HeaderRow"]
+layout_mode = 1
+text = "✕"
+custom_minimum_size = Vector2(40, 40)
+
+[node name="SubRow" type="HBoxContainer" parent="VBox/HeaderRow/HeaderVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WarehouseLabel" type="Label" parent="VBox/HeaderRow/HeaderVBox/SubRow"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.576, 0.631, 0.69, 1)
+theme_override_font_sizes/font_size = 12
+text = "Нордхейм Склад #4"
+
+[node name="PriceBadge" type="Label" parent="VBox/HeaderRow/HeaderVBox/SubRow"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.176, 0.831, 0.749, 1)
+theme_override_font_sizes/font_size = 12
+text = "4 180 CR/т"
+
+# ── Переключатель ПОКУПКА / ПРОДАЖА ──
+[node name="BuySellSwitcher" type="HBoxContainer" parent="VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BtnBuy" type="Button" parent="VBox/BuySellSwitcher"]
+layout_mode = 1
+size_flags_horizontal = 2
+text = "🛒 ПОКУПКА"
+custom_minimum_size = Vector2(0, 44)
+
+[node name="BtnSell" type="Button" parent="VBox/BuySellSwitcher"]
+layout_mode = 1
+size_flags_horizontal = 2
+text = "🏷 ПРОДАЖА"
+custom_minimum_size = Vector2(0, 44)
+
+# ── Сетка полей: Цена и Объём ──
+[node name="InputGrid" type="GridContainer" parent="VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+columns = 2
+grow_horizontal = 2
+grow_vertical = 2
+
+# Поле цены
+[node name="PriceField" type="PanelContainer" parent="VBox/InputGrid"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 80)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PriceVBox" type="VBoxContainer" parent="VBox/InputGrid/PriceField"]
+layout_mode = 2
+
+[node name="PriceLabelRow" type="HBoxContainer" parent="VBox/InputGrid/PriceField/PriceVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PriceLabel" type="Label" parent="VBox/InputGrid/PriceField/PriceVBox/PriceLabelRow"]
+layout_mode = 1
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 12
+text = "Цена за тонну"
+
+[node name="PriceEditIcon" type="Label" parent="VBox/InputGrid/PriceField/PriceVBox/PriceLabelRow"]
+layout_mode = 1
+text = "✏️"
+
+[node name="PriceValueRow" type="HBoxContainer" parent="VBox/InputGrid/PriceField/PriceVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PriceValue" type="Label" parent="VBox/InputGrid/PriceField/PriceVBox/PriceValueRow"]
+layout_mode = 1
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 22
+text = "4 180"
+
+[node name="PriceCurrency" type="Label" parent="VBox/InputGrid/PriceField/PriceVBox/PriceValueRow"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.392, 0.455, 0.545, 1)
+theme_override_font_sizes/font_size = 12
+text = "CR"
+
+# Поле объёма
+[node name="VolumeField" type="PanelContainer" parent="VBox/InputGrid"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 80)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VolumeVBox" type="VBoxContainer" parent="VBox/InputGrid/VolumeField"]
+layout_mode = 2
+
+[node name="VolumeLabelRow" type="HBoxContainer" parent="VBox/InputGrid/VolumeField/VolumeVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VolumeLabel" type="Label" parent="VBox/InputGrid/VolumeField/VolumeVBox/VolumeLabelRow"]
+layout_mode = 1
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 12
+text = "Объём партии"
+
+[node name="VolumeTuneIcon" type="Label" parent="VBox/InputGrid/VolumeField/VolumeVBox/VolumeLabelRow"]
+layout_mode = 1
+text = "🎛"
+
+[node name="VolumeValueRow" type="HBoxContainer" parent="VBox/InputGrid/VolumeField/VolumeVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VolumeValue" type="Label" parent="VBox/InputGrid/VolumeField/VolumeVBox/VolumeValueRow"]
+layout_mode = 1
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 22
+text = "120"
+
+[node name="VolumeUnit" type="Label" parent="VBox/InputGrid/VolumeField/VolumeVBox/VolumeValueRow"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.392, 0.455, 0.545, 1)
+theme_override_font_sizes/font_size = 12
+text = "тонн"
+
+# ── Быстрые кнопки объёма (±50, ±100, MAX) ──
+[node name="QuickStepperRow" type="HBoxContainer" parent="VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BtnMinus50" type="Button" parent="VBox/QuickStepperRow"]
+layout_mode = 1
+size_flags_horizontal = 2
+text = "-50 т"
+custom_minimum_size = Vector2(0, 32)
+
+[node name="BtnPlus50" type="Button" parent="VBox/QuickStepperRow"]
+layout_mode = 1
+size_flags_horizontal = 2
+text = "+50 т"
+custom_minimum_size = Vector2(0, 32)
+
+[node name="BtnPlus100" type="Button" parent="VBox/QuickStepperRow"]
+layout_mode = 1
+size_flags_horizontal = 2
+text = "+100 т"
+custom_minimum_size = Vector2(0, 32)
+
+[node name="BtnMax" type="Button" parent="VBox/QuickStepperRow"]
+layout_mode = 1
+size_flags_horizontal = 2
+text = "MAX (280)"
+custom_minimum_size = Vector2(0, 32)
+
+# ── Финансовая сводка ──
+[node name="FinanceCard" type="PanelContainer" parent="VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FinanceVBox" type="VBoxContainer" parent="VBox/FinanceCard"]
+layout_mode = 2
+
+[node name="AvailableRow" type="HBoxContainer" parent="VBox/FinanceCard/FinanceVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AvailableLabel" type="Label" parent="VBox/FinanceCard/FinanceVBox/AvailableRow"]
+layout_mode = 1
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.576, 0.631, 0.69, 1)
+theme_override_font_sizes/font_size = 12
+text = "Доступно средств"
+
+[node name="AvailableValue" type="Label" parent="VBox/FinanceCard/FinanceVBox/AvailableRow"]
+layout_mode = 1
+theme_override_font_sizes/font_size = 14
+text = "5 240 000 CR"
+
+[node name="FeeRow" type="HBoxContainer" parent="VBox/FinanceCard/FinanceVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FeeLabel" type="Label" parent="VBox/FinanceCard/FinanceVBox/FeeRow"]
+layout_mode = 1
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.576, 0.631, 0.69, 1)
+theme_override_font_sizes/font_size = 12
+text = "Комиссия биржи (0.5%)"
+
+[node name="FeeValue" type="Label" parent="VBox/FinanceCard/FinanceVBox/FeeRow"]
+layout_mode = 1
+theme_override_font_sizes/font_size = 14
+text = "2 508 CR"
+
+[node name="TotalSeparator" type="HSeparator" parent="VBox/FinanceCard/FinanceVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TotalRow" type="HBoxContainer" parent="VBox/FinanceCard/FinanceVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TotalLabel" type="Label" parent="VBox/FinanceCard/FinanceVBox/TotalRow"]
+layout_mode = 1
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.949, 0.663, 0.231, 1)
+theme_override_font_sizes/font_size = 12
+text = "ИТОГО К СПИСАНИЮ"
+
+[node name="TotalValue" type="Label" parent="VBox/FinanceCard/FinanceVBox/TotalRow"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.176, 0.831, 0.749, 1)
+theme_override_font_sizes/font_size = 18
+text = "504 108 CR"
+
+# ── Кнопки быстрого шага кейпада ──
+[node name="KeypadQuickRow" type="HBoxContainer" parent="VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BtnQuickMinus100" type="Button" parent="VBox/KeypadQuickRow"]
+layout_mode = 1
+size_flags_horizontal = 2
+text = "-100"
+custom_minimum_size = Vector2(0, 36)
+
+[node name="BtnQuickPlus100" type="Button" parent="VBox/KeypadQuickRow"]
+layout_mode = 1
+size_flags_horizontal = 2
+text = "+100"
+custom_minimum_size = Vector2(0, 36)
+
+[node name="BtnQuickMax" type="Button" parent="VBox/KeypadQuickRow"]
+layout_mode = 1
+size_flags_horizontal = 2
+text = "MAX"
+custom_minimum_size = Vector2(0, 36)
+
+# ── Цифровой кейпад 3×4 ──
+[node name="KeypadGrid" type="GridContainer" parent="VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+columns = 3
+grow_horizontal = 2
+grow_vertical = 2
+
+# Ряд 1: 1 2 3
+[node name="Key1" type="Button" parent="VBox/KeypadGrid"]
+layout_mode = 1
+text = "1"
+custom_minimum_size = Vector2(0, 48)
+
+[node name="Key2" type="Button" parent="VBox/KeypadGrid"]
+layout_mode = 1
+text = "2"
+custom_minimum_size = Vector2(0, 48)
+
+[node name="Key3" type="Button" parent="VBox/KeypadGrid"]
+layout_mode = 1
+text = "3"
+custom_minimum_size = Vector2(0, 48)
+
+# Ряд 2: 4 5 6
+[node name="Key4" type="Button" parent="VBox/KeypadGrid"]
+layout_mode = 1
+text = "4"
+custom_minimum_size = Vector2(0, 48)
+
+[node name="Key5" type="Button" parent="VBox/KeypadGrid"]
+layout_mode = 1
+text = "5"
+custom_minimum_size = Vector2(0, 48)
+
+[node name="Key6" type="Button" parent="VBox/KeypadGrid"]
+layout_mode = 1
+text = "6"
+custom_minimum_size = Vector2(0, 48)
+
+# Ряд 3: 7 8 9
+[node name="Key7" type="Button" parent="VBox/KeypadGrid"]
+layout_mode = 1
+text = "7"
+custom_minimum_size = Vector2(0, 48)
+
+[node name="Key8" type="Button" parent="VBox/KeypadGrid"]
+layout_mode = 1
+text = "8"
+custom_minimum_size = Vector2(0, 48)
+
+[node name="Key9" type="Button" parent="VBox/KeypadGrid"]
+layout_mode = 1
+text = "9"
+custom_minimum_size = Vector2(0, 48)
+
+# Ряд 4: . 0 ⌫
+[node name="KeyDot" type="Button" parent="VBox/KeypadGrid"]
+layout_mode = 1
+text = "."
+custom_minimum_size = Vector2(0, 48)
+
+[node name="Key0" type="Button" parent="VBox/KeypadGrid"]
+layout_mode = 1
+text = "0"
+custom_minimum_size = Vector2(0, 48)
+
+[node name="KeyBackspace" type="Button" parent="VBox/KeypadGrid"]
+layout_mode = 1
+text = "⌫"
+custom_minimum_size = Vector2(0, 48)
+
+# ── Кнопка подтверждения ордера ──
+[node name="ConfirmOrderBtn" type="Button" parent="VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 48)
+grow_horizontal = 2
+grow_vertical = 2
+text = "🔒 Подтвердить покупку: 120 т"

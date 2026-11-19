@@ -1,0 +1,244 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/navigation_controller.gd" id="1_nav"]
+[ext_resource type="Script" path="res://scripts/ui/bottom_sheet.gd" id="2_bs"]
+[ext_resource type="Script" path="res://scripts/ui/build_theme.gd" id="3_theme"]
+[ext_resource type="Script" path="res://scripts/game/tick_manager.gd" id="4_tick"]
+[ext_resource type="Script" path="res://scripts/game/market_data.gd" id="5_market"]
+[ext_resource type="Script" path="res://scripts/ui/app_shell_wiring.gd" id="6_wiring"]
+
+[node name="AppShell" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nav")
+
+[node name="ThemeBuilder" type="Node" parent="."]
+script = ExtResource("3_theme")
+
+[node name="GameCore" type="Node" parent="."]
+
+[node name="TickManager" type="Node" parent="GameCore"]
+script = ExtResource("4_tick")
+
+[node name="MarketData" type="Node" parent="GameCore"]
+script = ExtResource("5_market")
+
+[node name="ShellWiring" type="Node" parent="GameCore"]
+script = ExtResource("6_wiring")
+
+[node name="TopBar" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+anchor_bottom = 0.0931206
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TopBarInner" type="VBoxContainer" parent="TopBar"]
+layout_mode = 2
+
+[node name="TitleRow" type="HBoxContainer" parent="TopBar/TopBarInner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Logo" type="Label" parent="TopBar/TopBarInner/TitleRow"]
+layout_mode = 1
+theme_override_font_sizes/font_size = 18
+text = "K"
+custom_minimum_size = Vector2(40, 40)
+
+[node name="ScreenTitle" type="Label" parent="TopBar/TopBarInner/TitleRow"]
+layout_mode = 1
+size_flags_horizontal = 3
+horizontal_alignment = 1
+text = "Главная"
+
+[node name="Notifications" type="Button" parent="TopBar/TopBarInner/TitleRow"]
+layout_mode = 1
+text = "🔔"
+custom_minimum_size = Vector2(44, 44)
+
+[node name="TickStrip" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+anchor_bottom = 0.124486
+offset_top = 45.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TickInner" type="HBoxContainer" parent="TickStrip"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WeekLabel" type="Label" parent="TickStrip/TickInner"]
+unique_name_in_owner = true
+layout_mode = 1
+text = "Week 12 · Thu"
+
+[node name="TickTimeLabel" type="Label" parent="TickStrip/TickInner"]
+unique_name_in_owner = true
+layout_mode = 1
+size_flags_horizontal = 1
+text = "Next tick 02:14:33"
+
+[node name="ContentViewport" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 0
+offset_left = 0.0
+offset_top = 84.0
+offset_right = 390.0
+offset_bottom = 490.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BottomTabBar" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TabInner" type="HBoxContainer" parent="BottomTabBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabHome" type="Button" parent="BottomTabBar/TabInner"]
+unique_name_in_owner = true
+layout_mode = 1
+size_flags_horizontal = 2
+text = "🏠\nHome"
+icon_alignment = 1
+
+[node name="TabEnterprises" type="Button" parent="BottomTabBar/TabInner"]
+unique_name_in_owner = true
+layout_mode = 1
+size_flags_horizontal = 2
+text = "🏭\nЗаводы"
+
+[node name="TabMarket" type="Button" parent="BottomTabBar/TabInner"]
+unique_name_in_owner = true
+layout_mode = 1
+size_flags_horizontal = 2
+text = "📊\nБиржа"
+
+[node name="TabReports" type="Button" parent="BottomTabBar/TabInner"]
+unique_name_in_owner = true
+layout_mode = 1
+size_flags_horizontal = 2
+text = "📋\nОтчёты"
+
+[node name="TabMore" type="Button" parent="BottomTabBar/TabInner"]
+unique_name_in_owner = true
+layout_mode = 1
+size_flags_horizontal = 2
+text = "⚙️\nЕщё"
+
+[node name="ModalBottomSheet" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+visible = false
+script = ExtResource("2_bs")
+
+[node name="Scrim" type="Panel" parent="ModalBottomSheet"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+modulate = Color(0, 0, 0, 0)
+
+[node name="SheetContainer" type="PanelContainer" parent="ModalBottomSheet"]
+unique_name_in_owner = true
+layout_mode = 0
+anchors_preset = 8
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+
+[node name="VBox" type="VBoxContainer" parent="ModalBottomSheet/SheetContainer"]
+layout_mode = 2
+
+[node name="DragArea" type="Control" parent="ModalBottomSheet/SheetContainer/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 44)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HeaderRow" type="HBoxContainer" parent="ModalBottomSheet/SheetContainer/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SheetTitle" type="Label" parent="ModalBottomSheet/SheetContainer/VBox/HeaderRow"]
+unique_name_in_owner = true
+layout_mode = 1
+size_flags_horizontal = 3
+text = "Заголовок"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="ModalBottomSheet/SheetContainer/VBox/HeaderRow"]
+unique_name_in_owner = true
+layout_mode = 1
+text = "✕"
+custom_minimum_size = Vector2(44, 44)
+
+[node name="ContentContainer" type="VBoxContainer" parent="ModalBottomSheet/SheetContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 1
+size_flags_vertical = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PrimaryAction" type="Button" parent="ModalBottomSheet/SheetContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Подтвердить"
+custom_minimum_size = Vector2(0, 48)
+grow_horizontal = 2
+grow_vertical = 2

@@ -1,0 +1,343 @@
+[gd_scene load_steps=1 format=3]
+
+[node name="M1Enterprises" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="SectionTitle" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "🏭 Предприятия (8)"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SortButton" type="Button" parent="ScrollContainer/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "↕ По прибыли"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FilterRow" type="HBoxContainer" parent="ScrollContainer/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Chip_All" type="Button" parent="ScrollContainer/VBox/FilterRow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Все (8)"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Chip_Factories" type="Button" parent="ScrollContainer/VBox/FilterRow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Заводы (3)"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Chip_Stores" type="Button" parent="ScrollContainer/VBox/FilterRow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Магазины (2)"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Chip_Warehouses" type="Button" parent="ScrollContainer/VBox/FilterRow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Склады (2)"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Chip_Mines" type="Button" parent="ScrollContainer/VBox/FilterRow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Шахты (1)"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Enterprise1" type="PanelContainer" parent="ScrollContainer/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 64)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBox" type="HBoxContainer" parent="ScrollContainer/VBox/Enterprise1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InfoVBox" type="VBoxContainer" parent="ScrollContainer/VBox/Enterprise1/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NameRow" type="HBoxContainer" parent="ScrollContainer/VBox/Enterprise1/HBox/InfoVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="Label" parent="ScrollContainer/VBox/Enterprise1/HBox/InfoVBox/NameRow"]
+layout_mode = 1
+text = "Пекарный завод №2"
+size_flags_horizontal = 3
+
+[node name="Status" type="Label" parent="ScrollContainer/VBox/Enterprise1/HBox/InfoVBox/NameRow"]
+layout_mode = 1
+text = "РАБОТАЕТ"
+
+[node name="Location" type="Label" parent="ScrollContainer/VBox/Enterprise1/HBox/InfoVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Нордхейм · Ур. 4"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProfitRight" type="VBoxContainer" parent="ScrollContainer/VBox/Enterprise1/HBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(80, 0)
+
+[node name="Profit" type="Label" parent="ScrollContainer/VBox/Enterprise1/HBox/ProfitRight"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "+312 400 CR"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Delta" type="Label" parent="ScrollContainer/VBox/Enterprise1/HBox/ProfitRight"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "+4.2%"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Enterprise2" type="PanelContainer" parent="ScrollContainer/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 64)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBox2" type="HBoxContainer" parent="ScrollContainer/VBox/Enterprise2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InfoVBox2" type="VBoxContainer" parent="ScrollContainer/VBox/Enterprise2/HBox2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NameRow2" type="HBoxContainer" parent="ScrollContainer/VBox/Enterprise2/HBox2/InfoVBox2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name2" type="Label" parent="ScrollContainer/VBox/Enterprise2/HBox2/InfoVBox2/NameRow2"]
+layout_mode = 1
+text = "Мельничный комбинат №1"
+size_flags_horizontal = 3
+
+[node name="Status2" type="Label" parent="ScrollContainer/VBox/Enterprise2/HBox2/InfoVBox2/NameRow2"]
+layout_mode = 1
+text = "НИЗКИЙ ЗАПАС"
+
+[node name="Location2" type="Label" parent="ScrollContainer/VBox/Enterprise2/HBox2/InfoVBox2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Валлен · Ур. 3"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProfitRight2" type="VBoxContainer" parent="ScrollContainer/VBox/Enterprise2/HBox2"]
+layout_mode = 2
+custom_minimum_size = Vector2(80, 0)
+
+[node name="Profit2" type="Label" parent="ScrollContainer/VBox/Enterprise2/HBox2/ProfitRight2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "+184 200 CR"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Delta2" type="Label" parent="ScrollContainer/VBox/Enterprise2/HBox2/ProfitRight2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "-1.1%"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Enterprise3" type="PanelContainer" parent="ScrollContainer/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 64)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBox3" type="HBoxContainer" parent="ScrollContainer/VBox/Enterprise3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name3" type="Label" parent="ScrollContainer/VBox/Enterprise3/HBox3"]
+layout_mode = 1
+text = "Сеть пекарен «Утро» (12)"
+size_flags_horizontal = 3
+
+[node name="Profit3" type="Label" parent="ScrollContainer/VBox/Enterprise3/HBox3"]
+layout_mode = 1
+text = "+540 100 CR"
+
+[node name="Enterprise4" type="PanelContainer" parent="ScrollContainer/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 64)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBox4" type="HBoxContainer" parent="ScrollContainer/VBox/Enterprise4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name4" type="Label" parent="ScrollContainer/VBox/Enterprise4/HBox4"]
+layout_mode = 1
+text = "Элеватор №4"
+size_flags_horizontal = 3
+
+[node name="Profit4" type="Label" parent="ScrollContainer/VBox/Enterprise4/HBox4"]
+layout_mode = 1
+text = "-14 500 CR"
+
+[node name="Enterprise5" type="PanelContainer" parent="ScrollContainer/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 64)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBox5" type="HBoxContainer" parent="ScrollContainer/VBox/Enterprise5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name5" type="Label" parent="ScrollContainer/VBox/Enterprise5/HBox5"]
+layout_mode = 1
+text = "Склад готовой продукции А-1"
+size_flags_horizontal = 3
+
+[node name="Profit5" type="Label" parent="ScrollContainer/VBox/Enterprise5/HBox5"]
+layout_mode = 1
+text = "+62 800 CR"
+
+[node name="Enterprise6" type="PanelContainer" parent="ScrollContainer/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 64)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBox6" type="HBoxContainer" parent="ScrollContainer/VBox/Enterprise6"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name6" type="Label" parent="ScrollContainer/VBox/Enterprise6/HBox6"]
+layout_mode = 1
+text = "Рудник «Восточный» (Железо)"
+size_flags_horizontal = 3
+
+[node name="Profit6" type="Label" parent="ScrollContainer/VBox/Enterprise6/HBox6"]
+layout_mode = 1
+text = "+128 000 CR"
+
+[node name="BuildBtn" type="Button" parent="ScrollContainer/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "🏗 Построить предприятие"
+custom_minimum_size = Vector2(0, 48)
+grow_horizontal = 2
+grow_vertical = 2

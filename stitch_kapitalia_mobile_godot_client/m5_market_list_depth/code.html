@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-tertiary": "#002e6a", "scrim": "#000000", "on-primary-fixed-variant": "#633f00", "error-container": "#93000a", "on-secondary-container": "#004d44", "secondary": "#44e2cd", "primary": "#ffca85", "surface-container": "#1d2025", "secondary-fixed": "#62fae3", "outline-variant": "#514535", "tertiary-fixed": "#d8e2ff", "error": "#ffb4ab", "outline": "#9e8e7c", "surface-container-lowest": "#0b0e13", "on-primary": "#452b00", "inverse-primary": "#835400", "inverse-surface": "#e1e2e9", "on-secondary": "#003731", "on-error": "#690005", "on-background": "#e1e2e9", "secondary-container": "#03c6b2", "text-primary": "#E6EDF3", "text-secondary": "#93A1B0", "info": "#4C8DFF", "on-secondary-fixed": "#00201c", "surface-bright": "#36393f", "tertiary": "#c1d3ff", "on-tertiary-fixed": "#001a42", "on-tertiary-fixed-variant": "#004395", "surface-tint": "#ffb956", "surface": "#151A21", "raised": "#1C232C", "on-surface": "#e1e2e9", "primary-fixed-dim": "#ffb956", "profit": "#2DD4BF", "on-primary-fixed": "#2a1800", "text-muted": "#64748B", "on-primary-container": "#664000", "secondary-fixed-dim": "#3cddc7", "on-error-container": "#ffdad6", "on-surface-variant": "#d6c3af", "inverse-on-surface": "#2e3036", "surface-container-high": "#272a30", "primary-container": "#f2a93b", "on-tertiary-container": "#004598", "border": "#2A323D", "surface-variant": "#32353a", "primary-fixed": "#ffddb5", "tertiary-fixed-dim": "aec6ff", "loss": "#F2555A", "background": "#111319", "surface-dim": "#111319", "surface-container-highest": "#32353a", "on-secondary-fixed-variant": "#005047", "surface-container-low": "#191c21", "tertiary-container": "#96b7ff" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin": "1rem", "space-xl": "1.5rem", "space-md": "0.75rem", "space-lg": "1rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "gutter": "0.5rem" }, fontFamily: { "body-medium": ["Inter"], "body-default": ["Inter"], "label-medium": ["Inter"], "kpi-value": ["JetBrains Mono"], "section-title": ["Inter"], "mono-label": ["JetBrains Mono"], "label-default": ["Inter"], "screen-title": ["Inter"], "mono-data": ["JetBrains Mono"] }, fontSize: { "body-medium": ["15px", { "lineHeight": "20px", "fontWeight": "500" }], "body-default": ["15px", { "lineHeight": "20px", "fontWeight": "400" }], "label-medium": ["13px", { "lineHeight": "16px", "fontWeight": "500" }], "kpi-value": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "section-title": ["17px", { "lineHeight": "22px", "fontWeight": "600" }], "mono-label": ["13px", { "lineHeight": "16px", "fontWeight": "400" }], "label-default": ["13px", { "lineHeight": "16px", "fontWeight": "400" }], "screen-title": ["22px", { "lineHeight": "28px", "fontWeight": "700" }], "mono-data": ["15px", { "lineHeight": "20px", "fontWeight": "500" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;background-color:#111319;color:#e1e2e9;-webkit-tap-highlight-color:transparent;}body{overscroll-behavior-y:none;}.pb-safe{padding-bottom:calc(34px + env(safe-area-inset-bottom,0px));}.pt-safe{padding-top:calc(44px + env(safe-area-inset-top,0px));}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}@keyframes pulse-subtle{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.85);}}.pulse-dot{animation:pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background font-body-default text-body-default min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="h-[84px] flex flex-col"><div class="h-14 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-lg bg-raised flex items-center justify-center shadow-inner"><span class="font-kpi-value text-[17px] font-bold text-primary-container tracking-wider">K</span></div></div><div class="flex-1 text-center px-space-xs"><h1 class="font-screen-title text-screen-title text-text-primary tracking-tight truncate">Home</h1></div><div class="flex items-center gap-space-xs"><button aria-label="Notifications" class="w-11 h-11 relative flex items-center justify-center text-text-secondary active:scale-95 transition-transform"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-primary-container ring-2 ring-surface"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0 ml-1"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div><div class="h-7 px-margin bg-surface-container-lowest/80 backdrop-blur-md flex items-center justify-between"><div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-text-muted text-[14px]">schedule</span><span class="font-mono-label text-mono-label text-text-muted font-mono">Week 12 · Thu</span></div><div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-primary-container/15"><span class="w-1.5 h-1.5 rounded-full bg-primary-container pulse-dot"></span><span class="font-mono-label text-mono-label text-primary font-mono">Next tick 02:14:33</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full px-margin pt-[128px] pb-[106px] bg-background min-h-screen"><div class="flex flex-col w-full pb-6 space-y-4">
+<!-- Segmented Control (Sticky Under Fixed TickStrip) -->
+<div class="sticky top-0 z-20 -mx-margin px-margin py-2.5 bg-background/95 backdrop-blur-md">
+<div class="flex items-center p-1 rounded-xl bg-surface shadow-inner">
+<button class="flex-1 min-h-[40px] py-2 px-3 rounded-lg text-center font-label-medium text-label-medium text-text-secondary active:scale-[0.98] transition-transform" type="button">
+        Избранное
+      </button>
+<button class="flex-1 min-h-[40px] py-2 px-3 rounded-lg text-center font-label-medium text-label-medium bg-raised text-primary-container shadow-sm flex items-center justify-center gap-1.5 active:scale-[0.98] transition-transform" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+        Товары
+      </button>
+<button class="flex-1 min-h-[40px] py-2 px-3 rounded-lg text-center font-label-medium text-label-medium text-text-secondary active:scale-[0.98] transition-transform" type="button">
+        Мои ордера
+      </button>
+</div>
+</div>
+<!-- Search & Category Filters -->
+<div class="flex flex-col gap-3">
+<!-- Tactile Search Field -->
+<div class="relative flex items-center w-full min-h-[48px] rounded-xl bg-surface px-3.5 shadow-sm focus-within:bg-raised transition-colors">
+<span class="material-symbols-outlined text-text-muted text-[20px] shrink-0">search</span>
+<input class="w-full bg-transparent border-0 px-2.5 py-3 text-text-primary placeholder:text-text-muted font-body-default text-body-default focus:outline-none" placeholder="Поиск товаров, сырья..." type="text"/>
+<button aria-label="Сканировать или фильтровать" class="w-9 h-9 flex items-center justify-center rounded-lg text-text-muted active:text-primary-container" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+</div>
+<!-- Category Chips Horizontal Carousel -->
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar -mx-margin px-margin py-0.5">
+<button class="shrink-0 min-h-[36px] px-3.5 py-1.5 rounded-lg bg-primary-container text-on-primary-container font-label-medium text-label-medium shadow-sm active:scale-95 transition-transform" type="button">
+        Все
+      </button>
+<button class="shrink-0 min-h-[36px] px-3.5 py-1.5 rounded-lg bg-surface text-text-secondary font-label-medium text-label-medium active:scale-95 transition-transform flex items-center gap-1.5" type="button">
+<span>🌾</span>
+<span>Агро</span>
+</button>
+<button class="shrink-0 min-h-[36px] px-3.5 py-1.5 rounded-lg bg-surface text-text-secondary font-label-medium text-label-medium active:scale-95 transition-transform flex items-center gap-1.5" type="button">
+<span>⛏️</span>
+<span>Металлы</span>
+</button>
+<button class="shrink-0 min-h-[36px] px-3.5 py-1.5 rounded-lg bg-surface text-text-secondary font-label-medium text-label-medium active:scale-95 transition-transform flex items-center gap-1.5" type="button">
+<span>⚡</span>
+<span>Энергия</span>
+</button>
+<button class="shrink-0 min-h-[36px] px-3.5 py-1.5 rounded-lg bg-surface text-text-secondary font-label-medium text-label-medium active:scale-95 transition-transform flex items-center gap-1.5" type="button">
+<span>🧪</span>
+<span>Химия</span>
+</button>
+</div>
+</div>
+<!-- Goods Feed & Depth Book -->
+<div class="flex flex-col gap-2 pt-1">
+<!-- Item 1 (EXPANDED): Мука пшеничная в/с with Mini Market Depth -->
+<div class="flex flex-col rounded-xl bg-surface shadow-md overflow-hidden transition-all duration-300">
+<!-- Main Trigger Header Row -->
+<button class="w-full min-h-[64px] p-3.5 text-left flex items-center justify-between gap-3 bg-surface active:bg-raised" type="button">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-10 h-10 rounded-lg bg-raised flex items-center justify-center shrink-0 shadow-sm text-primary-container text-[19px]">
+            🌾
+          </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-section-title text-[15px] leading-snug text-text-primary truncate font-semibold">Мука пшеничная в/с</span>
+</div>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high font-mono-label text-[11px] text-text-secondary">Нордхейм</span>
+<span class="font-mono-label text-[11px] text-text-muted">Лот 20 т</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<!-- Sparkline SVG -->
+<svg class="w-14 h-7 text-profit" fill="none" preserveaspectratio="none" viewbox="0 0 56 28">
+<path d="M1 22L12 18L24 21L36 10L46 14L55 3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+<div class="flex flex-col items-end">
+<span class="font-kpi-value text-[15px] leading-tight text-text-primary font-mono font-medium">4 180 <span class="text-[12px] text-text-muted">CR/т</span></span>
+<span class="mt-0.5 inline-flex items-center px-1.5 py-0.2 rounded bg-profit/15 text-profit font-mono-label text-[11px] font-mono">
+              +2.4%
+            </span>
+</div>
+<span class="material-symbols-outlined text-primary-container text-[20px] transition-transform duration-200">expand_less</span>
+</div>
+</button>
+<!-- Order Depth Container (Стакан котировок) -->
+<div class="flex flex-col px-3.5 pb-4 pt-1 bg-surface-container-lowest/60">
+<div class="flex items-center justify-between py-2 border-b-0">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary-container text-[16px]">bar_chart_4_bars</span>
+<span class="font-label-medium text-label-medium text-text-primary uppercase tracking-wider text-[11px]">Стакан заявок (Глубина)</span>
+</div>
+<span class="font-mono-label text-[11px] text-text-muted">Обновление 0.8с</span>
+</div>
+<!-- Orderbook Table Mockup -->
+<div class="flex flex-col my-1 font-mono text-[12px] leading-tight">
+<!-- Asks (Продажа / Red) -->
+<div class="flex flex-col space-y-1 py-1">
+<!-- Ask 3 -->
+<div class="relative flex items-center justify-between px-2 py-1 rounded overflow-hidden">
+<div class="absolute inset-y-0 right-0 bg-loss/10 w-[32%]"></div>
+<span class="relative z-10 text-loss font-medium">4 210 CR</span>
+<span class="relative z-10 text-text-secondary font-mono-label text-[12px]">80 т</span>
+<span class="relative z-10 text-text-muted text-[11px]">336.8k CR</span>
+</div>
+<!-- Ask 2 -->
+<div class="relative flex items-center justify-between px-2 py-1 rounded overflow-hidden">
+<div class="absolute inset-y-0 right-0 bg-loss/15 w-[56%]"></div>
+<span class="relative z-10 text-loss font-medium">4 195 CR</span>
+<span class="relative z-10 text-text-secondary font-mono-label text-[12px]">140 т</span>
+<span class="relative z-10 text-text-muted text-[11px]">587.3k CR</span>
+</div>
+<!-- Ask 1 Best -->
+<div class="relative flex items-center justify-between px-2 py-1 rounded overflow-hidden bg-loss/5">
+<div class="absolute inset-y-0 right-0 bg-loss/25 w-[80%]"></div>
+<span class="relative z-10 text-loss font-bold flex items-center gap-1">
+                4 180 CR
+                <span class="w-1.5 h-1.5 rounded-full bg-loss"></span>
+</span>
+<span class="relative z-10 text-text-primary font-mono-label text-[12px] font-semibold">200 т</span>
+<span class="relative z-10 text-text-muted text-[11px]">836.0k CR</span>
+</div>
+</div>
+<!-- Mid Spread Row -->
+<div class="flex items-center justify-between py-1.5 px-3 my-1 rounded-lg bg-surface shadow-sm">
+<span class="font-mono-label text-[11px] text-text-muted">Спред: 20 CR (0.48%)</span>
+<div class="flex items-center gap-1.5">
+<span class="w-1 h-1 rounded-full bg-text-muted"></span>
+<span class="font-mono-label text-[11px] text-primary-container font-medium">Баланс ликвидности 42/58</span>
+</div>
+</div>
+<!-- Bids (Покупка / Teal) -->
+<div class="flex flex-col space-y-1 py-1">
+<!-- Bid 1 Best -->
+<div class="relative flex items-center justify-between px-2 py-1 rounded overflow-hidden bg-profit/5">
+<div class="absolute inset-y-0 right-0 bg-profit/25 w-[60%]"></div>
+<span class="relative z-10 text-profit font-bold flex items-center gap-1">
+                4 160 CR
+                <span class="w-1.5 h-1.5 rounded-full bg-profit"></span>
+</span>
+<span class="relative z-10 text-text-primary font-mono-label text-[12px] font-semibold">150 т</span>
+<span class="relative z-10 text-text-muted text-[11px]">624.0k CR</span>
+</div>
+<!-- Bid 2 -->
+<div class="relative flex items-center justify-between px-2 py-1 rounded overflow-hidden">
+<div class="absolute inset-y-0 right-0 bg-profit/15 w-[85%]"></div>
+<span class="relative z-10 text-profit font-medium">4 150 CR</span>
+<span class="relative z-10 text-text-secondary font-mono-label text-[12px]">310 т</span>
+<span class="relative z-10 text-text-muted text-[11px]">1.28M CR</span>
+</div>
+<!-- Bid 3 -->
+<div class="relative flex items-center justify-between px-2 py-1 rounded overflow-hidden">
+<div class="absolute inset-y-0 right-0 bg-profit/10 w-[100%]"></div>
+<span class="relative z-10 text-profit font-medium">4 120 CR</span>
+<span class="relative z-10 text-text-secondary font-mono-label text-[12px]">500 т</span>
+<span class="relative z-10 text-text-muted text-[11px]">2.06M CR</span>
+</div>
+</div>
+</div>
+<!-- Quick Trade CTA Button -->
+<div class="pt-3">
+<button class="w-full min-h-[48px] px-4 rounded-xl bg-primary-container text-on-primary-container font-label-medium text-label-medium font-semibold flex items-center justify-center gap-2 shadow-lg active:scale-[0.98] transition-all" type="button">
+<span class="material-symbols-outlined text-[19px]">bolt</span>
+<span>Создать ордер (Trade)</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Item 2: Зерно ржаное -->
+<div class="w-full min-h-[64px] p-3.5 rounded-xl bg-surface flex items-center justify-between gap-3 shadow-sm active:bg-raised transition-colors">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-10 h-10 rounded-lg bg-raised flex items-center justify-center shrink-0 text-text-secondary text-[19px]">
+          🌱
+        </div>
+<div class="flex flex-col min-w-0">
+<span class="font-section-title text-[15px] leading-snug text-text-primary truncate">Зерно ржаное</span>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high font-mono-label text-[11px] text-text-secondary">Валлен</span>
+<span class="font-mono-label text-[11px] text-text-muted">Лот 50 т</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<svg class="w-14 h-7 text-loss" fill="none" preserveaspectratio="none" viewbox="0 0 56 28">
+<path d="M1 5L14 12L25 9L37 19L47 16L55 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+<div class="flex flex-col items-end">
+<span class="font-kpi-value text-[15px] leading-tight text-text-primary font-mono font-medium">2 890 <span class="text-[12px] text-text-muted">CR/т</span></span>
+<span class="mt-0.5 inline-flex items-center px-1.5 py-0.2 rounded bg-loss/15 text-loss font-mono-label text-[11px] font-mono">
+            -1.1%
+          </span>
+</div>
+<span class="material-symbols-outlined text-text-muted text-[20px]">chevron_right</span>
+</div>
+</div>
+<!-- Item 3: Сахар-песок -->
+<div class="w-full min-h-[64px] p-3.5 rounded-xl bg-surface flex items-center justify-between gap-3 shadow-sm active:bg-raised transition-colors">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-10 h-10 rounded-lg bg-raised flex items-center justify-center shrink-0 text-text-secondary text-[19px]">
+          📦
+        </div>
+<div class="flex flex-col min-w-0">
+<span class="font-section-title text-[15px] leading-snug text-text-primary truncate">Сахар-песок</span>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high font-mono-label text-[11px] text-text-secondary">Нордхейм</span>
+<span class="font-mono-label text-[11px] text-text-muted">Лот 15 т</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<svg class="w-14 h-7 text-profit" fill="none" preserveaspectratio="none" viewbox="0 0 56 28">
+<path d="M1 18L13 22L24 16L35 12L45 8L55 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+<div class="flex flex-col items-end">
+<span class="font-kpi-value text-[15px] leading-tight text-text-primary font-mono font-medium">5 420 <span class="text-[12px] text-text-muted">CR/т</span></span>
+<span class="mt-0.5 inline-flex items-center px-1.5 py-0.2 rounded bg-profit/15 text-profit font-mono-label text-[11px] font-mono">
+            +0.8%
+          </span>
+</div>
+<span class="material-symbols-outlined text-text-muted text-[20px]">chevron_right</span>
+</div>
+</div>
+<!-- Item 4: Железная руда -->
+<div class="w-full min-h-[64px] p-3.5 rounded-xl bg-surface flex items-center justify-between gap-3 shadow-sm active:bg-raised transition-colors">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-10 h-10 rounded-lg bg-raised flex items-center justify-center shrink-0 text-text-secondary text-[19px]">
+          ⛰️
+        </div>
+<div class="flex flex-col min-w-0">
+<span class="font-section-title text-[15px] leading-snug text-text-primary truncate">Железная руда 62%</span>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high font-mono-label text-[11px] text-text-secondary">Остервик</span>
+<span class="font-mono-label text-[11px] text-text-muted">Лот 100 т</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<svg class="w-14 h-7 text-loss" fill="none" preserveaspectratio="none" viewbox="0 0 56 28">
+<path d="M1 8L12 6L23 15L34 18L44 24L55 22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+<div class="flex flex-col items-end">
+<span class="font-kpi-value text-[15px] leading-tight text-text-primary font-mono font-medium">8 950 <span class="text-[12px] text-text-muted">CR/т</span></span>
+<span class="mt-0.5 inline-flex items-center px-1.5 py-0.2 rounded bg-loss/15 text-loss font-mono-label text-[11px] font-mono">
+            -3.4%
+          </span>
+</div>
+<span class="material-symbols-outlined text-text-muted text-[20px]">chevron_right</span>
+</div>
+</div>
+<!-- Item 5: Топливо дизельное -->
+<div class="w-full min-h-[64px] p-3.5 rounded-xl bg-surface flex items-center justify-between gap-3 shadow-sm active:bg-raised transition-colors">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-10 h-10 rounded-lg bg-raised flex items-center justify-center shrink-0 text-text-secondary text-[19px]">
+          🛢️
+        </div>
+<div class="flex flex-col min-w-0">
+<span class="font-section-title text-[15px] leading-snug text-text-primary truncate">Топливо дизельное L-62</span>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high font-mono-label text-[11px] text-text-secondary">Кронстад</span>
+<span class="font-mono-label text-[11px] text-text-muted">Лот 30 т</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<svg class="w-14 h-7 text-profit" fill="none" preserveaspectratio="none" viewbox="0 0 56 28">
+<path d="M1 21L13 19L24 10L36 12L46 4L55 2" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+<div class="flex flex-col items-end">
+<span class="font-kpi-value text-[15px] leading-tight text-text-primary font-mono font-medium">14 200 <span class="text-[12px] text-text-muted">CR/т</span></span>
+<span class="mt-0.5 inline-flex items-center px-1.5 py-0.2 rounded bg-profit/15 text-profit font-mono-label text-[11px] font-mono">
+            +4.1%
+          </span>
+</div>
+<span class="material-symbols-outlined text-text-muted text-[20px]">chevron_right</span>
+</div>
+</div>
+<!-- Item 6: Текстиль технический -->
+<div class="w-full min-h-[64px] p-3.5 rounded-xl bg-surface flex items-center justify-between gap-3 shadow-sm active:bg-raised transition-colors">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-10 h-10 rounded-lg bg-raised flex items-center justify-center shrink-0 text-text-secondary text-[19px]">
+          🧵
+        </div>
+<div class="flex flex-col min-w-0">
+<span class="font-section-title text-[15px] leading-snug text-text-primary truncate">Текстиль технический</span>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high font-mono-label text-[11px] text-text-secondary">Валлен</span>
+<span class="font-mono-label text-[11px] text-text-muted">Лот 10 т</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<svg class="w-14 h-7 text-text-muted" fill="none" preserveaspectratio="none" viewbox="0 0 56 28">
+<path d="M1 14L13 15L24 13L35 15L46 14L55 14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+<div class="flex flex-col items-end">
+<span class="font-kpi-value text-[15px] leading-tight text-text-primary font-mono font-medium">3 100 <span class="text-[12px] text-text-muted">CR/т</span></span>
+<span class="mt-0.5 inline-flex items-center px-1.5 py-0.2 rounded bg-surface-container-high text-text-muted font-mono-label text-[11px] font-mono">
+            0.0%
+          </span>
+</div>
+<span class="material-symbols-outlined text-text-muted text-[20px]">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Operational Telemetry Floating Pill -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low shadow-sm">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-profit"></span>
+<span class="font-mono-label text-[12px] text-text-secondary">Шлюз биржи: Квоты открыты</span>
+</div>
+<span class="font-mono-label text-[12px] text-text-muted">Задержка 14 мс</span>
+</div>
+</div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/95 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.5)]" data-active-classes="text-primary-container font-semibold"><div class="h-14 px-gutter flex items-center justify-around"><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-text-muted active:scale-95 transition-transform" data-path="home" href="#"><span class="material-symbols-outlined text-[22px]">dashboard</span><span class="font-label-default text-[11px] leading-tight">Home</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-text-muted active:scale-95 transition-transform" data-path="enterprises" href="#"><span class="material-symbols-outlined text-[22px]">domain</span><span class="font-label-default text-[11px] leading-tight">Enterprises</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-text-muted active:scale-95 transition-transform" data-path="market" href="#"><span class="material-symbols-outlined text-[22px]">candlestick_chart</span><span class="font-label-default text-[11px] leading-tight">Market</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-text-muted active:scale-95 transition-transform" data-path="reports" href="#"><span class="material-symbols-outlined text-[22px]">analytics</span><span class="font-label-default text-[11px] leading-tight">Reports</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-text-muted active:scale-95 transition-transform" data-path="more" href="#"><span class="material-symbols-outlined text-[22px]">tune</span><span class="font-label-default text-[11px] leading-tight">More</span></a></div></nav></body></html>

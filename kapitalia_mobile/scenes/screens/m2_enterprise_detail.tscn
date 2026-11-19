@@ -1,0 +1,250 @@
+[gd_scene load_steps=1 format=3]
+
+[node name="M2Detail" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Scroll"]
+layout_mode = 2
+
+[node name="SummaryCard" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SummaryVBox" type="VBoxContainer" parent="Scroll/VBox/SummaryCard"]
+layout_mode = 2
+
+[node name="LevelBadge" type="Label" parent="Scroll/VBox/SummaryCard/SummaryVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Ур. 4 · РАБОТАЕТ · Пекарный завод №2"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Efficiency" type="Label" parent="Scroll/VBox/SummaryCard/SummaryVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "КПД: 92%  |  Прибыль: +312 400 CR (+4.2%)"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LineState" type="Label" parent="Scroll/VBox/SummaryCard/SummaryVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Состояние линий: Износ 2%, Состояние 98%"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Tabs" type="TabBar" parent="Scroll/VBox"]
+layout_mode = 1
+size_flags_horizontal = 3
+tabs = [Number(7, 0)]
+tab_text = ["Обзор", "Персонал", "Оборудование", "Сырьё", "Производство", "Сбыт", "Финансы"]
+current_tab = 4
+
+[node name="RecipeCard" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RecipeVBox" type="VBoxContainer" parent="Scroll/VBox/RecipeCard"]
+layout_mode = 2
+
+[node name="RecipeTitle" type="Label" parent="Scroll/VBox/RecipeCard/RecipeVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "🍞 Пшеничный хлеб I сорт"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Pipeline" type="Label" parent="Scroll/VBox/RecipeCard/RecipeVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Мука пшеничная 120 т q6.2  →  Сахар 30 т q5.8  →  Готовая партия 140 т q6.9"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Quality" type="Label" parent="Scroll/VBox/RecipeCard/RecipeVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Сырьё 65% + Модернизация +35% = ИТОГ q6.9"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VolumeCard" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VolumeVBox" type="VBoxContainer" parent="Scroll/VBox/VolumeCard"]
+layout_mode = 2
+
+[node name="VolumeTitle" type="Label" parent="Scroll/VBox/VolumeCard/VolumeVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "План загрузки линий: 140 т / цикл (100%)"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VolumeSlider" type="HSlider" parent="Scroll/VBox/VolumeCard/VolumeVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 32)
+grow_horizontal = 2
+grow_vertical = 2
+min_value = 35.0
+max_value = 140.0
+step = 7.0
+value = 140.0
+
+[node name="Presets" type="HBoxContainer" parent="Scroll/VBox/VolumeCard/VolumeVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="P50" type="Button" parent="Scroll/VBox/VolumeCard/VolumeVBox/Presets"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "50%"
+custom_minimum_size = Vector2(0, 40)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="P75" type="Button" parent="Scroll/VBox/VolumeCard/VolumeVBox/Presets"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "75%"
+custom_minimum_size = Vector2(0, 40)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="P90" type="Button" parent="Scroll/VBox/VolumeCard/VolumeVBox/Presets"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "90%"
+custom_minimum_size = Vector2(0, 40)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PMax" type="Button" parent="Scroll/VBox/VolumeCard/VolumeVBox/Presets"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "MAX"
+custom_minimum_size = Vector2(0, 40)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TechCard" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TechVBox" type="VBoxContainer" parent="Scroll/VBox/TechCard"]
+layout_mode = 2
+
+[node name="TechTitle" type="Label" parent="Scroll/VBox/TechCard/TechVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "⚙ Технологические модули (2/4 активны)"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Mod1" type="Label" parent="Scroll/VBox/TechCard/TechVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "✅ Автоматический замес v2 — +8% скорость"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Mod2" type="Label" parent="Scroll/VBox/TechCard/TechVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "✅ Энергосберегающие печи — -12% расход"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Mod3Lock" type="Label" parent="Scroll/VBox/TechCard/TechVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "🔒 Слот #3 — Требуется Ур. 5"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Mod4Lock" type="Label" parent="Scroll/VBox/TechCard/TechVBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "🔒 Слот #4 — Требуется Ур. 6"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UpgradeBtn" type="Button" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "⬆ Улучшить до ур. 5 — 1 450 000 CR"
+custom_minimum_size = Vector2(0, 48)
+grow_horizontal = 2
+grow_vertical = 2

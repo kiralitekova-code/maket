@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/city3d.gd" id="1_city"]
+
+[node name="City3D" type="Node3D"]
+script = ExtResource("1_city")
+
+[node name="WorldRoot" type="Node3D" parent="."]

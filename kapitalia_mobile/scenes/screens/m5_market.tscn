@@ -1,0 +1,398 @@
+[gd_scene load_steps=1 format=3]
+
+[node name="M5Market" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Scroll"]
+layout_mode = 2
+
+[node name="SegmentControl" type="HBoxContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SegFavorites" type="Button" parent="Scroll/VBox/SegmentControl"]
+layout_mode = 1
+size_flags_horizontal = 2
+text = "Избранное"
+
+[node name="SegGoods" type="Button" parent="Scroll/VBox/SegmentControl"]
+layout_mode = 1
+size_flags_horizontal = 2
+text = "🔵 Товары"
+
+[node name="SegOrders" type="Button" parent="Scroll/VBox/SegmentControl"]
+layout_mode = 1
+size_flags_horizontal = 2
+text = "Мои ордера"
+
+[node name="SearchRow" type="HBoxContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SearchField" type="LineEdit" parent="Scroll/VBox/SearchRow"]
+layout_mode = 1
+size_flags_horizontal = 3
+placeholder_text = "🔍 Поиск товаров, сырья..."
+custom_minimum_size = Vector2(0, 48)
+
+[node name="SearchFilterBtn" type="Button" parent="Scroll/VBox/SearchRow"]
+layout_mode = 1
+text = "⚙"
+custom_minimum_size = Vector2(44, 44)
+
+[node name="CategoryChips" type="HBoxContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ChipAll" type="Button" parent="Scroll/VBox/CategoryChips"]
+layout_mode = 1
+custom_minimum_size = Vector2(0, 40)
+text = "Все"
+
+[node name="ChipAgriculture" type="Button" parent="Scroll/VBox/CategoryChips"]
+layout_mode = 1
+custom_minimum_size = Vector2(0, 40)
+text = "🌾 Агро"
+
+[node name="ChipMetals" type="Button" parent="Scroll/VBox/CategoryChips"]
+layout_mode = 1
+custom_minimum_size = Vector2(0, 40)
+text = "⛏ Металлы"
+
+[node name="ChipEnergy" type="Button" parent="Scroll/VBox/CategoryChips"]
+layout_mode = 1
+custom_minimum_size = Vector2(0, 40)
+text = "⚡ Энергия"
+
+[node name="ChipChemical" type="Button" parent="Scroll/VBox/CategoryChips"]
+layout_mode = 1
+custom_minimum_size = Vector2(0, 40)
+text = "🧪 Химия"
+
+[node name="ItemFlour" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 80)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemFlourInner" type="VBoxContainer" parent="Scroll/VBox/ItemFlour"]
+layout_mode = 2
+
+[node name="ItemFlourHeader" type="HBoxContainer" parent="Scroll/VBox/ItemFlour/ItemFlourInner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemFlourName" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner/ItemFlourHeader"]
+layout_mode = 1
+text = "🌾 Мука пшеничная в/с\nНордхейм · Лот 20 т"
+size_flags_horizontal = 3
+
+[node name="ItemFlourPrice" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner/ItemFlourHeader"]
+layout_mode = 1
+text = "4 180 CR/т\n+2.4%"
+
+[node name="OrderBookTitle" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "📊 Стакан заявок (Глубина) · Обновление 0.8с"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OrderBookGrid" type="GridContainer" parent="Scroll/VBox/ItemFlour/ItemFlourInner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+columns = 3
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Ask3Price" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner/OrderBookGrid"]
+layout_mode = 1
+text = "4 210 CR"
+
+[node name="Ask3Vol" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner/OrderBookGrid"]
+layout_mode = 1
+text = "80 т"
+
+[node name="Ask3Total" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner/OrderBookGrid"]
+layout_mode = 1
+text = "336.8k CR"
+
+[node name="Ask2Price" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner/OrderBookGrid"]
+layout_mode = 1
+text = "4 195 CR"
+
+[node name="Ask2Vol" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner/OrderBookGrid"]
+layout_mode = 1
+text = "140 т"
+
+[node name="Ask2Total" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner/OrderBookGrid"]
+layout_mode = 1
+text = "587.3k CR"
+
+[node name="Ask1Price" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner/OrderBookGrid"]
+layout_mode = 1
+text = "4 180 CR ●"
+
+[node name="Ask1Vol" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner/OrderBookGrid"]
+layout_mode = 1
+text = "200 т"
+
+[node name="Ask1Total" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner/OrderBookGrid"]
+layout_mode = 1
+text = "836.0k CR"
+
+[node name="SpreadRow" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Спред: 20 CR (0.48%) · Баланс ликвидности 42/58"
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OrderBookBids" type="GridContainer" parent="Scroll/VBox/ItemFlour/ItemFlourInner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+columns = 3
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Bid1Price" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner/OrderBookBids"]
+layout_mode = 1
+text = "4 160 CR ●"
+
+[node name="Bid1Vol" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner/OrderBookBids"]
+layout_mode = 1
+text = "150 т"
+
+[node name="Bid1Total" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner/OrderBookBids"]
+layout_mode = 1
+text = "624.0k CR"
+
+[node name="Bid2Price" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner/OrderBookBids"]
+layout_mode = 1
+text = "4 150 CR"
+
+[node name="Bid2Vol" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner/OrderBookBids"]
+layout_mode = 1
+text = "310 т"
+
+[node name="Bid2Total" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner/OrderBookBids"]
+layout_mode = 1
+text = "1.28M CR"
+
+[node name="Bid3Price" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner/OrderBookBids"]
+layout_mode = 1
+text = "4 120 CR"
+
+[node name="Bid3Vol" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner/OrderBookBids"]
+layout_mode = 1
+text = "500 т"
+
+[node name="Bid3Total" type="Label" parent="Scroll/VBox/ItemFlour/ItemFlourInner/OrderBookBids"]
+layout_mode = 1
+text = "2.06M CR"
+
+[node name="TradeBtn" type="Button" parent="Scroll/VBox/ItemFlour/ItemFlourInner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "⚡ Создать ордер (Trade)"
+custom_minimum_size = Vector2(0, 48)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Item2" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 64)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Item2Inner" type="HBoxContainer" parent="Scroll/VBox/Item2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Item2Name" type="Label" parent="Scroll/VBox/Item2/Item2Inner"]
+layout_mode = 1
+text = "🌱 Зерно ржаное\nВаллен · Лот 50 т"
+size_flags_horizontal = 3
+
+[node name="Item2Price" type="Label" parent="Scroll/VBox/Item2/Item2Inner"]
+layout_mode = 1
+text = "2 890 CR/т\n-1.1%"
+
+[node name="Item3" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 64)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Item3Inner" type="HBoxContainer" parent="Scroll/VBox/Item3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Item3Name" type="Label" parent="Scroll/VBox/Item3/Item3Inner"]
+layout_mode = 1
+text = "📦 Сахар-песок\nНордхейм · Лот 15 т"
+size_flags_horizontal = 3
+
+[node name="Item3Price" type="Label" parent="Scroll/VBox/Item3/Item3Inner"]
+layout_mode = 1
+text = "5 420 CR/т\n+0.8%"
+
+[node name="Item4" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 64)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Item4Inner" type="HBoxContainer" parent="Scroll/VBox/Item4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Item4Name" type="Label" parent="Scroll/VBox/Item4/Item4Inner"]
+layout_mode = 1
+text = "⛰ Железная руда 62%\nОстервик · Лот 100 т"
+size_flags_horizontal = 3
+
+[node name="Item4Price" type="Label" parent="Scroll/VBox/Item4/Item4Inner"]
+layout_mode = 1
+text = "8 950 CR/т\n-3.4%"
+
+[node name="Item5" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 64)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Item5Inner" type="HBoxContainer" parent="Scroll/VBox/Item5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Item5Name" type="Label" parent="Scroll/VBox/Item5/Item5Inner"]
+layout_mode = 1
+text = "🛢 Топливо дизельное L-62\nКронстад · Лот 30 т"
+size_flags_horizontal = 3
+
+[node name="Item5Price" type="Label" parent="Scroll/VBox/Item5/Item5Inner"]
+layout_mode = 1
+text = "14 200 CR/т\n+4.1%"
+
+[node name="Item6" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 64)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Item6Inner" type="HBoxContainer" parent="Scroll/VBox/Item6"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Item6Name" type="Label" parent="Scroll/VBox/Item6/Item6Inner"]
+layout_mode = 1
+text = "🧵 Текстиль технический\nВаллен · Лот 10 т"
+size_flags_horizontal = 3
+
+[node name="Item6Price" type="Label" parent="Scroll/VBox/Item6/Item6Inner"]
+layout_mode = 1
+text = "3 100 CR/т\n0.0%"
+
+[node name="TelemetryPill" type="PanelContainer" parent="Scroll/VBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 48)
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TelemetryInner" type="HBoxContainer" parent="Scroll/VBox/TelemetryPill"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TelemetryText" type="Label" parent="Scroll/VBox/TelemetryPill/TelemetryInner"]
+layout_mode = 1
+text = "🟢 Шлюз биржи: Квоты открыты"
+size_flags_horizontal = 3
+
+[node name="TelemetryLatency" type="Label" parent="Scroll/VBox/TelemetryPill/TelemetryInner"]
+layout_mode = 1
+text = "14 мс"
