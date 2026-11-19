@@ -1,0 +1,1925 @@
+```html
+<!DOCTYPE html>
+<html lang="ru">
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>КАПИТАЛИЯ — экономический симулятор империи</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --bg:#0A0D12; --bg2:#0E1116; --surface:#141A21; --raised:#1B222B; --raised2:#232C37;
+  --line:#2A323D; --line2:#3A4553;
+  --tx:#E6EDF3; --tx2:#96A4B3; --tx3:#65748A;
+  --amber:#F2A93B; --amber-d:#C4801E; --teal:#2DD4BF; --red:#F2555A; --blue:#4C8DFF;
+  --violet:#A78BFA; --lime:#B8E62D; --magenta:#FF5CC8; --sand:#E8C07D;
+  --ok:#2DD4BF; --warn:#F2A93B; --bad:#F2555A; --info:#4C8DFF;
+  --r-card:12px; --r-in:8px; --r-chip:6px;
+  --mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  --ui:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --top:66px; --act:74px;
+  --shadow:0 18px 50px -18px rgba(0,0,0,.85);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg); color:var(--tx); font-family:var(--ui); font-size:14px; line-height:1.45;
+  min-height:100vh; overflow-x:hidden; padding-top:var(--top); padding-bottom:calc(var(--act) + 22px);
+  -webkit-font-smoothing:antialiased;
+}
+body.locked{overflow:hidden}
+/* ============ BACKGROUND LAYERS ============ */
+.bg{position:fixed; inset:0; z-index:-3; background:
+  radial-gradient(900px 620px at 8% -6%, rgba(242,169,59,.16), transparent 62%),
+  radial-gradient(760px 560px at 96% 8%, rgba(76,141,255,.15), transparent 60%),
+  radial-gradient(1100px 780px at 62% 108%, rgba(45,212,191,.12), transparent 64%),
+  radial-gradient(700px 520px at 34% 46%, rgba(167,139,250,.09), transparent 66%),
+  linear-gradient(178deg,#0A0D12 0%,#0C1017 42%,#090C11 100%);}
+.bg-grid{position:fixed; inset:0; z-index:-2; pointer-events:none; opacity:.5;
+  background-image:linear-gradient(rgba(120,140,170,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(120,140,170,.055) 1px,transparent 1px);
+  background-size:52px 52px; mask-image:radial-gradient(circle at 50% 30%,#000 30%,transparent 82%);}
+.bg-blob{position:fixed; z-index:-2; width:44vw; height:44vw; border-radius:50%; filter:blur(90px); opacity:.2; pointer-events:none;}
+.b1{background:conic-gradient(from 20deg,var(--amber),var(--magenta),var(--amber)); top:-14vw; left:-8vw; animation:drift1 34s ease-in-out infinite;}
+.b2{background:conic-gradient(from 200deg,var(--blue),var(--teal),var(--violet)); bottom:-18vw; right:-10vw; animation:drift2 41s ease-in-out infinite;}
+@keyframes drift1{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(6vw,4vw,0) scale(1.12)}}
+@keyframes drift2{0%,100%{transform:translate3d(0,0,0) scale(1.05)}50%{transform:translate3d(-5vw,-3vw,0) scale(.92)}}
+.bg-grain{position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.05; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");}
+/* ============ SCROLLBARS ============ */
+*{scrollbar-width:thin; scrollbar-color:var(--amber-d) rgba(255,255,255,.04)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:rgba(255,255,255,.035); border-radius:8px}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--amber),var(--amber-d)); border-radius:8px; border:2px solid var(--bg2)}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#FFC463,var(--amber))}
+::-webkit-scrollbar-corner{background:transparent}
+/* ============ TYPO / PRIMITIVES ============ */
+h1,h2,h3,h4{margin:0; font-weight:700; letter-spacing:-.01em}
+.mono{font-family:var(--mono); font-variant-numeric:tabular-nums; font-feature-settings:"tnum"}
+.num{font-family:var(--mono); font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap}
+.muted{color:var(--tx2)} .dim{color:var(--tx3)}
+.up{color:var(--teal)} .down{color:var(--red)} .amb{color:var(--amber)}
+.lbl{font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--tx3); font-weight:600}
+.card{background:linear-gradient(168deg,rgba(27,34,43,.92),rgba(18,24,31,.94)); border:1px solid var(--line);
+  border-radius:var(--r-card); padding:16px; position:relative; overflow:hidden}
+.card:before{content:''; position:absolute; inset:0 0 auto 0; height:1px; background:linear-gradient(90deg,transparent,rgba(242,169,59,.5),rgba(76,141,255,.35),transparent)}
+.card.tight{padding:12px}
+.btn{font-family:var(--ui); font-size:13px; font-weight:600; color:var(--tx); background:var(--raised);
+  border:1px solid var(--line2); border-radius:var(--r-in); padding:9px 14px; cursor:pointer;
+  display:inline-flex; align-items:center; gap:7px; transition:.16s transform,.16s background,.16s border-color,.16s box-shadow;
+  min-height:38px; position:relative; overflow:hidden}
+.btn:hover{background:var(--raised2); border-color:var(--amber-d); transform:translateY(-1px)}
+.btn:active{transform:translateY(0) scale(.985)}
+.btn:focus-visible{outline:2px solid var(--amber); outline-offset:2px}
+.btn[disabled]{opacity:.4; cursor:not-allowed; transform:none!important}
+.btn.pri{background:linear-gradient(135deg,var(--amber),#E0912A); color:#1A1206; border-color:#FFCB74; font-weight:700;
+  box-shadow:0 8px 24px -10px rgba(242,169,59,.75)}
+.btn.pri:hover{background:linear-gradient(135deg,#FFC463,var(--amber)); box-shadow:0 12px 30px -10px rgba(242,169,59,.9)}
+.btn.ok{border-color:rgba(45,212,191,.55); color:var(--teal)}
+.btn.ok:hover{background:rgba(45,212,191,.12)}
+.btn.dgr{border-color:rgba(242,85,90,.5); color:var(--red)}
+.btn.dgr:hover{background:rgba(242,85,90,.12)}
+.btn.sm{padding:6px 10px; min-height:32px; font-size:12px}
+.btn.ico{padding:8px; min-height:38px; min-width:38px; justify-content:center}
+.btn.wide{width:100%; justify-content:center}
+.chip{display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:600; padding:3px 8px;
+  border-radius:var(--r-chip); border:1px solid var(--line2); color:var(--tx2); background:rgba(255,255,255,.03); white-space:nowrap}
+.chip.ok{color:var(--teal); border-color:rgba(45,212,191,.45); background:rgba(45,212,191,.09)}
+.chip.warn{color:var(--amber); border-color:rgba(242,169,59,.45); background:rgba(242,169,59,.09)}
+.chip.bad{color:var(--red); border-color:rgba(242,85,90,.45); background:rgba(242,85,90,.09)}
+.chip.info{color:var(--blue); border-color:rgba(76,141,255,.45); background:rgba(76,141,255,.09)}
+.chip.vio{color:var(--violet); border-color:rgba(167,139,250,.45); background:rgba(167,139,250,.09)}
+.chip.on{color:#1A1206; background:var(--amber); border-color:#FFCB74}
+.bar{height:6px; border-radius:99px; background:rgba(255,255,255,.07); overflow:hidden}
+.bar>i{display:block; height:100%; border-radius:99px; background:linear-gradient(90deg,var(--amber),var(--sand)); transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.bar.t>i{background:linear-gradient(90deg,var(--teal),var(--lime))}
+.bar.b>i{background:linear-gradient(90deg,var(--blue),var(--violet))}
+.sep{height:1px; background:linear-gradient(90deg,transparent,var(--line),transparent); margin:12px 0}
+.row{display:flex; align-items:center; gap:10px}
+.between{display:flex; align-items:center; justify-content:space-between; gap:10px}
+.wrap{flex-wrap:wrap}
+.grow{flex:1; min-width:0}
+.stack{display:flex; flex-direction:column; gap:10px}
+.grid{display:grid; gap:12px}
+/* ============ TOPBAR ============ */
+.top{position:fixed; top:0; left:0; right:0; height:var(--top); z-index:60; display:flex; align-items:center; gap:14px;
+  padding:0 16px; background:rgba(10,13,18,.86); backdrop-filter:blur(14px); border-bottom:1px solid var(--line)}
+.top:after{content:''; position:absolute; left:0; bottom:-1px; height:1px; width:var(--season,0%);
+  background:linear-gradient(90deg,var(--amber),var(--magenta),var(--blue)); transition:width .6s ease}
+.brand{display:flex; align-items:center; gap:9px; flex-shrink:0}
+.brand .mark{width:32px; height:32px; border-radius:9px; display:grid; place-items:center; flex-shrink:0;
+  background:linear-gradient(140deg,var(--amber),#B4661A); color:#150E04; box-shadow:0 6px 18px -8px rgba(242,169,59,.9)}
+.brand b{font-size:15px; letter-spacing:.14em; font-weight:800; background:linear-gradient(92deg,#FFD08A,var(--amber) 45%,var(--sand));
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent}
+.brand small{display:block; font-size:9px; letter-spacing:.22em; color:var(--tx3); font-weight:600}
+.topstats{display:flex; gap:8px; margin-left:6px}
+.tstat{padding:5px 11px; border:1px solid var(--line); border-radius:9px; background:rgba(20,26,33,.8); min-width:104px}
+.tstat .lbl{font-size:9px; letter-spacing:.12em}
+.tstat b{font-family:var(--mono); font-size:14px; font-weight:600; display:block; line-height:1.25}
+.tickbox{display:flex; align-items:center; gap:9px; margin-left:auto}
+.ring{position:relative; width:44px; height:44px; flex-shrink:0}
+.ring svg{transform:rotate(-90deg)}
+.ring span{position:absolute; inset:0; display:grid; place-items:center; font-family:var(--mono); font-size:10px; font-weight:600; color:var(--amber)}
+.speeds{display:flex; gap:3px; padding:3px; border:1px solid var(--line); border-radius:10px; background:rgba(20,26,33,.8)}
+.speeds button{width:32px; height:30px; border:0; border-radius:7px; background:transparent; color:var(--tx2); cursor:pointer;
+  display:grid; place-items:center; font-family:var(--mono); font-size:11px; font-weight:600; transition:.15s}
+.speeds button:hover{background:rgba(255,255,255,.06); color:var(--tx)}
+.speeds button.on{background:linear-gradient(135deg,var(--amber),#D98F26); color:#1A1206}
+.topacts{display:flex; gap:6px}
+/* ============ SHELL ============ */
+.shell{display:grid; grid-template-columns:224px minmax(0,1fr) 312px; gap:16px; max-width:1620px; margin:0 auto; padding:16px}
+.side{position:sticky; top:calc(var(--top) + 16px); align-self:start; display:flex; flex-direction:column; gap:6px}
+.nav{display:flex; align-items:center; gap:10px; padding:11px 12px; border-radius:10px; border:1px solid transparent;
+  background:transparent; color:var(--tx2); cursor:pointer; font-family:var(--ui); font-size:13.5px; font-weight:600; text-align:left;
+  transition:.16s; position:relative; min-height:44px}
+.nav:hover{background:rgba(255,255,255,.045); color:var(--tx)}
+.nav.on{background:linear-gradient(90deg,rgba(242,169,59,.16),rgba(242,169,59,.03)); color:var(--tx); border-color:rgba(242,169,59,.3)}
+.nav.on:before{content:''; position:absolute; left:0; top:9px; bottom:9px; width:3px; border-radius:9px; background:var(--amber)}
+.nav .cnt{margin-left:auto; font-family:var(--mono); font-size:11px; color:var(--tx3)}
+.sidecard{margin-top:8px}
+.main{min-width:0; display:flex; flex-direction:column; gap:14px}
+.rail{position:sticky; top:calc(var(--top) + 16px); align-self:start; display:flex; flex-direction:column; gap:12px;
+  max-height:calc(100vh - var(--top) - var(--act) - 40px); overflow-y:auto; padding-right:4px}
+.viewhead{display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap}
+.viewhead h2{font-size:22px}
+.viewhead p{margin:3px 0 0; color:var(--tx2); font-size:12.5px; max-width:62ch}
+/* ============ KPI ============ */
+.kpis{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px}
+.kpi{background:linear-gradient(165deg,rgba(30,38,48,.95),rgba(17,22,29,.95)); border:1px solid var(--line);
+  border-radius:var(--r-card); padding:13px 14px; position:relative; overflow:hidden; transition:.2s}
+.kpi:hover{border-color:var(--line2); transform:translateY(-2px)}
+.kpi .glow{position:absolute; width:120px; height:120px; right:-40px; top:-50px; border-radius:50%; filter:blur(34px); opacity:.3}
+.kpi b{font-family:var(--mono); font-size:23px; font-weight:600; display:block; margin-top:5px; letter-spacing:-.02em}
+.kpi .sub{font-size:11.5px; color:var(--tx2); margin-top:3px; display:flex; align-items:center; gap:6px}
+.spark{display:block; width:100%; height:26px; margin-top:6px}
+/* ============ TABLE ============ */
+.tbl{width:100%; border-collapse:collapse; font-size:13px}
+.tbl th{font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--tx3); font-weight:600;
+  text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); position:sticky; top:0; background:var(--surface); z-index:2}
+.tbl th.r,.tbl td.r{text-align:right}
+.tbl td{padding:9px 10px; border-bottom:1px solid rgba(42,50,61,.6)}
+.tbl tbody tr{transition:.14s}
+.tbl tbody tr:hover{background:rgba(242,169,59,.055)}
+.tbl tr.sel{background:rgba(242,169,59,.1)}
+.tbl .name{font-weight:600}
+.scroll{overflow:auto; max-height:420px; border-radius:10px; border:1px solid var(--line)}
+/* ============ CONTROLS ============ */
+.ctl{display:flex; flex-direction:column; gap:6px}
+.ctl .between{font-size:12px}
+.ctl .val{font-family:var(--mono); font-size:12.5px; color:var(--amber); font-weight:600}
+input[type=range]{-webkit-appearance:none; appearance:none; width:100%; height:22px; background:transparent; cursor:pointer; margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:5px; border-radius:99px;
+  background:linear-gradient(90deg,var(--amber-d),var(--line2))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:17px; height:17px; margin-top:-6px; border-radius:50%;
+  background:radial-gradient(circle at 34% 30%,#FFD79A,var(--amber)); border:1px solid #FFCB74; box-shadow:0 2px 10px -2px rgba(242,169,59,.9); transition:.14s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.16)}
+input[type=range]::-moz-range-track{height:5px; border-radius:99px; background:var(--line2)}
+input[type=range]::-moz-range-thumb{width:16px; height:16px; border-radius:50%; background:var(--amber); border:1px solid #FFCB74}
+input[type=range]:focus-visible{outline:2px solid var(--amber); outline-offset:4px; border-radius:99px}
+select,input[type=text],input[type=number]{font-family:var(--ui); font-size:13px; color:var(--tx); background:var(--bg2);
+  border:1px solid var(--line2); border-radius:var(--r-in); padding:9px 10px; min-height:38px; width:100%}
+input[type=number]{font-family:var(--mono); text-align:right}
+select:focus,input:focus{outline:none; border-color:var(--amber); box-shadow:0 0 0 3px rgba(242,169,59,.16)}
+.sw{position:relative; width:44px; height:24px; flex-shrink:0; border-radius:99px; background:var(--raised2);
+  border:1px solid var(--line2); cursor:pointer; transition:.18s}
+.sw:after{content:''; position:absolute; top:2px; left:2px; width:18px; height:18px; border-radius:50%; background:var(--tx3); transition:.18s}
+.sw.on{background:rgba(45,212,191,.24); border-color:rgba(45,212,191,.6)}
+.sw.on:after{left:22px; background:var(--teal); box-shadow:0 0 12px rgba(45,212,191,.8)}
+.step{display:flex; align-items:center; gap:6px}
+.step button{width:32px; height:32px; border-radius:8px; border:1px solid var(--line2); background:var(--raised);
+  color:var(--tx); cursor:pointer; font-size:16px; line-height:1; display:grid; place-items:center; transition:.14s}
+.step button:hover{background:var(--raised2); border-color:var(--amber-d)}
+.step .n{font-family:var(--mono); min-width:52px; text-align:center; font-size:14px; font-weight:600}
+.pick{display:flex; gap:6px; flex-wrap:wrap}
+.pick button{padding:7px 11px; border-radius:8px; border:1px solid var(--line2); background:var(--raised); color:var(--tx2);
+  cursor:pointer; font-size:12px; font-weight:600; transition:.15s; font-family:var(--ui)}
+.pick button:hover{border-color:var(--amber-d); color:var(--tx)}
+.pick button.on{background:linear-gradient(135deg,rgba(242,169,59,.24),rgba(242,169,59,.08)); border-color:var(--amber); color:var(--amber)}
+/* ============ BIZ ============ */
+.bizgrid{display:grid; grid-template-columns:330px minmax(0,1fr); gap:14px; align-items:start}
+.entlist{display:flex; flex-direction:column; gap:8px; max-height:min(62vh,620px); overflow-y:auto; padding-right:4px}
+.entrow{display:flex; gap:11px; align-items:center; padding:11px; border-radius:10px; border:1px solid var(--line);
+  background:linear-gradient(150deg,rgba(26,33,42,.9),rgba(17,22,29,.9)); cursor:pointer; transition:.16s; text-align:left; width:100%;
+  font-family:var(--ui); color:var(--tx)}
+.entrow:hover{border-color:var(--line2); transform:translateX(2px)}
+.entrow.on{border-color:var(--amber); background:linear-gradient(150deg,rgba(242,169,59,.14),rgba(17,22,29,.92))}
+.entrow .ic{width:36px; height:36px; border-radius:9px; display:grid; place-items:center; flex-shrink:0;
+  background:rgba(255,255,255,.05); border:1px solid var(--line2)}
+.entrow .t{font-size:13px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.entrow .s{font-size:11px; color:var(--tx2)}
+.entrow .v{font-family:var(--mono); font-size:12.5px; text-align:right}
+.det{display:flex; flex-direction:column; gap:12px}
+.dethead{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+.dethead .ic{width:46px; height:46px; border-radius:12px; display:grid; place-items:center;
+  background:linear-gradient(140deg,rgba(242,169,59,.22),rgba(76,141,255,.12)); border:1px solid rgba(242,169,59,.35)}
+.two{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
+.mini{padding:9px 11px; border-radius:9px; background:rgba(255,255,255,.035); border:1px solid var(--line)}
+.mini b{font-family:var(--mono); font-size:15px; display:block; margin-top:2px}
+.back{display:none}
+/* ============ MARKET ============ */
+.mrow{display:grid; grid-template-columns:1.5fr 1fr .8fr 1fr .9fr auto; gap:10px; align-items:center;
+  padding:10px; border-bottom:1px solid rgba(42,50,61,.6); transition:.14s}
+.mrow:hover{background:rgba(76,141,255,.055)}
+.mhead{font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--tx3); font-weight:600; border-bottom:1px solid var(--line)}
+.mhead:hover{background:transparent}
+.trade{padding:12px; border-radius:10px; background:rgba(76,141,255,.07); border:1px solid rgba(76,141,255,.28); margin:6px 0 10px}
+/* ============ REPORT ============ */
+.pl{display:flex; flex-direction:column}
+.plrow{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:9px 4px; border-bottom:1px solid rgba(42,50,61,.55); font-size:13px}
+.plrow.sub{padding-left:20px; color:var(--tx2); font-size:12.5px}
+.plrow.tot{font-weight:700; border-top:1px solid var(--line2); border-bottom:none; margin-top:4px; padding-top:11px; font-size:15px}
+.plrow.grand{font-size:17px; background:linear-gradient(90deg,rgba(45,212,191,.1),transparent); border-radius:8px; padding:12px 10px; margin-top:6px; border:none}
+.plrow.grand.neg{background:linear-gradient(90deg,rgba(242,85,90,.12),transparent)}
+/* ============ TECH / ACH ============ */
+.techgrid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
+.pips{display:flex; gap:4px}
+.pips i{width:100%; height:5px; border-radius:99px; background:rgba(255,255,255,.1)}
+.pips i.on{background:linear-gradient(90deg,var(--amber),var(--sand))}
+.achgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(158px,1fr)); gap:9px}
+.ach{padding:10px; border-radius:10px; border:1px solid var(--line); background:rgba(255,255,255,.03); opacity:.5; transition:.2s}
+.ach.got{opacity:1; border-color:rgba(184,230,45,.45); background:linear-gradient(150deg,rgba(184,230,45,.12),rgba(255,255,255,.02))}
+.ach b{font-size:12.5px; display:block} .ach span{font-size:11px; color:var(--tx2)}
+/* ============ RAIL LISTS ============ */
+.feed{display:flex; flex-direction:column; gap:8px; max-height:250px; overflow-y:auto; padding-right:4px}
+.item{display:flex; gap:9px; padding:9px 10px; border-radius:9px; background:rgba(255,255,255,.035); border:1px solid var(--line); font-size:12px; animation:slideIn .3s ease}
+.item .dot{width:7px; height:7px; border-radius:50%; margin-top:5px; flex-shrink:0}
+.item.warn{border-color:rgba(242,169,59,.3)} .item.bad{border-color:rgba(242,85,90,.32)}
+.item.ok{border-color:rgba(45,212,191,.3)} .item.info{border-color:rgba(76,141,255,.3)}
+@keyframes slideIn{from{opacity:0; transform:translateY(-6px)}to{opacity:1; transform:none}}
+/* ============ ACTION BAR ============ */
+.action{position:fixed; left:0; right:0; bottom:0; z-index:55; height:var(--act); display:flex; align-items:center; gap:14px;
+  padding:0 18px; background:rgba(10,13,18,.92); backdrop-filter:blur(14px); border-top:1px solid var(--line)}
+.action .est{font-size:11.5px; color:var(--tx2)}
+.action .est b{font-family:var(--mono); font-size:15px; display:block}
+.settle{min-width:214px; justify-content:center; font-size:14px; letter-spacing:.02em}
+.settle.pulse{animation:pulseGlow 2.4s ease-in-out infinite}
+@keyframes pulseGlow{0%,100%{box-shadow:0 8px 24px -10px rgba(242,169,59,.7)}50%{box-shadow:0 8px 34px -6px rgba(242,169,59,1)}}
+.tabbar{display:none}
+/* ============ SETTLE STRIP ============ */
+.settlestrip{position:fixed; left:50%; bottom:calc(var(--act) + 16px); transform:translateX(-50%) translateY(20px); z-index:70;
+  width:min(680px,calc(100vw - 28px)); padding:13px 15px; border-radius:14px; opacity:0; pointer-events:none;
+  background:linear-gradient(150deg,rgba(28,36,46,.97),rgba(14,18,24,.97)); border:1px solid rgba(242,169,59,.4);
+  box-shadow:var(--shadow); transition:.28s}
+.settlestrip.on{opacity:1; transform:translateX(-50%) translateY(0)}
+.phases{display:flex; gap:6px; margin-top:9px}
+.phase{flex:1; text-align:center; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--tx3); font-weight:600}
+.phase i{display:block; height:4px; border-radius:99px; background:rgba(255,255,255,.09); margin-bottom:5px; transition:.25s}
+.phase.done i{background:var(--teal)} .phase.done{color:var(--tx2)}
+.phase.act i{background:linear-gradient(90deg,var(--amber),var(--sand)); box-shadow:0 0 12px rgba(242,169,59,.8)}
+.phase.act{color:var(--amber)}
+body.busy .main,body.busy .rail,body.busy .side{opacity:.55; pointer-events:none; filter:saturate(.7)}
+/* ============ MODALS ============ */
+.scrim{position:fixed; inset:0; z-index:90; background:rgba(5,7,10,.78); backdrop-filter:blur(7px);
+  display:none; align-items:center; justify-content:center; padding:18px; overflow-y:auto}
+.scrim.on{display:flex; animation:fade .22s ease}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.modal{width:min(760px,100%); max-height:calc(100vh - 40px); overflow-y:auto; border-radius:16px; padding:22px;
+  background:linear-gradient(160deg,rgba(30,38,49,.98),rgba(13,17,23,.99)); border:1px solid var(--line2);
+  box-shadow:var(--shadow); animation:pop .3s cubic-bezier(.2,.9,.25,1)}
+@keyframes pop{from{opacity:0; transform:translateY(18px) scale(.97)}to{opacity:1; transform:none}}
+.modal h3{font-size:20px} .modal .x{position:absolute; top:14px; right:14px}
+.typecards{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px}
+.typecard{padding:12px; border-radius:11px; border:1px solid var(--line); background:rgba(255,255,255,.03); cursor:pointer;
+  text-align:left; color:var(--tx); font-family:var(--ui); transition:.16s}
+.typecard:hover{border-color:var(--line2); transform:translateY(-2px)}
+.typecard.on{border-color:var(--amber); background:linear-gradient(150deg,rgba(242,169,59,.16),rgba(255,255,255,.02))}
+.typecard b{font-size:13px; display:block; margin:7px 0 3px}
+.typecard span{font-size:11px; color:var(--tx2); display:block; min-height:32px}
+.typecard .c{font-family:var(--mono); font-size:12.5px; color:var(--amber); margin-top:6px; display:block}
+/* ============ BRIEFING ============ */
+.brief{position:fixed; inset:0; z-index:100; overflow-y:auto; display:flex; align-items:center; justify-content:center; padding:24px;
+  background:radial-gradient(1000px 700px at 20% 0%,rgba(242,169,59,.16),transparent 60%),
+             radial-gradient(900px 700px at 88% 90%,rgba(76,141,255,.16),transparent 60%),rgba(7,9,13,.97)}
+.brief.off{display:none}
+.briefin{width:min(940px,100%); animation:pop .5s cubic-bezier(.2,.9,.25,1)}
+.wordmark{font-size:clamp(38px,8vw,76px); font-weight:800; letter-spacing:-.03em; line-height:.95;
+  background:linear-gradient(96deg,#FFE0B0 0%,var(--amber) 32%,var(--magenta) 66%,var(--blue) 100%);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent}
+.brief .tag{font-size:clamp(14px,2.4vw,18px); color:var(--tx2); margin:10px 0 0; max-width:56ch}
+.diffs{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:22px 0}
+.diff{padding:15px; border-radius:13px; border:1px solid var(--line); background:linear-gradient(160deg,rgba(28,35,45,.9),rgba(14,18,24,.9));
+  cursor:pointer; text-align:left; color:var(--tx); font-family:var(--ui); transition:.18s}
+.diff:hover{transform:translateY(-3px); border-color:var(--line2)}
+.diff.on{border-color:var(--amber); background:linear-gradient(160deg,rgba(242,169,59,.18),rgba(14,18,24,.94)); box-shadow:0 14px 40px -18px rgba(242,169,59,.8)}
+.diff b{font-size:15px; display:block} .diff .d{font-size:11.5px; color:var(--tx2); margin:5px 0 9px; min-height:34px}
+.diff .kv{display:flex; justify-content:space-between; font-size:11.5px; padding:3px 0; border-top:1px solid rgba(42,50,61,.6)}
+.diff .kv span:last-child{font-family:var(--mono); color:var(--amber)}
+.rules{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-bottom:20px}
+.rule{padding:11px; border-radius:10px; background:rgba(255,255,255,.035); border:1px solid var(--line); font-size:11.5px; color:var(--tx2)}
+.rule b{display:block; color:var(--tx); font-size:12.5px; margin:6px 0 3px}
+.marq{overflow:hidden; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:9px 0; margin-top:20px; mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marq div{display:flex; gap:30px; width:max-content; animation:marq 26s linear infinite; font-family:var(--mono); font-size:12px; color:var(--tx2)}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* ============ FX / TOASTS ============ */
+#fx{position:fixed; inset:0; z-index:80; pointer-events:none}
+#floaters{position:fixed; inset:0; z-index:81; pointer-events:none}
+.floater{position:absolute; font-family:var(--mono); font-size:15px; font-weight:600; white-space:nowrap;
+  text-shadow:0 2px 12px rgba(0,0,0,.9); animation:floatUp 1.5s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes floatUp{0%{opacity:0; transform:translateY(6px) scale(.9)}18%{opacity:1; transform:translateY(-4px) scale(1.06)}100%{opacity:0; transform:translateY(-52px) scale(1)}}
+#toasts{position:fixed; right:16px; top:calc(var(--top) + 12px); z-index:95; display:flex; flex-direction:column; gap:8px; width:min(330px,calc(100vw - 32px))}
+.toast{display:flex; gap:10px; padding:11px 13px; border-radius:11px; font-size:12.5px; align-items:flex-start;
+  background:linear-gradient(150deg,rgba(32,40,51,.98),rgba(16,21,27,.98)); border:1px solid var(--line2);
+  box-shadow:var(--shadow); animation:toastLife 4.6s ease forwards}
+.toast.ok{border-color:rgba(45,212,191,.5)} .toast.bad{border-color:rgba(242,85,90,.5)}
+.toast.warn{border-color:rgba(242,169,59,.5)} .toast.info{border-color:rgba(76,141,255,.5)}
+.toast b{display:block; font-size:12.5px} .toast span{color:var(--tx2); font-size:11.5px}
+@keyframes toastLife{0%{opacity:0; transform:translateX(26px)}8%{opacity:1; transform:none}88%{opacity:1; transform:none}100%{opacity:0; transform:translateX(26px)}}
+.empty{padding:26px; text-align:center; color:var(--tx3); font-size:13px}
+.chartbox{position:relative; width:100%}
+.chartbox canvas{display:block; width:100%}
+.legend{display:flex; gap:12px; flex-wrap:wrap; font-size:11px; color:var(--tx2); margin-top:8px}
+.legend i{display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:5px; vertical-align:-1px}
+.hint{font-size:11.5px; color:var(--tx3); margin-top:6px}
+.tagline{font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--amber); font-weight:700}
+/* ============ RESPONSIVE ============ */
+@media (max-width:1340px){
+  .shell{grid-template-columns:206px minmax(0,1fr)}
+  .rail{display:none}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:980px){
+  .bizgrid{grid-template-columns:1fr}
+  .techgrid,.two{grid-template-columns:1fr}
+  .typecards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rules{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .diffs{grid-template-columns:1fr}
+  .topstats .tstat:nth-child(n+3){display:none}
+}
+@media (max-width:760px){
+  :root{--top:58px; --act:66px}
+  body{padding-bottom:calc(var(--act) + 62px + env(safe-area-inset-bottom))}
+  .shell{grid-template-columns:1fr; padding:12px; gap:12px}
+  .side{display:none}
+  .brand small{display:none} .brand b{font-size:13px}
+  .top{gap:8px; padding:0 10px}
+  .topstats{margin-left:0} .tstat{min-width:88px; padding:4px 8px} .tstat b{font-size:12.5px}
+  .topstats .tstat:nth-child(n+2){display:none}
+  .ring{width:38px; height:38px} .speeds button{width:28px; height:28px}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px}
+  .kpi b{font-size:19px}
+  .three{grid-template-columns:1fr 1fr}
+  .tabbar{display:flex; position:fixed; left:0; right:0; bottom:0; z-index:56; height:calc(58px + env(safe-area-inset-bottom));
+    padding-bottom:env(safe-area-inset-bottom); background:rgba(10,13,18,.96); backdrop-filter:blur(14px); border-top:1px solid var(--line)}
+  .tabbar button{flex:1; border:0; background:transparent; color:var(--tx3); display:flex; flex-direction:column; align-items:center;
+    justify-content:center; gap:3px; font-size:9.5px; font-weight:600; font-family:var(--ui); cursor:pointer; min-height:48px; transition:.15s}
+  .tabbar button.on{color:var(--amber)}
+  .action{bottom:calc(58px + env(safe-area-inset-bottom)); padding:0 12px; gap:10px}
+  .settle{min-width:0; flex:1}
+  .action .est{display:none}
+  .settlestrip{bottom:calc(var(--act) + 72px)}
+  .bizgrid.sel .entlist{display:none}
+  .bizgrid:not(.sel) .det{display:none}
+  .back{display:inline-flex}
+  .mrow{grid-template-columns:1.4fr 1fr auto; gap:8px}
+  .mrow .hideM{display:none}
+  .modal{padding:16px} .typecards{grid-template-columns:1fr}
+  .viewhead h2{font-size:19px}
+  #toasts{right:8px; left:8px; width:auto}
+  .rules{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<div class="bg"></div><div class="bg-grid"></div><div class="bg-blob b1"></div><div class="bg-blob b2"></div><div class="bg-grain"></div>
+
+<header class="top">
+  <div class="brand">
+    <div class="mark"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 19V9m5 10V5m5 14v-7m5 7V8"/></svg></div>
+    <div><b>КАПИТАЛИЯ</b><small>ИМПЕРИЯ ОБОРОТА</small></div>
+  </div>
+  <div class="topstats">
+    <div class="tstat"><span class="lbl">Капитализация</span><b id="capVal" class="amb">—</b></div>
+    <div class="tstat"><span class="lbl">Кэш</span><b id="cashVal">—</b></div>
+    <div class="tstat"><span class="lbl">Неделя</span><b id="weekVal">—</b></div>
+  </div>
+  <div class="tickbox">
+    <span class="chip" id="diffBadge">—</span>
+    <div class="ring" title="До автоматического пересчёта">
+      <svg width="44" height="44" viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" stroke="rgba(255,255,255,.09)" stroke-width="3.5" fill="none"/>
+      <circle id="ringArc" cx="22" cy="22" r="18" stroke="#F2A93B" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-dasharray="113.1" stroke-dashoffset="113.1"/></svg>
+      <span id="cdText">II</span>
+    </div>
+    <div class="speeds" role="group" aria-label="Скорость игры">
+      <button data-act="speed" data-v="0" class="on" title="Пауза" aria-label="Пауза">II</button>
+      <button data-act="speed" data-v="1" title="Обычная" aria-label="Скорость 1">▶</button>
+      <button data-act="speed" data-v="2" title="Быстро" aria-label="Скорость 2">▶▶</button>
+      <button data-act="speed" data-v="3" title="Очень быстро" aria-label="Скорость 3">▶▶▶</button>
+    </div>
+    <div class="topacts">
+      <button class="btn ico" id="soundBtn" data-act="mute" title="Звук" aria-label="Переключить звук"></button>
+      <button class="btn ico" data-act="restart" title="Новый сезон" aria-label="Новый сезон"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 11a8 8 0 10-2.3 5.7M20 5v6h-6"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="shell">
+  <aside class="side">
+    <button class="nav on" data-act="tab" data-v="overview"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg>Обзор</button>
+    <button class="nav" data-act="tab" data-v="biz"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 21h18M5 21V9l7-5 7 5v12M9.5 21v-6h5v6"/></svg>Бизнес<span class="cnt" id="navEnt">0</span></button>
+    <button class="nav" data-act="tab" data-v="market"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 19V5m0 14h16M8 15l3-4 3 3 4-6"/></svg>Рынок<span class="cnt" id="navCon">0</span></button>
+    <button class="nav" data-act="tab" data-v="reports"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 3h9l4 4v14H6zM9.5 9h5M9.5 13h5M9.5 17h3"/></svg>Отчёт</button>
+    <button class="nav" data-act="tab" data-v="growth"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 20V8m0 0l-4 4m4-4l4 4M5 4h14"/></svg>Рост<span class="cnt" id="navLvl">1</span></button>
+    <div class="card tight sidecard">
+      <span class="lbl">Цель сезона</span>
+      <div class="mono" style="font-size:15px;margin:5px 0 7px" id="sideTarget">—</div>
+      <div class="bar"><i id="sideBar" style="width:0%"></i></div>
+      <div class="hint" id="sideHint">—</div>
+    </div>
+    <div class="card tight">
+      <span class="lbl">Горячие клавиши</span>
+      <div class="hint" style="line-height:1.7">Space — пауза · Enter — пересчёт<br>1…5 — разделы · M — звук</div>
+    </div>
+  </aside>
+  <main class="main" id="view"></main>
+  <aside class="rail">
+    <div class="card tight">
+      <div class="between"><span class="lbl">Активные события</span><span class="chip vio" id="modCount">0</span></div>
+      <div class="feed" id="mods" style="max-height:150px;margin-top:9px"></div>
+    </div>
+    <div class="card tight">
+      <div class="between"><span class="lbl">Требует внимания</span><span class="chip warn" id="alertCount">0</span></div>
+      <div class="feed" id="alerts" style="margin-top:9px"></div>
+    </div>
+    <div class="card tight">
+      <span class="lbl">Лента новостей</span>
+      <div class="feed" id="news" style="margin-top:9px"></div>
+    </div>
+  </aside>
+</div>
+
+<div class="action">
+  <div class="est"><span class="lbl">Оценка недели</span><b id="estVal" class="mono">—</b></div>
+  <div class="grow" style="min-width:0">
+    <div class="between" style="font-size:11.5px;color:var(--tx2)"><span id="weekLabel">—</span><span id="slotLabel">—</span></div>
+    <div class="bar b" style="margin-top:5px"><i id="seasonBar" style="width:0%"></i></div>
+  </div>
+  <button class="btn pri settle pulse" id="settleBtn" data-act="settle">
+    <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M5 12h13m0 0l-5-5m5 5l-5 5"/></svg>
+    Пересчёт недели
+  </button>
+</div>
+
+<nav class="tabbar">
+  <button class="on" data-act="tab" data-v="overview"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg>Обзор</button>
+  <button data-act="tab" data-v="biz"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 21h18M5 21V9l7-5 7 5v12"/></svg>Бизнес</button>
+  <button data-act="tab" data-v="market"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 19V5m0 14h16M8 15l3-4 3 3 4-6"/></svg>Рынок</button>
+  <button data-act="tab" data-v="reports"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 3h9l4 4v14H6zM9.5 13h5"/></svg>Отчёт</button>
+  <button data-act="tab" data-v="growth"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 20V8m0 0l-4 4m4-4l4 4M5 4h14"/></svg>Рост</button>
+</nav>
+
+<div class="settlestrip" id="settleStrip">
+  <div class="between"><span class="tagline">Пересчёт игрового мира</span><span class="mono dim" id="settleWeek"></span></div>
+  <div class="phases" id="phases"></div>
+</div>
+
+<div class="scrim" id="modal"><div class="modal" id="modalBody" style="position:relative"></div></div>
+
+<div class="brief" id="brief">
+  <div class="briefin">
+    <span class="tagline">Многопользовательский бизнес-симулятор · сезон 1</span>
+    <h1 class="wordmark">КАПИТАЛИЯ</h1>
+    <p class="tag">Семь пересчётов в день. Одна империя на всех. Стройте шахты, заводы и магазины, перебивайте конкурентов ценой и качеством и превратите стартовый капитал в корпорацию — до конца сезона.</p>
+    <div class="diffs" id="diffs"></div>
+    <div class="rules">
+      <div class="rule"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F2A93B" stroke-width="1.8" stroke-linecap="round"><path d="M12 8v8m-4-4h8"/><circle cx="12" cy="12" r="9"/></svg><b>Стройте</b>Магазин продаёт, завод перерабатывает, шахта и ферма дают сырьё.</div>
+      <div class="rule"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#2DD4BF" stroke-width="1.8" stroke-linecap="round"><path d="M4 18l5-6 4 3 6-8"/></svg><b>Настраивайте</b>Цена, зарплата, объём и реклама меняют долю рынка мгновенно.</div>
+      <div class="rule"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#4C8DFF" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h13m0 0l-5-5m5 5l-5 5"/></svg><b>Пересчитывайте</b>Каждая неделя — закупки, производство, розница и финансы.</div>
+      <div class="rule"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#FF5CC8" stroke-width="1.8" stroke-linecap="round"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.4l6.1-.8z"/></svg><b>Побеждайте</b>Достигните целевой капитализации раньше, чем закончится сезон.</div>
+    </div>
+    <div class="row wrap">
+      <button class="btn pri" id="startBtn" data-act="start" style="min-width:210px;justify-content:center;font-size:15px;padding:13px 20px">Начать сезон</button>
+      <button class="btn" id="contBtn" data-act="continue" style="display:none">Продолжить сохранение</button>
+      <span class="chip" id="seedChip">seed —</span>
+      <span class="hint">Прогресс сохраняется автоматически в этом браузере.</span>
+    </div>
+    <div class="marq"><div id="marq"></div></div>
+  </div>
+</div>
+
+<canvas id="fx"></canvas>
+<div id="floaters"></div>
+<div id="toasts"></div>
+
+<script>
+"use strict";
+/* ==================================================================
+   КАПИТАЛИЯ — полностью играбельный экономический симулятор
+   ================================================================== */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const clamp=(v,a,b)=>v<a?a:v>b?b:v;
+const nf=new Intl.NumberFormat('ru-RU',{maximumFractionDigits:0});
+const nf1=new Intl.NumberFormat('ru-RU',{maximumFractionDigits:1});
+const nf2=new Intl.NumberFormat('ru-RU',{minimumFractionDigits:2,maximumFractionDigits:2});
+function cr(n){const a=Math.abs(n);const s=n<0?'−':'';
+  if(a>=1e9)return s+nf2.format(a/1e9)+' млрд';
+  if(a>=1e6)return s+nf2.format(a/1e6)+' млн';
+  if(a>=1e4)return s+nf.format(Math.round(a/1e3))+' тыс';
+  return s+nf.format(Math.round(a));}
+function full(n){return (n<0?'−':'')+nf.format(Math.round(Math.abs(n)))+' CR';}
+function tn(n){return nf1.format(n)+' т';}
+function pc(n){return (n>=0?'+':'−')+nf1.format(Math.abs(n*100))+'%';}
+const ICON={
+  shop:'<path d="M4 9h16l-1 11H5zM4 9l2-5h12l2 5M9 13h6"/>',
+  factory:'<path d="M3 21h18M4 21V10l5 3V10l5 3V8l5 3v10M8 17h2m4 0h2"/>',
+  mine:'<path d="M14 4l6 6M4 20l9-9M13 3l8 8-3 3-8-8zM3 21l4-1"/>',
+  farm:'<path d="M12 21V9M12 9c0-3 2-5 4-5 0 3-2 5-4 5zm0 0c0-3-2-5-4-5 0 3 2 5 4 5zM6 21h12"/>',
+  warehouse:'<path d="M3 21V9l9-5 9 5v12M3 21h18M8 21v-7h8v7M8 17h8"/>',
+  lab:'<path d="M9 3h6M10 3v6l-5 9a2 2 0 001.8 3h10.4A2 2 0 0019 18l-5-9V3M7 15h10"/>',
+  coin:'<circle cx="12" cy="12" r="8"/><path d="M12 8v8M9.5 10h5M9.5 14h5"/>',
+  bolt:'<path d="M13 2L5 14h6l-1 8 8-12h-6z"/>',
+  warn:'<path d="M12 3l9 17H3zM12 9v5m0 3v.5"/>',
+  check:'<path d="M4 12l5 5L20 6"/>',
+  info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-9v.5"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  close:'<path d="M6 6l12 12M18 6L6 18"/>',
+  back:'<path d="M19 12H6m0 0l5-5m-5 5l5 5"/>',
+  up:'<path d="M12 19V5m0 0l-6 6m6-6l6 6"/>',
+  sound:'<path d="M4 9v6h4l5 4V5L8 9zM17 8.5a5 5 0 010 7M20 6a9 9 0 010 12"/>',
+  mute:'<path d="M4 9v6h4l5 4V5L8 9zM17 9l5 6m0-6l-5 6"/>',
+  crown:'<path d="M3 8l4 4 5-7 5 7 4-4-2 12H5z"/>',
+  city:'<path d="M3 21h18M6 21V7l5-3v17M11 21V10l7 3v8M8 10h1m-1 4h1m5 2h1"/>',
+  flask:'<path d="M9 3h6M10 3v6l-5 9a2 2 0 001.8 3h10.4A2 2 0 0019 18l-5-9V3"/>',
+  truck:'<path d="M3 16V6h11v10M14 10h4l3 3v3M3 16h2m10 0h3"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',
+  doc:'<path d="M6 3h9l4 4v14H6zM9.5 9h5M9.5 13h5M9.5 17h3"/>'
+};
+function sv(n,s=18,st=1.8){return '<svg viewBox="0 0 24 24" width="'+s+'" height="'+s+'" fill="none" stroke="currentColor" stroke-width="'+st+'" stroke-linecap="round" stroke-linejoin="round">'+(ICON[n]||'')+'</svg>';}
+
+/* ---------------- STATIC DATA ---------------- */
+const DIFF={
+  easy:{key:'easy',name:'Стажёр',desc:'Мягкий спрос, дешёвые издержки. Учитесь на ошибках.',weeks:26,target:25e6,demand:1.16,cost:.9,rivals:2,start:5.2e6,ev:.24},
+  normal:{key:'normal',name:'Предприниматель',desc:'Честный рынок. Нужна вертикальная интеграция.',weeks:22,target:40e6,demand:1,cost:1,rivals:2,start:4.6e6,ev:.35},
+  hard:{key:'hard',name:'Магнат',desc:'Тесный рынок, дорогие деньги, злые конкуренты.',weeks:18,target:70e6,demand:.88,cost:1.12,rivals:3,start:4e6,ev:.46}
+};
+const CITIES=[
+  {id:'nord',name:'Нордхейм',country:'Нордия',pop:1240000,wealth:1,wage:2800,rent:1,tax:.18,priceIndex:1,qIndex:1,unlock:1},
+  {id:'sol',name:'Соларис',country:'Солария',pop:1850000,wealth:1.22,wage:3300,rent:1.25,tax:.12,priceIndex:1.12,qIndex:1.1,unlock:3},
+  {id:'fer',name:'Феррат',country:'Ферратия',pop:2600000,wealth:.86,wage:2400,rent:.8,tax:.25,priceIndex:.92,qIndex:.92,unlock:6}
+];
+const CITY=Object.fromEntries(CITIES.map(c=>[c.id,c]));
+const GOODS={
+  ore:{name:'Руда',cat:'raw',base:900,mkt:900,tier:0,color:'#A78BFA'},
+  grain:{name:'Зерно',cat:'raw',base:760,mkt:760,tier:0,color:'#E8C07D'},
+  steel:{name:'Сталь',cat:'promo',base:2900,mkt:2088,tier:1,color:'#4C8DFF'},
+  flour:{name:'Мука',cat:'food',base:2400,mkt:1584,tier:1,color:'#B8E62D'},
+  bread:{name:'Хлеб',cat:'food',base:6800,mkt:4216,tier:2,color:'#F2A93B',perish:.08},
+  parts:{name:'Детали',cat:'promo',base:7400,mkt:5180,tier:2,color:'#FF5CC8'},
+  tech:{name:'Техника',cat:'tech',base:21000,mkt:14280,tier:3,color:'#2DD4BF'}
+};
+const GL=Object.keys(GOODS);
+const CATS={food:{name:'Продукты',color:'#F2A93B'},promo:{name:'Промтовары',color:'#4C8DFF'},tech:{name:'Техника',color:'#2DD4BF'}};
+const RATE={food:.00014,promo:.00004,tech:.000024};
+const RECIPES=[
+  {id:'steel',out:'steel',in:{ore:1.25},infl:{ore:.7},work:1},
+  {id:'flour',out:'flour',in:{grain:1.15},infl:{grain:.65},work:.85},
+  {id:'bread',out:'bread',in:{flour:.62},infl:{flour:.55},work:1.1},
+  {id:'parts',out:'parts',in:{steel:1.1},infl:{steel:.6},work:1.2},
+  {id:'tech',out:'tech',in:{parts:.8,steel:.35},infl:{parts:.5,steel:.2},work:1.6}
+];
+const REC=Object.fromEntries(RECIPES.map(r=>[r.id,r]));
+const TYPES={
+  shop:{name:'Магазин',cost:1200000,rent:18000,workers:14,cap:110,icon:'shop',desc:'Продаёт товары населению. Главный источник выручки.'},
+  factory:{name:'Завод',cost:3200000,rent:34000,workers:26,cap:95,icon:'factory',process:900,desc:'Перерабатывает сырьё в товар по рецептуре.'},
+  mine:{name:'Шахта',cost:2600000,rent:26000,workers:30,cap:130,icon:'mine',out:'ore',process:260,desc:'Добывает руду — дешёвое сырьё для стали.'},
+  farm:{name:'Ферма',cost:2200000,rent:20000,workers:22,cap:120,icon:'farm',out:'grain',process:210,desc:'Выращивает зерно для муки и хлеба.'},
+  warehouse:{name:'Склад',cost:800000,rent:9000,workers:6,cap:0,icon:'warehouse',desc:'+400 т ёмкости хранения в городе.'},
+  lab:{name:'Лаборатория',cost:4000000,rent:30000,workers:18,cap:0,icon:'lab',rp:14,desc:'Даёт очки исследований для технологий.'}
+};
+const TECHS={
+  quality:{name:'Качество',icon:'check',color:'#2DD4BF',desc:'+9 к максимальному качеству продукции за уровень.'},
+  volume:{name:'Объём',icon:'bolt',color:'#F2A93B',desc:'+10% к мощности всех предприятий за уровень.'},
+  cost:{name:'Себестоимость',icon:'coin',color:'#B8E62D',desc:'−6% к затратам на переработку за уровень.'},
+  logistics:{name:'Логистика',icon:'truck',color:'#4C8DFF',desc:'−2% к закупочным ценам и −15% к порче за уровень.'}
+};
+const ACHS=[
+  {id:'first',name:'Первая прибыль',desc:'Неделя в плюсе'},
+  {id:'mln',name:'Миллионер',desc:'1 млн накопленной прибыли'},
+  {id:'vert',name:'Интеграция',desc:'Сырьё + завод + магазин в одном городе'},
+  {id:'ten',name:'Сеть',desc:'10 предприятий'},
+  {id:'lvl5',name:'Уровень 5',desc:'Компания 5 уровня'},
+  {id:'lvl10',name:'Уровень 10',desc:'Компания 10 уровня'},
+  {id:'contract',name:'Поставщик',desc:'Контракт выполнен'},
+  {id:'win',name:'Магнат',desc:'Цель сезона достигнута'}
+];
+const EVENTS=[
+  {id:'crisis',name:'Экономический спад',tone:'bad',weeks:3,cat:.74,txt:'Спрос населения падает во всех категориях.'},
+  {id:'boom',name:'Потребительский бум',tone:'ok',weeks:3,cat:1.3,txt:'Население закупается впрок — спрос растёт.'},
+  {id:'harvest',name:'Неурожай',tone:'warn',weeks:3,mkt:{grain:1.65,flour:1.3},txt:'Зерно и мука резко дорожают на бирже.'},
+  {id:'fashion',name:'Мода на технику',tone:'info',weeks:2,cat:{tech:1.55},txt:'Категория «Техника» переживает бум.'},
+  {id:'sanction',name:'Торговые ограничения',tone:'warn',weeks:2,mktAll:1.18,txt:'Импортное сырьё дорожает.'},
+  {id:'strike',name:'Забастовка',tone:'bad',weeks:2,eff:.74,needLowWage:true,txt:'Низкие зарплаты вызвали забастовку: эффективность падает.'},
+  {id:'break',name:'Научный прорыв',tone:'ok',weeks:1,rp:34,txt:'Лаборатории получили внеплановые очки исследований.'},
+  {id:'tax',name:'Налоговая реформа',tone:'warn',weeks:4,tax:.05,txt:'Ставка налога на прибыль временно повышена.'},
+  {id:'invest',name:'Приход инвестора',tone:'ok',weeks:1,cash:600000,txt:'Инвестор внёс деньги в обмен на будущие дивиденды.'},
+  {id:'fuel',name:'Топливный кризис',tone:'warn',weeks:3,mkt:{ore:1.35,steel:1.22},txt:'Руда и сталь дорожают из-за логистики.'}
+];
+const MQ=54, SAVE='kapitalia.save.v3';
+
+/* ---------------- STATE ---------------- */
+let S=null, generation=0, settle=null, pendingRender=false, chartAnim=0, rafId=0, lastT=0;
+function rand(){S.rng=(S.rng+0x6D2B79F5)>>>0;let t=S.rng;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return ((t^(t>>>14))>>>0)/4294967296;}
+function randn(){let u=0,v=0;while(u===0)u=rand();while(v===0)v=rand();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+function pick(a){return a[Math.floor(rand()*a.length)];}
+function slots(l){return 2+Math.floor(l*1.4);}
+function xpNeed(l){return Math.round(55*Math.pow(l,1.35));}
+function techMax(l){return clamp(Math.floor(l/2)+1,1,5);}
+function unlockedCities(){return CITIES.filter(c=>S.unlocked[c.id]);}
+function refPrice(g,c){return GOODS[g].base*c.priceIndex*(1+S.inflation);}
+function cityInvValue(id){let v=0;GL.forEach(g=>{v+=S.inv[id][g].qty*S.inv[id][g].cost;});return v;}
+function assets(){return S.ents.reduce((a,e)=>a+e.book,0);}
+function invValue(){return CITIES.reduce((a,c)=>a+(S.unlocked[c.id]?cityInvValue(c.id):0),0);}
+function capital(){return S.cash+assets()+invValue()-S.loan;}
+function maxLoan(){return Math.max(2e6,3*(S.history.length?S.history[S.history.length-1].rev:4e5));}
+function storageCap(id){return 500+400*S.ents.filter(e=>e.type==='warehouse'&&e.city===id).length;}
+function reqWorkers(e){const t=TYPES[e.type];if(!t.workers)return 0;const rw=e.type==='factory'?REC[e.recipe].work:1;return Math.max(1,Math.round(t.workers*(1+.28*(e.level-1))*rw));}
+function effOf(e){
+  const req=reqWorkers(e);if(!req)return 1;
+  const staffing=clamp(e.workers/req,0,1.25);
+  const skill=clamp(.6+.045*S.level,.6,1);
+  const wf=clamp(.7+.5*e.wageMul,.7,1.25);
+  const eq=.85+.1*e.equip;
+  return clamp(staffing*(.6+.4*skill)*wf*eq,.3,1.6);
+}
+function capOf(e,E){const t=TYPES[e.type];if(!t.cap)return 0;return t.cap*(1+.35*(e.level-1))*(.85+.1*e.equip)*(E||effOf(e))*(1+.1*S.tech.volume);}
+function upgCost(e){return Math.round(TYPES[e.type].cost*.62*Math.pow(1.9,e.level-1));}
+function equipCost(e){return Math.round(TYPES[e.type].cost*.28*Math.pow(1.75,e.equip-1));}
+function techCost(k){return Math.round(260000*Math.pow(2.1,S.tech[k]));}
+function techRP(k){return S.tech[k]>=2?40*(S.tech[k]-1):0;}
+function addInv(c,g,qty,q,cost){if(qty<=0)return;const it=S.inv[c][g];const tot=it.qty+qty;
+  it.q=(it.q*it.qty+q*qty)/tot;it.cost=(it.cost*it.qty+cost*qty)/tot;it.qty=tot;}
+function takeInv(c,g,qty){const it=S.inv[c][g];const t=Math.min(it.qty,Math.max(0,qty));it.qty-=t;return {qty:t,q:it.q,cost:it.cost};}
+function totalQty(g){return CITIES.reduce((a,c)=>a+(S.unlocked[c.id]?S.inv[c.id][g].qty:0),0);}
+function news(text,tone='info'){S.news.unshift({w:S.week,text,tone});if(S.news.length>36)S.news.pop();}
+function makeEnt(type,city,name){
+  const t=TYPES[type];
+  const e={id:S.nextId++,type,city,name:name||t.name+' №'+(S.ents.filter(x=>x.type===type).length+1),
+    level:1,equip:1,workers:t.workers,wageMul:1,volume:.85,recipe:'flour',autoBuy:true,maxPrice:1.3,
+    book:t.cost,sells:type==='shop'?[{good:'bread',priceMul:1}]:[],lastOut:0,lastEff:1,lastRev:0,lastSold:0,lastCap:0,stockout:false};
+  S.ents.push(e);S.stats.builds++;return e;
+}
+function newGame(diff,seed){
+  const d=DIFF[diff];
+  S={v:3,seed:seed>>>0,rng:seed>>>0,difficulty:diff,week:1,seasonWeeks:d.weeks,target:d.target,
+    cash:d.start,loan:0,xp:0,level:1,brand:.9,marketing:120000,rp:0,inflation:0,
+    tech:{quality:0,volume:0,cost:0,logistics:0},unlocked:{nord:true,sol:false,fer:false},
+    inv:{},ents:[],market:{},rivals:{},offers:[],active:[],mods:[],news:[],history:[],ach:{},
+    autoSell:{ore:true,grain:true,steel:false,flour:false,bread:false,parts:false,tech:false},
+    stats:{rev:0,net:0,best:0,builds:0,contracts:0},nextId:1,lastNet:0,cd:0,phase:'play',endless:false,
+    ui:{tab:'overview',sel:null,speed:0,muted:false,trade:null,diff:diff}};
+  CITIES.forEach(c=>{
+    S.inv[c.id]={};GL.forEach(g=>{S.inv[c.id][g]={qty:0,q:MQ,cost:GOODS[g].mkt};});
+    S.rivals[c.id]={};Object.keys(CATS).forEach(cat=>{
+      S.rivals[c.id][cat]=Array.from({length:d.rivals},(_,i)=>({p:1+(i*.07-.04),q:.94+i*.06,b:1,m:1}));});
+  });
+  GL.forEach(g=>{const a=GOODS[g].mkt;S.market[g]={price:a,hist:Array.from({length:14},()=>a*(.93+rand()*.14))};});
+  addInv('nord','bread',42,56,GOODS.bread.mkt);
+  addInv('nord','flour',26,55,GOODS.flour.mkt);
+  const e=makeEnt('shop','nord','Универмаг «Заря»');S.ui.sel=e.id;
+  news('Сезон открыт. Стартовый капитал '+cr(S.cash)+' CR.','ok');
+  news('Совет: своя мука дешевле биржевой — постройте завод рядом с магазином.','info');
+  genOffers(3);
+  S.cd=weekMs();
+  return S;
+}
+function weekMs(){return [0,24000,12000,6000][S.ui.speed]||0;}
+function genOffers(n){
+  const cs=unlockedCities();
+  for(let i=0;i<n;i++){
+    const g=pick(['bread','flour','steel','parts','tech','grain','ore']);
+    const c=pick(cs);
+    const tons=Math.round(8+rand()*22);
+    S.offers.push({id:S.nextId++,city:c.id,good:g,tons,weeks:2+Math.floor(rand()*4),
+      price:Math.round(S.market[g].price*(1.12+rand()*.3))});
+  }
+  while(S.offers.length>4)S.offers.shift();
+}
+
+/* ---------------- ECONOMY: ONE WEEK ---------------- */
+function computeWeek(){
+  const d=DIFF[S.difficulty];
+  const rep={week:S.week,retail:0,contractRev:0,tradeRev:0,cogs:0,payroll:0,rent:0,dep:0,mkt:S.marketing,
+    interest:0,penalty:0,tax:0,net:0,purchases:0,produced:{},cat:{food:0,promo:0,tech:0},sold:0,
+    shares:[],levelUps:[],newAch:[],win:false,lose:null,spoil:0,overflow:0};
+  let catMul={food:1,promo:1,tech:1},mktMul={},mktAll=1,effMul=1,taxAdd=0;
+  S.mods.forEach(m=>{
+    if(typeof m.cat==='number'){for(const k in catMul)catMul[k]*=m.cat;}
+    else if(m.cat){for(const k in m.cat)catMul[k]=(catMul[k]||1)*m.cat[k];}
+    if(m.mkt)for(const k in m.mkt)mktMul[k]=(mktMul[k]||1)*m.mkt[k];
+    if(m.mktAll)mktAll*=m.mktAll;
+    if(m.eff)effMul*=m.eff;
+    if(m.tax)taxAdd+=m.tax;
+  });
+  S.mods.forEach(m=>m.weeks--);S.mods=S.mods.filter(m=>m.weeks>0);
+  const lowWage=S.ents.some(e=>reqWorkers(e)>0&&e.wageMul<.85);
+  if(rand()<d.ev){
+    const pool=EVENTS.filter(ev=>!ev.needLowWage||lowWage);
+    const ev=pick(pool);
+    if(ev.rp){S.rp+=ev.rp;}
+    if(ev.cash){S.cash+=ev.cash;}
+    if(ev.weeks>1||ev.cat||ev.mkt||ev.eff||ev.tax)S.mods.push(Object.assign({},ev,{weeks:ev.weeks}));
+    news(ev.name+': '+ev.txt,ev.tone);
+    rep.event=ev;
+  }
+  GL.forEach(g=>{
+    const a=GOODS[g].mkt*(mktMul[g]||1)*mktAll;
+    let p=S.market[g].price;
+    p=p*(1+randn()*.055)+.15*(a-p);
+    p=clamp(p,a*.62,a*1.7);
+    S.market[g].price=p;S.market[g].hist.push(p);
+    if(S.market[g].hist.length>28)S.market[g].hist.shift();
+  });
+  S.inflation=Math.min(.35,.008*(S.week-1));
+  S.ents.forEach(e=>{e.lastRev=0;e.lastSold=0;e.lastOut=0;e.stockout=false;});
+  /* extraction */
+  S.ents.filter(e=>e.type==='mine'||e.type==='farm').forEach(e=>{
+    const E=effOf(e)*effMul,c=capOf(e,E),out=TYPES[e.type].out;
+    const q=clamp(40+6*S.tech.quality+2*e.level+3*e.equip,10,100);
+    const unit=TYPES[e.type].process*(1-.06*S.tech.cost)*d.cost*(1+S.inflation);
+    addInv(e.city,out,c,q,unit);
+    rep.produced[out]=(rep.produced[out]||0)+c;
+    e.lastOut=c;e.lastEff=E;e.lastCap=c;
+  });
+  /* manufacturing, by tier */
+  S.ents.filter(e=>e.type==='factory').sort((a,b)=>GOODS[REC[a.recipe].out].tier-GOODS[REC[b.recipe].out].tier).forEach(e=>{
+    const r=REC[e.recipe],E=effOf(e)*effMul,cap=capOf(e,E)*clamp(e.volume,0,1);
+    let avail=Infinity;
+    for(const g in r.in){
+      const per=r.in[g];let have=S.inv[e.city][g].qty;
+      if(e.autoBuy&&cap*per>have){
+        const maxP=S.market[g].price*e.maxPrice;
+        const cost=S.market[g].price*(1-.02*S.tech.logistics);
+        if(cost<=maxP){
+          const want=cap*per-have;
+          const buy=Math.min(want,Math.max(0,S.cash)/Math.max(1,cost));
+          if(buy>.01){S.cash-=buy*cost;rep.purchases+=buy*cost;addInv(e.city,g,buy,MQ,cost);have+=buy;}
+        }
+      }
+      avail=Math.min(avail,have/per);
+    }
+    const out=Math.max(0,Math.min(cap,avail===Infinity?0:avail));
+    if(out>.01){
+      let q=0,mat=0,infl=0;
+      for(const g in r.in){
+        const t=takeInv(e.city,g,out*r.in[g]);
+        const w=r.infl[g]||0;q+=t.q*w;infl+=w;mat+=t.qty*t.cost;
+      }
+      const tmax=clamp(45+9*S.tech.quality+3*S.level,10,100);
+      q=clamp((q+(1-infl)*tmax)*clamp(.55+.5*E,.55,1.15),5,100);
+      const proc=TYPES.factory.process*(1-.06*S.tech.cost)*d.cost*(1+S.inflation)*r.work;
+      addInv(e.city,r.out,out,q,(mat+out*proc)/out);
+      rep.produced[r.out]=(rep.produced[r.out]||0)+out;
+    }
+    e.lastOut=out;e.lastEff=E;e.lastCap=cap;
+  });
+  /* labs */
+  S.ents.filter(e=>e.type==='lab').forEach(e=>{
+    const E=effOf(e)*effMul;S.rp+=Math.round(TYPES.lab.rp*E*(1+.2*(e.level-1)));e.lastEff=E;
+  });
+  /* contracts first */
+  S.active.forEach(k=>{
+    const t=Math.min(S.inv[k.city][k.good].qty,k.tons);
+    const got=takeInv(k.city,k.good,t);
+    const rev=t*k.price;rep.contractRev+=rev;S.cash+=rev;rep.cogs+=t*got.cost;
+    if(t<k.tons-.01){
+      const pen=(k.tons-t)*k.price*.25;rep.penalty+=pen;S.cash-=pen;
+      news('Недопоставка по контракту '+GOODS[k.good].name+': штраф '+cr(pen)+' CR.','bad');
+    }
+    k.weeks--;
+    if(k.weeks<=0){
+      k.done=true;S.stats.contracts++;
+      const bonus=k.tons*k.price*.12;S.cash+=bonus;rep.contractRev+=bonus;
+      news('Контракт на '+GOODS[k.good].name+' выполнен. Бонус '+cr(bonus)+' CR.','ok');
+    }
+  });
+  S.active=S.active.filter(k=>!k.done);
+  /* retail */
+  const nC=unlockedCities().length;
+  const mktN=clamp(S.marketing/(120000*Math.max(1,nC)),.1,3);
+  unlockedCities().forEach(c=>{
+    const season=1+.12*Math.sin((S.week/S.seasonWeeks)*Math.PI*2);
+    Object.keys(CATS).forEach(cat=>{
+      const pool=c.pop*RATE[cat]*c.wealth*season*(catMul[cat]||1)*d.demand*(1+S.inflation*.15);
+      const offers=[];
+      S.ents.filter(e=>e.type==='shop'&&e.city===c.id).forEach(e=>{
+        const E=effOf(e)*effMul,cap=capOf(e,E);e.lastEff=E;e.lastCap=cap;
+        e.sells.forEach(sl=>{
+          if(GOODS[sl.good].cat!==cat)return;
+          const it=S.inv[c.id][sl.good];
+          if(e.autoBuy&&it.qty<cap){
+            const maxP=S.market[sl.good].price*e.maxPrice;
+            const cost=S.market[sl.good].price*(1-.02*S.tech.logistics);
+            if(cost<=maxP){
+              const buy=Math.min(cap-it.qty,Math.max(0,S.cash)/Math.max(1,cost));
+              if(buy>.01){S.cash-=buy*cost;rep.purchases+=buy*cost;addInv(c.id,sl.good,buy,MQ,cost);}
+            }
+          }
+          const ref=refPrice(sl.good,c),price=ref*sl.priceMul;
+          const qn=clamp((S.inv[c.id][sl.good].qty>0?S.inv[c.id][sl.good].q:MQ)/(55*c.qIndex),.2,3);
+          const pn=clamp(price/ref,.4,3);
+          const at=Math.pow(qn,1.6)*Math.pow(pn,-2.2)*Math.pow(S.brand,.35)*Math.pow(mktN,.25)*(1+.05*(e.equip-1));
+          offers.push({e,sl,price,at,cap,share:0});
+        });
+      });
+      if(!offers.length)return;
+      const riv=S.rivals[c.id][cat];
+      let tot=offers.reduce((a,o)=>a+o.at,0);
+      riv.forEach(r=>{tot+=Math.pow(r.q,1.6)*Math.pow(r.p,-2.2)*Math.pow(r.b,.35)*Math.pow(r.m,.25);});
+      const byShop={};
+      offers.forEach(o=>{o.want=pool*o.at/tot;byShop[o.e.id]=(byShop[o.e.id]||0)+o.want;});
+      offers.forEach(o=>{
+        const sc=Math.min(1,o.cap/Math.max(.001,byShop[o.e.id]));
+        const qty=Math.min(o.want*sc,S.inv[c.id][o.sl.good].qty);
+        o.share=o.at/tot;
+        if(qty<=.01){o.e.stockout=true;return;}
+        const t=takeInv(c.id,o.sl.good,qty);
+        const rev=qty*o.price;
+        rep.retail+=rev;S.cash+=rev;rep.cogs+=qty*t.cost;rep.sold+=qty;
+        rep.cat[cat]+=rev;o.e.lastRev+=rev;o.e.lastSold+=qty;
+      });
+      const ps=offers.reduce((a,o)=>a+o.share,0);
+      rep.shares.push({city:c.id,cat,share:ps});
+      if(ps>.45&&riv.length<4){
+        riv.push({p:1.03,q:1,b:1,m:1});
+        news('В '+c.name+' вышел новый конкурент в категории «'+CATS[cat].name+'».','warn');
+      }
+      riv.forEach(r=>{
+        r.p=clamp(r.p+(1-r.p)*.12+randn()*.03,.7,1.5);
+        r.q=clamp(r.q+.004*(S.week/8)+randn()*.015,.7,1.6);
+      });
+    });
+  });
+  /* spoilage + storage + autosell */
+  unlockedCities().forEach(c=>{
+    GL.forEach(g=>{
+      const it=S.inv[c.id][g];
+      if(GOODS[g].perish&&it.qty>0){
+        const loss=it.qty*GOODS[g].perish*(1-.15*S.tech.logistics);
+        if(loss>.01){it.qty-=loss;rep.spoil+=loss*it.cost;rep.cogs+=loss*it.cost;}
+      }
+    });
+    let tot=GL.reduce((a,g)=>a+S.inv[c.id][g].qty,0);
+    const cap=storageCap(c.id);
+    if(tot>cap){
+      const k=cap/tot;
+      GL.forEach(g=>{
+        const it=S.inv[c.id][g];const ex=it.qty*(1-k);
+        if(ex>.01){it.qty-=ex;const rev=ex*S.market[g].price*.9;S.cash+=rev;rep.tradeRev+=rev;rep.cogs+=ex*it.cost;rep.overflow+=ex;}
+      });
+      news('Склад в '+c.name+' переполнен: излишки проданы с дисконтом 10%.','warn');
+    }
+    GL.forEach(g=>{
+      if(!S.autoSell[g])return;
+      const it=S.inv[c.id][g];
+      if(it.qty>150){
+        const q=it.qty-150;const t=takeInv(c.id,g,q);
+        const rev=q*S.market[g].price*.97;S.cash+=rev;rep.tradeRev+=rev;rep.cogs+=q*t.cost;
+      }
+    });
+  });
+  /* finance */
+  let taxW=0,taxN=0;
+  S.ents.forEach(e=>{
+    const c=CITY[e.city],t=TYPES[e.type];
+    rep.payroll+=e.workers*c.wage*(1+S.inflation)*e.wageMul*d.cost;
+    rep.rent+=t.rent*c.rent*(1+.3*(e.level-1))*d.cost;
+    const dp=e.book*.02;rep.dep+=dp;e.book=Math.max(t.cost*.15,e.book-dp);
+    taxW+=c.tax;taxN++;
+  });
+  rep.interest=S.loan*.025;
+  const rev=rep.retail+rep.contractRev+rep.tradeRev;
+  const pbt=rev-rep.cogs-rep.payroll-rep.rent-rep.dep-rep.mkt-rep.interest-rep.penalty;
+  const rate=clamp((taxN?taxW/taxN:.18)+taxAdd,0,.5);
+  rep.tax=Math.max(0,pbt)*rate;rep.rate=rate;
+  rep.net=pbt-rep.tax;rep.rev=rev;
+  S.cash-=rep.payroll+rep.rent+rep.mkt+rep.interest+rep.tax;
+  if(S.cash<0){
+    const need=-S.cash;
+    if(S.loan+need<=maxLoan()*1.5){S.loan+=need;S.cash=0;news('Овердрафт: банк закрыл кассовый разрыв на '+cr(need)+' CR.','bad');rep.overdraft=need;}
+    else rep.lose='bankrupt';
+  }
+  S.brand=clamp(S.brand*.94+.06*(mktN*1.12),.25,2.6);
+  S.stats.rev+=rev;S.stats.net+=rep.net;S.lastNet=rep.net;
+  S.stats.best=Math.max(S.stats.best,rep.net);
+  S.xp+=Math.max(0,rep.net)/8000+rev/60000;
+  while(S.xp>=xpNeed(S.level)&&S.level<30){
+    S.xp-=xpNeed(S.level);S.level++;
+    const un=['Слотов предприятий: '+slots(S.level)];
+    CITIES.forEach(c=>{if(c.unlock===S.level&&!S.unlocked[c.id]){S.unlocked[c.id]=true;un.push('Открыт город '+c.name);news('Открыт новый рынок: '+c.name+' ('+c.country+').','ok');}});
+    un.push('Доступный уровень технологий: '+techMax(S.level));
+    rep.levelUps.push({level:S.level,un});
+  }
+  const cap=capital();
+  S.history.push({week:S.week,rev,net:rep.net,cap,cash:S.cash,assets:assets(),inv:invValue()});
+  if(S.history.length>60)S.history.shift();
+  if(S.offers.length<3)genOffers(1);
+  /* achievements */
+  const grant=id=>{if(!S.ach[id]){S.ach[id]=true;rep.newAch.push(id);}};
+  if(rep.net>0)grant('first');
+  if(S.stats.net>=1e6)grant('mln');
+  if(S.ents.length>=10)grant('ten');
+  if(S.level>=5)grant('lvl5');
+  if(S.level>=10)grant('lvl10');
+  if(S.stats.contracts>=1)grant('contract');
+  CITIES.forEach(c=>{
+    const t=S.ents.filter(e=>e.city===c.id).map(e=>e.type);
+    if((t.includes('mine')||t.includes('farm'))&&t.includes('factory')&&t.includes('shop'))grant('vert');
+  });
+  if(cap>=S.target){rep.win=true;grant('win');}
+  S.week++;
+  if(!rep.win&&!rep.lose&&S.week>S.seasonWeeks&&!S.endless)rep.lose='season';
+  if(S.cash<-1e6)rep.lose='bankrupt';
+  S.lastRep=rep;
+  return rep;
+}
+function estimate(){
+  const d=DIFF[S.difficulty];let fixed=S.marketing+S.loan*.025,rev=0,cogs=0;
+  S.ents.forEach(e=>{
+    const c=CITY[e.city],t=TYPES[e.type];
+    fixed+=e.workers*c.wage*(1+S.inflation)*e.wageMul*d.cost+t.rent*c.rent*(1+.3*(e.level-1))*d.cost;
+    if(e.type==='shop'){
+      const cap=capOf(e);let used=0;
+      e.sells.forEach(sl=>{
+        const q=Math.min(cap/Math.max(1,e.sells.length)-used,S.inv[e.city][sl.good].qty+ (e.autoBuy?cap:0));
+        const qq=Math.max(0,q);used+=qq;
+        rev+=qq*refPrice(sl.good,c)*sl.priceMul*.42;
+        cogs+=qq*S.market[sl.good].price*.42;
+      });
+    }
+  });
+  return (rev-cogs)*.9-fixed;
+}
+function alertsList(){
+  const a=[];
+  S.ents.forEach(e=>{
+    if(e.type==='shop'){
+      if(!e.sells.length)a.push({tone:'warn',t:e.name+': не выбран ассортимент'});
+      else if(e.stockout)a.push({tone:'bad',t:e.name+': нет товара на складе'});
+      e.sells.forEach(sl=>{if(sl.priceMul>1.3)a.push({tone:'warn',t:e.name+': '+GOODS[sl.good].name+' дороже рынка на '+Math.round((sl.priceMul-1)*100)+'%'});});
+    }
+    if(reqWorkers(e)>0){
+      if(e.workers<reqWorkers(e)*.7)a.push({tone:'warn',t:e.name+': нехватка персонала ('+e.workers+'/'+reqWorkers(e)+')'});
+      if(e.wageMul<.85)a.push({tone:'bad',t:e.name+': зарплата ниже рынка — риск забастовки'});
+    }
+    if(e.type==='factory'&&e.lastCap>0&&e.lastOut<e.lastCap*.4)a.push({tone:'warn',t:e.name+': простаивает — не хватает сырья'});
+  });
+  unlockedCities().forEach(c=>{
+    const tot=GL.reduce((s,g)=>s+S.inv[c.id][g].qty,0);
+    if(tot>storageCap(c.id)*.9)a.push({tone:'warn',t:c.name+': склад почти заполнен ('+Math.round(tot)+'/'+storageCap(c.id)+' т)'});
+  });
+  S.active.forEach(k=>{if(S.inv[k.city][k.good].qty<k.tons)a.push({tone:'bad',t:'Контракт под угрозой: нужно '+k.tons+' т '+GOODS[k.good].name});});
+  if(S.cash<300000)a.push({tone:'bad',t:'Кассовый разрыв близко — сократите расходы или возьмите кредит'});
+  if(S.cash>4e6&&S.ents.length<slots(S.level))a.push({tone:'info',t:'Свободные '+cr(S.cash)+' CR: постройте предприятие (слот свободен)'});
+  if(S.loan>maxLoan()*.8)a.push({tone:'warn',t:'Кредитная нагрузка выше 80% лимита'});
+  return a.slice(0,9);
+}
+function advisor(){
+  const out=[];
+  const shops=S.ents.filter(e=>e.type==='shop');
+  const fac=S.ents.filter(e=>e.type==='factory');
+  if(!fac.length)out.push({tone:'info',t:'Постройте завод с рецептурой «Мука», затем «Хлеб»: своя себестоимость ниже биржевой на 40–60%.'});
+  if(fac.length&&!S.ents.some(e=>e.type==='farm'||e.type==='mine'))out.push({tone:'info',t:'Ферма или шахта замкнёт цепочку и уберёт зависимость от биржевых цен.'});
+  if(shops.length&&S.marketing<100000)out.push({tone:'warn',t:'Реклама ниже 100 тыс CR: бренд падает, доля рынка уходит конкурентам.'});
+  if(S.brand>1.4&&S.marketing>250000)out.push({tone:'ok',t:'Бренд силён ('+nf2.format(S.brand)+'). Можно поднять цены на 5–10% без потери доли.'});
+  if(S.tech.quality<2&&S.level>=3)out.push({tone:'info',t:'Технология «Качество» повышает долю рынка сильнее, чем скидка.'});
+  if(S.ents.length>=slots(S.level))out.push({tone:'warn',t:'Все слоты заняты. Растите уровень компании прибылью, чтобы открыть новые.'});
+  if(S.level>=3&&!S.unlocked.sol)out.push({tone:'info',t:'Соларис откроется на 3 уровне: богаче население и ниже налог.'});
+  if(!out.length)out.push({tone:'ok',t:'Структура сбалансирована. Наращивайте объём и следите за долей рынка.'});
+  return out.slice(0,3);
+}
+
+/* ---------------- AUDIO ---------------- */
+let AC=null,MG=null;
+function initAudio(){
+  if(AC)return;
+  try{
+    AC=new (window.AudioContext||window.webkitAudioContext)();
+    MG=AC.createGain();MG.gain.value=.22;MG.connect(AC.destination);
+  }catch(e){AC=null;}
+}
+function tone(f,dur,type='sine',vol=1,delay=0){
+  if(!AC||!S||S.ui.muted)return;
+  const t=AC.currentTime+delay;
+  const o=AC.createOscillator(),g=AC.createGain();
+  o.type=type;o.frequency.setValueAtTime(f,t);
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.5*vol,t+.012);
+  g.gain.exponentialRampToValueAtTime(.0008,t+dur);
+  o.connect(g);g.connect(MG);o.start(t);o.stop(t+dur+.03);
+}
+function sfx(k){
+  if(!AC||!S||S.ui.muted)return;
+  if(AC.state==='suspended')AC.resume();
+  switch(k){
+    case 'click':tone(520,.07,'triangle',.5);break;
+    case 'tick':tone(180,.16,'sine',.9);tone(270,.12,'triangle',.4,.05);break;
+    case 'cash':tone(880,.08,'square',.35);tone(1320,.1,'sine',.3,.05);break;
+    case 'build':tone(120,.22,'sawtooth',.5);tone(240,.16,'triangle',.3,.06);break;
+    case 'good':[523,659,784].forEach((f,i)=>tone(f,.24,'triangle',.5,i*.07));break;
+    case 'bad':[400,300,220].forEach((f,i)=>tone(f,.26,'sine',.55,i*.08));break;
+    case 'level':[523,659,784,1046].forEach((f,i)=>tone(f,.34,'triangle',.55,i*.09));break;
+    case 'win':[523,659,784,1046,1318].forEach((f,i)=>tone(f,.5,'triangle',.6,i*.12));break;
+    case 'lose':[440,349,262,196].forEach((f,i)=>tone(f,.5,'sine',.6,i*.16));break;
+    case 'err':tone(150,.16,'square',.4);break;
+    case 'start':[392,523,659].forEach((f,i)=>tone(f,.4,'triangle',.5,i*.1));break;
+  }
+}
+
+/* ---------------- FX ---------------- */
+const fx=$('#fx'),fxc=fx.getContext('2d');
+let parts=[],DPR=1;
+function sizeFx(){
+  DPR=Math.min(2,window.devicePixelRatio||1);
+  fx.width=Math.floor(innerWidth*DPR);fx.height=Math.floor(innerHeight*DPR);
+  fx.style.width=innerWidth+'px';fx.style.height=innerHeight+'px';
+  fxc.setTransform(DPR,0,0,DPR,0,0);
+}
+function burst(x,y,n,cols){
+  for(let i=0;i<n;i++){
+    const a=-Math.PI/2+(Math.random()-.5)*2.1,sp=2.4+Math.random()*5.2;
+    parts.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,r:2+Math.random()*3.4,
+      c:cols[Math.floor(Math.random()*cols.length)],life:1,rot:Math.random()*6.28,vr:(Math.random()-.5)*.3});
+  }
+  if(parts.length>420)parts=parts.slice(-420);
+}
+function stepParts(dt){
+  fxc.clearRect(0,0,innerWidth,innerHeight);
+  if(!parts.length)return;
+  const k=dt/16.67;
+  parts=parts.filter(p=>{
+    p.vy+=.19*k;p.x+=p.vx*k;p.y+=p.vy*k;p.vx*=.994;p.rot+=p.vr*k;p.life-=.0125*k;
+    if(p.life<=0||p.y>innerHeight+40)return false;
+    fxc.save();fxc.globalAlpha=clamp(p.life,0,1);fxc.translate(p.x,p.y);fxc.rotate(p.rot);
+    fxc.fillStyle=p.c;fxc.beginPath();fxc.ellipse(0,0,p.r,p.r*.68,0,0,6.283);fxc.fill();
+    fxc.restore();return true;
+  });
+}
+function floatText(txt,x,y,color){
+  const s=document.createElement('div');
+  s.className='floater';s.textContent=txt;s.style.color=color;
+  s.style.left=Math.max(8,Math.min(innerWidth-140,x))+'px';s.style.top=Math.max(8,y)+'px';
+  $('#floaters').appendChild(s);
+  s.addEventListener('animationend',()=>s.remove(),{once:true});
+}
+function toast(title,sub,tone='info',icon='info'){
+  const d=document.createElement('div');
+  d.className='toast '+tone;
+  d.innerHTML='<span style="color:var(--'+(tone==='ok'?'teal':tone==='bad'?'red':tone==='warn'?'amber':'blue')+');flex-shrink:0">'+sv(icon,17)+'</span><div><b>'+title+'</b>'+(sub?'<span>'+sub+'</span>':'')+'</div>';
+  $('#toasts').appendChild(d);
+  d.addEventListener('animationend',()=>d.remove(),{once:true});
+  while($('#toasts').children.length>4)$('#toasts').firstChild.remove();
+}
+
+/* ---------------- CHARTS ---------------- */
+function setupCanvas(cv,h){
+  const w=cv.parentElement.clientWidth||300;
+  cv.width=Math.floor(w*DPR);cv.height=Math.floor(h*DPR);
+  cv.style.width='100%';cv.style.height=h+'px';
+  const c=cv.getContext('2d');c.setTransform(DPR,0,0,DPR,0,0);c.clearRect(0,0,w,h);
+  return {c,w,h};
+}
+function drawSpark(cv,data,color){
+  if(!cv||!data.length)return;
+  const {c,w,h}=setupCanvas(cv,26);
+  const mn=Math.min(...data),mx=Math.max(...data),rg=(mx-mn)||1;
+  const px=i=>i/(data.length-1)*(w-2)+1, py=v=>h-3-((v-mn)/rg)*(h-8);
+  c.beginPath();data.forEach((v,i)=>i?c.lineTo(px(i),py(v)):c.moveTo(px(i),py(v)));
+  c.lineTo(px(data.length-1),h);c.lineTo(px(0),h);c.closePath();
+  const g=c.createLinearGradient(0,0,0,h);g.addColorStop(0,color+'55');g.addColorStop(1,color+'00');
+  c.fillStyle=g;c.fill();
+  c.beginPath();data.forEach((v,i)=>i?c.lineTo(px(i),py(v)):c.moveTo(px(i),py(v)));
+  c.strokeStyle=color;c.lineWidth=1.6;c.lineJoin='round';c.stroke();
+  c.beginPath();c.arc(px(data.length-1),py(data[data.length-1]),2.4,0,6.283);c.fillStyle=color;c.fill();
+}
+function drawCap(cv,prog){
+  if(!cv)return;
+  const H=S.history;
+  const {c,w,h}=setupCanvas(cv,210);
+  const pad={l:52,r:14,t:14,b:24};
+  if(H.length<2){
+    c.fillStyle='#65748A';c.font='12px Inter, sans-serif';c.textAlign='center';
+    c.fillText('Сделайте первый пересчёт — здесь появится история капитала',w/2,h/2);return;
+  }
+  const series=[
+    {k:'cap',n:'Капитализация',col:'#F2A93B'},
+    {k:'cash',n:'Кэш',col:'#4C8DFF'},
+    {k:'assets',n:'Активы',col:'#A78BFA'},
+    {k:'inv',n:'Запасы',col:'#2DD4BF'}
+  ];
+  const mx=Math.max(...H.map(p=>p.cap),S.target*.35)*1.12||1;
+  const px=i=>pad.l+(i/(H.length-1))*(w-pad.l-pad.r);
+  const py=v=>h-pad.b-(v/mx)*(h-pad.t-pad.b);
+  c.strokeStyle='rgba(120,140,170,.14)';c.lineWidth=1;c.font='10px IBM Plex Mono, monospace';c.fillStyle='#65748A';c.textAlign='right';
+  for(let i=0;i<=4;i++){
+    const v=mx*i/4,y=py(v);
+    c.beginPath();c.moveTo(pad.l,y);c.lineTo(w-pad.r,y);c.stroke();
+    c.fillText(cr(v),pad.l-7,y+3.5);
+  }
+  const tY=py(S.target);
+  if(tY>pad.t&&tY<h-pad.b){
+    c.save();c.setLineDash([5,4]);c.strokeStyle='#FF5CC8';c.lineWidth=1.4;
+    c.beginPath();c.moveTo(pad.l,tY);c.lineTo(w-pad.r,tY);c.stroke();c.restore();
+    c.fillStyle='#FF5CC8';c.textAlign='left';c.font='10px IBM Plex Mono, monospace';
+    c.fillText('ЦЕЛЬ '+cr(S.target),pad.l+5,tY-5);
+  }
+  const n=Math.max(2,Math.floor(H.length*clamp(prog,0,1)));
+  series.forEach((s,si)=>{
+    if(si===0){
+      c.beginPath();for(let i=0;i<n;i++){const x=px(i),y=py(H[i][s.k]);i?c.lineTo(x,y):c.moveTo(x,y);}
+      c.lineTo(px(n-1),h-pad.b);c.lineTo(px(0),h-pad.b);c.closePath();
+      const g=c.createLinearGradient(0,pad.t,0,h-pad.b);g.addColorStop(0,'#F2A93B44');g.addColorStop(1,'#F2A93B00');
+      c.fillStyle=g;c.fill();
+    }
+    c.beginPath();for(let i=0;i<n;i++){const x=px(i),y=py(H[i][s.k]);i?c.lineTo(x,y):c.moveTo(x,y);}
+    c.strokeStyle=s.col;c.lineWidth=si===0?2.4:1.5;c.lineJoin='round';
+    if(si>0)c.setLineDash([4,3]);else c.setLineDash([]);
+    c.stroke();c.setLineDash([]);
+    if(n>1){
+      const lx=px(n-1),ly=py(H[n-1][s.k]);
+      c.beginPath();c.arc(lx,ly,si===0?3.4:2.4,0,6.283);c.fillStyle=s.col;c.fill();
+    }
+  });
+  c.textAlign='center';c.fillStyle='#65748A';c.font='10px IBM Plex Mono, monospace';
+  const step=Math.max(1,Math.ceil(H.length/8));
+  for(let i=0;i<H.length;i+=step)c.fillText('Н'+H[i].week,px(i),h-7);
+}
+function drawRev(cv){
+  if(!cv)return;
+  const H=S.history.slice(-14);
+  const {c,w,h}=setupCanvas(cv,190);
+  const pad={l:52,r:12,t:14,b:24};
+  if(!H.length){c.fillStyle='#65748A';c.font='12px Inter, sans-serif';c.textAlign='center';c.fillText('Нет данных — сделайте пересчёт',w/2,h/2);return;}
+  const mx=Math.max(...H.map(p=>Math.max(p.rev,Math.abs(p.net))))*1.15||1;
+  const mn=Math.min(0,...H.map(p=>p.net))*1.15;
+  const rg=mx-mn||1;
+  const py=v=>h-pad.b-((v-mn)/rg)*(h-pad.t-pad.b);
+  const bw=(w-pad.l-pad.r)/H.length;
+  c.strokeStyle='rgba(120,140,170,.14)';c.font='10px IBM Plex Mono, monospace';c.fillStyle='#65748A';c.textAlign='right';
+  for(let i=0;i<=4;i++){const v=mn+rg*i/4,y=py(v);c.beginPath();c.moveTo(pad.l,y);c.lineTo(w-pad.r,y);c.stroke();c.fillText(cr(v),pad.l-7,y+3.5);}
+  const zero=py(0);
+  H.forEach((p,i)=>{
+    const x=pad.l+i*bw;
+    c.fillStyle='#B8E62D';c.globalAlpha=.85;
+    const rh=Math.max(1,zero-py(p.rev));c.fillRect(x+bw*.16,py(p.rev),bw*.34,rh);
+    c.globalAlpha=1;
+    const nv=p.net,col=nv>=0?'#2DD4BF':'#F2555A';
+    c.fillStyle=col;
+    const ny=nv>=0?py(nv):zero,nh=Math.max(1,Math.abs(py(nv)-zero));
+    c.fillRect(x+bw*.52,ny,bw*.34,nh);
+    c.fillStyle='#65748A';c.textAlign='center';c.font='9px IBM Plex Mono, monospace';
+    if(H.length<=10||i%2===0)c.fillText('Н'+p.week,x+bw/2,h-7);
+  });
+  c.strokeStyle='rgba(230,237,243,.3)';c.beginPath();c.moveTo(pad.l,zero);c.lineTo(w-pad.r,zero);c.stroke();
+}
+function drawCat(cv){
+  if(!cv)return;
+  const r=S.lastRep;
+  const {c,w,h}=setupCanvas(cv,150);
+  if(!r){c.fillStyle='#65748A';c.font='12px Inter, sans-serif';c.textAlign='center';c.fillText('Нет данных о продажах',w/2,h/2);return;}
+  const rows=[
+    {n:'Розница · продукты',v:r.cat.food,col:'#F2A93B'},
+    {n:'Розница · промтовары',v:r.cat.promo,col:'#4C8DFF'},
+    {n:'Розница · техника',v:r.cat.tech,col:'#2DD4BF'},
+    {n:'Контракты',v:r.contractRev,col:'#A78BFA'},
+    {n:'Биржа (излишки)',v:r.tradeRev,col:'#FF5CC8'}
+  ];
+  const mx=Math.max(...rows.map(r=>r.v),1);
+  const bh=20,gap=8;
+  c.font='11px Inter, sans-serif';
+  rows.forEach((row,i)=>{
+    const y=6+i*(bh+gap);
+    c.fillStyle='#96A4B3';c.textAlign='left';c.fillText(row.n,2,y+13);
+    const bx=150,bw=Math.max(2,(row.v/mx)*(w-bx-72));
+    const g=c.createLinearGradient(bx,0,bx+bw,0);g.addColorStop(0,row.col);g.addColorStop(1,row.col+'66');
+    c.fillStyle=g;c.fillRect(bx,y+3,bw,bh-6);
+    c.fillStyle=row.col;c.font='11px IBM Plex Mono, monospace';c.textAlign='left';
+    c.fillText(cr(row.v),bx+bw+7,y+14);c.font='11px Inter, sans-serif';
+  });
+}
+function drawCharts(){
+  const cap=$('#capChart');if(cap)drawCap(cap,chartAnim);
+  const rv=$('#revChart');if(rv)drawRev(rv);
+  const ct=$('#catChart');if(ct)drawCat(ct);
+  $$('[data-spark]').forEach(cv=>{
+    const g=cv.dataset.spark;drawSpark(cv,S.market[g].hist,GOODS[g].color);
+  });
+  const rc=$('#resChart');if(rc)drawCap(rc,1);
+}
+
+/* ---------------- RENDER ---------------- */
+function statusOf(e){
+  if(e.type==='shop'){
+    if(!e.sells.length)return {c:'warn',t:'НЕТ АССОРТИМЕНТА'};
+    if(e.stockout)return {c:'bad',t:'НЕТ ТОВАРА'};
+    return {c:'ok',t:'ТОРГУЕТ'};
+  }
+  if(e.type==='factory'){
+    if(e.lastCap>0&&e.lastOut<e.lastCap*.4)return {c:'warn',t:'ПРОСТОЙ'};
+    return {c:'ok',t:'ПРОИЗВОДИТ'};
+  }
+  if(e.type==='mine'||e.type==='farm')return {c:'ok',t:'ДОБЫЧА'};
+  if(e.type==='lab')return {c:'info',t:'ИССЛЕДУЕТ'};
+  return {c:'info',t:'ХРАНИТ'};
+}
+function render(){
+  if(!S)return;
+  if(S.ui.dragging){pendingRender=true;return;}
+  pendingRender=false;
+  updateTop();renderNav();renderView();renderRail();updateAction();
+  requestAnimationFrame(drawCharts);
+}
+function updateTop(){
+  const cap=capital();
+  $('#capVal').textContent=cr(cap);
+  $('#capVal').className=cap>=S.target?'mono up':'mono amb';
+  $('#cashVal').textContent=cr(S.cash);
+  $('#cashVal').className='mono '+(S.cash<400000?'down':'');
+  $('#weekVal').textContent=Math.min(S.week,S.endless?S.week:S.seasonWeeks)+' / '+(S.endless?'∞':S.seasonWeeks);
+  $('#diffBadge').textContent=DIFF[S.difficulty].name;
+  $('#diffBadge').className='chip '+(S.difficulty==='hard'?'bad':S.difficulty==='easy'?'ok':'warn');
+  const p=clamp((S.week-1)/S.seasonWeeks,0,1);
+  document.querySelector('.top').style.setProperty('--season',(p*100)+'%');
+  $('#soundBtn').innerHTML=sv(S.ui.muted?'mute':'sound',17);
+  $('#soundBtn').style.color=S.ui.muted?'var(--tx3)':'var(--teal)';
+  $('#soundBtn').title=S.ui.muted?'Звук выключен':'Звук включён';
+  $$('.speeds button').forEach(b=>b.classList.toggle('on',+b.dataset.v===S.ui.speed));
+}
+function renderNav(){
+  $$('.nav,.tabbar button').forEach(b=>b.classList.toggle('on',b.dataset.v===S.ui.tab));
+  $('#navEnt').textContent=S.ents.length+'/'+slots(S.level);
+  $('#navCon').textContent=S.active.length;
+  $('#navLvl').textContent=S.level;
+}
+function updateAction(){
+  const e=estimate();
+  $('#estVal').textContent=(e>=0?'+':'−')+cr(Math.abs(e))+' CR';
+  $('#estVal').className='mono '+(e>=0?'up':'down');
+  $('#weekLabel').textContent='Неделя '+S.week+' · '+unlockedCities().map(c=>c.name).join(' · ');
+  $('#slotLabel').textContent='Предприятий '+S.ents.length+'/'+slots(S.level)+' · Кредит '+cr(S.loan);
+  $('#seasonBar').style.width=clamp((S.week-1)/S.seasonWeeks*100,0,100)+'%';
+  $('#settleBtn').disabled=S.phase!=='play';
+  $('#settleBtn').classList.toggle('pulse',S.ui.speed===0&&S.phase==='play');
+  const cap=capital(),p=clamp(cap/S.target,0,1);
+  $('#sideTarget').textContent=cr(cap)+' / '+cr(S.target);
+  $('#sideBar').style.width=(p*100)+'%';
+  $('#sideHint').textContent=Math.round(p*100)+'% цели · осталось '+Math.max(0,S.seasonWeeks-S.week+1)+' нед.';
+}
+function renderRail(){
+  const al=alertsList();
+  $('#alertCount').textContent=al.length;
+  $('#alerts').innerHTML=al.length?al.map(a=>'<div class="item '+a.tone+'"><span class="dot" style="background:var(--'+(a.tone==='bad'?'red':a.tone==='warn'?'amber':'blue')+')"></span><span>'+a.t+'</span></div>').join(''):'<div class="empty" style="padding:14px">Всё под контролем</div>';
+  $('#modCount').textContent=S.mods.length;
+  $('#mods').innerHTML=S.mods.length?S.mods.map(m=>'<div class="item '+m.tone+'"><span class="dot" style="background:var(--'+(m.tone==='bad'?'red':m.tone==='ok'?'teal':m.tone==='warn'?'amber':'blue')+')"></span><div><b>'+m.name+'</b><div class="dim" style="font-size:11px">'+m.txt+' · '+m.weeks+' нед.</div></div></div>').join(''):'<div class="empty" style="padding:14px">Рынок спокоен</div>';
+  $('#news').innerHTML=S.news.slice(0,14).map(n=>'<div class="item '+n.tone+'"><span class="mono dim" style="font-size:10px;flex-shrink:0">Н'+n.w+'</span><span>'+n.text+'</span></div>').join('');
+}
+function kpi(label,val,sub,color,spark){
+  return '<div class="kpi"><div class="glow" style="background:'+color+'"></div><span class="lbl">'+label+'</span><b style="color:'+color+'">'+val+'</b><div class="sub">'+sub+'</div>'+(spark?'<canvas class="spark" data-spark="'+spark+'"></canvas>':'')+'</div>';
+}
+function renderView(){
+  const v=$('#view');
+  const t=S.ui.tab;
+  if(t==='overview')v.innerHTML=viewOverview();
+  else if(t==='biz')v.innerHTML=viewBiz();
+  else if(t==='market')v.innerHTML=viewMarket();
+  else if(t==='reports')v.innerHTML=viewReports();
+  else v.innerHTML=viewGrowth();
+}
+/* ---- OVERVIEW ---- */
+function viewOverview(){
+  const cap=capital(),r=S.lastRep,prev=S.history.length>1?S.history[S.history.length-2]:null;
+  const dCap=prev&&prev.cap?(cap-prev.cap)/prev.cap:0;
+  const share=r&&r.shares.length?r.shares.reduce((a,s)=>a+s.share,0)/r.shares.length:0;
+  let h='<div class="viewhead"><div><span class="tagline">Штаб компании</span><h2>Обзор империи</h2><p>Неделя '+S.week+' из '+(S.endless?'∞':S.seasonWeeks)+'. Цель — капитализация '+cr(S.target)+' CR. Управляйте ценой, качеством и объёмом: доля рынка пересчитывается каждый ход.</p></div><button class="btn" data-act="tab" data-v="biz">'+sv('plus',16)+'Управлять бизнесом</button></div>';
+  h+='<div class="kpis">';
+  h+=kpi('Капитализация',cr(cap),(dCap?('<span class="'+(dCap>=0?'up':'down')+'">'+pc(dCap)+'</span> к прошлой неделе'):'старт сезона'),'#F2A93B');
+  h+=kpi('Кэш',cr(S.cash),'кредит '+cr(S.loan)+' CR','#4C8DFF');
+  h+=kpi('Прибыль недели',r?cr(r.net):'—',r?('выручка '+cr(r.rev)):'сделайте пересчёт',r&&r.net<0?'#F2555A':'#2DD4BF');
+  h+=kpi('Доля рынка',r?nf1.format(share*100)+'%':'—','бренд '+nf2.format(S.brand)+' · реклама '+cr(S.marketing),'#A78BFA');
+  h+='</div>';
+  h+='<div class="card"><div class="between"><div><span class="lbl">Динамика капитала</span><h3 style="font-size:16px;margin-top:3px">Рост империи по неделям</h3></div><span class="chip vio">Цель '+cr(S.target)+'</span></div><div class="chartbox" style="margin-top:10px"><canvas id="capChart"></canvas></div><div class="legend"><span><i style="background:#F2A93B"></i>Капитализация</span><span><i style="background:#4C8DFF"></i>Кэш</span><span><i style="background:#A78BFA"></i>Активы</span><span><i style="background:#2DD4BF"></i>Запасы</span><span><i style="background:#FF5CC8"></i>Цель</span></div></div>';
+  h+='<div class="two">';
+  h+='<div class="card"><span class="lbl">Предприятия</span><div class="stack" style="margin-top:10px">';
+  if(!S.ents.length)h+='<div class="empty">Нет предприятий</div>';
+  S.ents.slice(0,6).forEach(e=>{
+    const st=statusOf(e);
+    h+='<button class="entrow" data-act="sel" data-id="'+e.id+'"><span class="ic" style="color:var(--amber)">'+sv(TYPES[e.type].icon,18)+'</span><span class="grow"><span class="t">'+e.name+'</span><span class="s">'+CITY[e.city].name+' · ур.'+e.level+' · эфф. '+Math.round(e.lastEff*100)+'%</span></span><span class="v"><span class="chip '+st.c+'">'+st.t+'</span></span></button>';
+  });
+  if(S.ents.length>6)h+='<button class="btn sm wide" data-act="tab" data-v="biz">Все '+S.ents.length+' предприятий</button>';
+  h+='</div></div>';
+  h+='<div class="card"><div class="between"><span class="lbl">Советник</span>'+sv('info',16)+'</div><div class="stack" style="margin-top:10px">'+advisor().map(a=>'<div class="item '+a.tone+'"><span class="dot" style="background:var(--'+(a.tone==='ok'?'teal':a.tone==='warn'?'amber':'blue')+')"></span><span>'+a.t+'</span></div>').join('')+'</div><div class="sep"></div><span class="lbl">Цель сезона</span><div class="between mono" style="margin:6px 0 6px"><span>'+cr(cap)+'</span><span class="dim">'+cr(S.target)+'</span></div><div class="bar"><i style="width:'+clamp(cap/S.target*100,0,100)+'%"></i></div><div class="hint">Осталось недель: '+Math.max(0,S.seasonWeeks-S.week+1)+' · сложность «'+DIFF[S.difficulty].name+'»</div></div>';
+  h+='</div>';
+  const al=alertsList();
+  h+='<div class="card"><div class="between"><span class="lbl">Требует внимания</span><span class="chip '+(al.length?'warn':'ok')+'">'+al.length+'</span></div><div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));margin-top:10px">'+(al.length?al.map(a=>'<div class="item '+a.tone+'"><span class="dot" style="background:var(--'+(a.tone==='bad'?'red':a.tone==='warn'?'amber':'blue')+')"></span><span>'+a.t+'</span></div>').join(''):'<div class="empty">Проблем не обнаружено</div>')+'</div></div>';
+  h+='<div class="card"><span class="lbl">Лента новостей</span><div class="feed" style="margin-top:10px;max-height:200px">'+S.news.slice(0,10).map(n=>'<div class="item '+n.tone+'"><span class="mono dim" style="font-size:10px;flex-shrink:0">Н'+n.w+'</span><span>'+n.text+'</span></div>').join('')+'</div></div>';
+  return h;
+}
+/* ---- BIZ ---- */
+function viewBiz(){
+  const sel=S.ents.find(e=>e.id===S.ui.sel)||S.ents[0];
+  if(sel)S.ui.sel=sel.id;
+  let h='<div class="viewhead"><div><span class="tagline">Операционное управление</span><h2>Бизнес</h2><p>Каждый ползунок применяется в следующем пересчёте. Мощность = оборудование × персонал × зарплата × технологии.</p></div><button class="btn pri" data-act="build-open" '+(S.ents.length>=slots(S.level)?'disabled title="Нет свободных слотов"':'')+'>'+sv('plus',16)+'Построить</button></div>';
+  h+='<div class="bizgrid'+(sel?' sel':'')+'">';
+  h+='<div><div class="between" style="margin-bottom:8px"><span class="lbl">Предприятия '+S.ents.length+'/'+slots(S.level)+'</span><span class="chip">'+unlockedCities().length+' гор.</span></div><div class="entlist">';
+  S.ents.forEach(e=>{
+    const st=statusOf(e);
+    const val=e.type==='shop'?cr(e.lastRev):(e.lastOut?tn(e.lastOut):'—');
+    h+='<button class="entrow'+(sel&&e.id===sel.id?' on':'')+'" data-act="sel" data-id="'+e.id+'"><span class="ic" style="color:var(--amber)">'+sv(TYPES[e.type].icon,18)+'</span><span class="grow"><span class="t">'+e.name+'</span><span class="s">'+CITY[e.city].name+' · ур.'+e.level+'</span></span><span class="v">'+val+'<br><span class="chip '+st.c+'" style="margin-top:3px">'+st.t+'</span></span></button>';
+  });
+  if(!S.ents.length)h+='<div class="empty">Постройте первое предприятие</div>';
+  h+='</div></div>';
+  h+='<div class="det">'+(sel?entDetail(sel):'<div class="card"><div class="empty">Выберите предприятие</div></div>')+'</div>';
+  h+='</div>';
+  return h;
+}
+function entDetail(e){
+  const t=TYPES[e.type],c=CITY[e.city],E=effOf(e),cap=capOf(e,E),req=reqWorkers(e);
+  const payroll=e.workers*c.wage*(1+S.inflation)*e.wageMul*DIFF[S.difficulty].cost;
+  let h='<div class="card"><button class="btn sm back" data-act="back" style="margin-bottom:10px">'+sv('back',15)+'К списку</button>';
+  h+='<div class="dethead"><span class="ic" style="color:var(--amber)">'+sv(t.icon,24)+'</span><div class="grow"><input type="text" value="'+e.name.replace(/"/g,'&quot;')+'" data-bind="name" data-id="'+e.id+'" aria-label="Название" style="font-weight:700;font-size:15px;background:transparent;border-color:transparent;padding:4px 6px;min-height:32px"><div class="hint" style="padding-left:6px">'+t.name+' · '+c.name+', '+c.country+' · уровень '+e.level+'</div></div><span class="chip '+statusOf(e).c+'">'+statusOf(e).t+'</span></div>';
+  h+='<div class="three" style="margin-top:12px"><div class="mini"><span class="lbl">Эффективность</span><b style="color:'+(E>=1?'var(--teal)':E>=.75?'var(--amber)':'var(--red)')+'">'+Math.round(E*100)+'%</b></div><div class="mini"><span class="lbl">'+(t.cap?'Мощность':'Ёмкость')+'</span><b>'+(t.cap?tn(cap):'+'+400+' т')+'</b></div><div class="mini"><span class="lbl">Балансовая стоимость</span><b>'+cr(e.book)+'</b></div></div>';
+  h+='</div>';
+  if(req){
+    h+='<div class="card"><span class="lbl">Персонал и оплата</span><div class="two" style="margin-top:10px">';
+    h+='<div class="ctl"><div class="between"><span>Работники <span class="dim">(норма '+req+')</span></span><span class="val" id="wv'+e.id+'">'+e.workers+'</span></div><div class="step"><button data-act="step" data-id="'+e.id+'" data-k="workers" data-d="-1" aria-label="Убрать работника">−</button><input type="range" min="0" max="'+Math.round(req*1.6)+'" step="1" value="'+e.workers+'" data-bind="workers" data-id="'+e.id+'" aria-label="Число работников"><button data-act="step" data-id="'+e.id+'" data-k="workers" data-d="1" aria-label="Добавить работника">+</button></div><div class="hint">Недобор персонала режет выпуск и качество.</div></div>';
+    h+='<div class="ctl"><div class="between"><span>Зарплата к рынку</span><span class="val" id="gv'+e.id+'">'+Math.round(e.wageMul*100)+'%</span></div><input type="range" min="0.7" max="1.5" step="0.05" value="'+e.wageMul+'" data-bind="wageMul" data-id="'+e.id+'" aria-label="Зарплата"><div class="hint" id="ph'+e.id+'">Фонд оплаты: '+full(payroll)+' / нед.</div></div>';
+    h+='</div>'+(e.wageMul<.85?'<div class="item bad" style="margin-top:10px"><span class="dot" style="background:var(--red)"></span><span>Зарплата ниже 85% рынка — растёт риск забастовки.</span></div>':'')+'</div>';
+  }
+  if(e.type==='factory'){
+    const r=REC[e.recipe];
+    h+='<div class="card"><span class="lbl">Производство</span><div class="ctl" style="margin-top:10px"><div class="between"><span>Рецептура</span><span class="dim">выход '+GOODS[r.out].name+'</span></div><select data-bind="recipe" data-id="'+e.id+'" aria-label="Рецептура">'+RECIPES.map(x=>'<option value="'+x.id+'"'+(x.id===e.recipe?' selected':'')+'>'+GOODS[x.out].name+' ← '+Object.keys(x.in).map(g=>nf2.format(x.in[g])+' т '+GOODS[g].name).join(' + ')+'</option>').join('')+'</select></div>';
+    h+='<div class="ctl" style="margin-top:12px"><div class="between"><span>Загрузка мощности</span><span class="val" id="vv'+e.id+'">'+Math.round(e.volume*100)+'%</span></div><input type="range" min="0" max="1" step="0.05" value="'+e.volume+'" data-bind="volume" data-id="'+e.id+'" aria-label="Загрузка"><div class="hint" id="pv'+e.id+'">Плановый выпуск: '+tn(cap*e.volume)+' '+GOODS[r.out].name+'</div></div>';
+    h+='<div class="sep"></div><div class="between"><div><b style="font-size:12.5px">Докупать сырьё с биржи</b><div class="hint">При нехватке своего сырья</div></div><div class="sw'+(e.autoBuy?' on':'')+'" data-act="sw" data-id="'+e.id+'" data-k="autoBuy" role="switch" aria-checked="'+e.autoBuy+'" tabindex="0"></div></div>';
+    h+='<div class="ctl" style="margin-top:10px"><div class="between"><span>Максимальная цена закупки</span><span class="val" id="mv'+e.id+'">'+Math.round(e.maxPrice*100)+'%</span></div><input type="range" min="1" max="1.6" step="0.05" value="'+e.maxPrice+'" data-bind="maxPrice" data-id="'+e.id+'" aria-label="Максимальная цена"><div class="hint">Выше 100% — переплата за срочность.</div></div></div>';
+  }
+  if(e.type==='shop'){
+    h+='<div class="card"><span class="lbl">Ассортимент и цены</span><div class="hint" style="margin-bottom:9px">До трёх товаров. Доля рынка ∝ качество^1.6 × цена^−2.2 × бренд × реклама.</div><div class="pick">';
+    GL.filter(g=>GOODS[g].cat!=='raw').forEach(g=>{
+      const on=e.sells.some(s=>s.good===g);
+      h+='<button data-act="good" data-id="'+e.id+'" data-g="'+g+'" class="'+(on?'on':'')+'">'+GOODS[g].name+'</button>';
+    });
+    h+='</div>';
+    if(!e.sells.length)h+='<div class="item warn" style="margin-top:10px"><span class="dot" style="background:var(--amber)"></span><span>Выберите хотя бы один товар.</span></div>';
+    e.sells.forEach((sl,i)=>{
+      const ref=refPrice(sl.good,c),price=ref*sl.priceMul,it=S.inv[e.city][sl.good];
+      const mkt=S.market[sl.good].price;
+      h+='<div class="sep"></div><div class="ctl"><div class="between"><b style="font-size:13px;color:'+GOODS[sl.good].color+'">'+GOODS[sl.good].name+'</b><span class="val" id="pr'+e.id+'_'+i+'">'+full(price)+'</span></div><input type="range" min="0.6" max="1.8" step="0.02" value="'+sl.priceMul+'" data-bind="priceMul" data-id="'+e.id+'" data-i="'+i+'" aria-label="Цена '+GOODS[sl.good].name+'"><div class="between hint"><span id="pd'+e.id+'_'+i+'">'+(sl.priceMul>1?'дороже':'дешевле')+' эталона на '+Math.round(Math.abs(sl.priceMul-1)*100)+'%</span><span>запас '+tn(it.qty)+' · качество '+Math.round(it.q)+' · закупка '+full(mkt)+'</span></div><div class="hint" id="pm'+e.id+'_'+i+'">Маржа с тонны: '+full(price-mkt)+'</div></div>';
+    });
+    h+='<div class="sep"></div><div class="between"><div><b style="font-size:12.5px">Автозакупка товара</b><div class="hint">Пополнять запас с биржи перед продажей</div></div><div class="sw'+(e.autoBuy?' on':'')+'" data-act="sw" data-id="'+e.id+'" data-k="autoBuy" role="switch" aria-checked="'+e.autoBuy+'" tabindex="0"></div></div>';
+    h+='<div class="ctl" style="margin-top:10px"><div class="between"><span>Максимальная цена закупки</span><span class="val" id="mv'+e.id+'">'+Math.round(e.maxPrice*100)+'%</span></div><input type="range" min="1" max="1.6" step="0.05" value="'+e.maxPrice+'" data-bind="maxPrice" data-id="'+e.id+'" aria-label="Максимальная цена"></div></div>';
+  }
+  if(e.type==='mine'||e.type==='farm'){
+    const out=TYPES[e.type].out;
+    h+='<div class="card"><span class="lbl">Добыча</span><div class="three" style="margin-top:10px"><div class="mini"><span class="lbl">Выпуск</span><b style="color:'+GOODS[out].color+'">'+tn(cap)+'</b></div><div class="mini"><span class="lbl">Качество</span><b>'+Math.round(clamp(40+6*S.tech.quality+2*e.level+3*e.equip,10,100))+'</b></div><div class="mini"><span class="lbl">Биржа</span><b>'+full(S.market[out].price)+'</b></div></div><div class="hint" style="margin-top:9px">Излишки свыше 150 т продаются автоматически (переключатель в разделе «Рынок»). Сырьё выгоднее перерабатывать на своём заводе.</div></div>';
+  }
+  if(e.type==='lab'){
+    h+='<div class="card"><span class="lbl">Исследования</span><div class="two" style="margin-top:10px"><div class="mini"><span class="lbl">Очки в неделю</span><b style="color:var(--violet)">'+Math.round(TYPES.lab.rp*E*(1+.2*(e.level-1)))+' RP</b></div><div class="mini"><span class="lbl">Накоплено</span><b>'+S.rp+' RP</b></div></div><div class="hint" style="margin-top:9px">Очки нужны для технологий 3 уровня и выше.</div><button class="btn sm wide" style="margin-top:10px" data-act="tab" data-v="growth">Открыть дерево технологий</button></div>';
+  }
+  if(e.type==='warehouse'){
+    const tot=GL.reduce((a,g)=>a+S.inv[e.city][g].qty,0);
+    h+='<div class="card"><span class="lbl">Хранение в '+c.name+'</span><div class="between mono" style="margin:9px 0 6px"><span>'+tn(tot)+'</span><span class="dim">'+storageCap(e.city)+' т</span></div><div class="bar t"><i style="width:'+clamp(tot/storageCap(e.city)*100,0,100)+'%"></i></div><div class="hint">Переполнение приводит к принудительной продаже излишков с дисконтом 10%.</div></div>';
+  }
+  h+='<div class="card"><span class="lbl">Развитие предприятия</span><div class="two" style="margin-top:10px">';
+  h+='<div class="mini"><span class="lbl">Уровень '+e.level+' / 10</span><b>+'+Math.round(35*(e.level))+'% мощности</b><button class="btn sm wide" style="margin-top:8px" data-act="upg" data-id="'+e.id+'" '+(e.level>=10||S.cash<upgCost(e)?'disabled':'')+'>'+sv('up',14)+(e.level>=10?'Максимум':'Улучшить · '+cr(upgCost(e)))+'</button></div>';
+  h+='<div class="mini"><span class="lbl">Оборудование '+e.equip+' / 5</span><b>'+Math.round((.85+.1*e.equip)*100)+'% производительности</b><button class="btn sm wide" style="margin-top:8px" data-act="equip" data-id="'+e.id+'" '+(e.equip>=5||S.cash<equipCost(e)?'disabled':'')+'>'+sv('bolt',14)+(e.equip>=5?'Максимум':'Купить · '+cr(equipCost(e)))+'</button></div>';
+  h+='</div><div class="sep"></div><div class="between"><span class="hint">Продажа вернёт 60% балансовой стоимости ('+cr(e.book*.6)+' CR).</span><button class="btn sm dgr" data-act="sell-open" data-id="'+e.id+'">Продать предприятие</button></div></div>';
+  return h;
+}
+/* ---- MARKET ---- */
+function viewMarket(){
+  let h='<div class="viewhead"><div><span class="tagline">Биржа, контракты, финансирование</span><h2>Рынок</h2><p>Оптовые цены живут своей жизнью. Покупайте сырьё, продавайте излишки, берите контракты с гарантированной ценой.</p></div><span class="chip info">Кэш '+cr(S.cash)+' CR</span></div>';
+  h+='<div class="card tight"><div class="mrow mhead"><span>Товар</span><span class="r">Цена</span><span class="r hideM">Δ неделя</span><span class="hideM">Тренд</span><span class="r hideM">Ваш запас</span><span></span></div>';
+  GL.forEach(g=>{
+    const m=S.market[g],prev=m.hist.length>1?m.hist[m.hist.length-2]:m.price;
+    const d=(m.price-prev)/prev;
+    const open=S.ui.trade===g;
+    h+='<div class="mrow"><span class="row" style="gap:8px"><i style="width:9px;height:9px;border-radius:3px;background:'+GOODS[g].color+';flex-shrink:0"></i><span><b style="font-size:13px">'+GOODS[g].name+'</b><br><span class="dim" style="font-size:10.5px">'+(GOODS[g].cat==='raw'?'сырьё':CATS[GOODS[g].cat].name)+'</span></span></span><span class="num">'+full(m.price)+'</span><span class="num hideM '+(d>=0?'up':'down')+'">'+pc(d)+'</span><span class="hideM"><canvas data-spark="'+g+'" style="height:26px"></canvas></span><span class="num hideM">'+tn(totalQty(g))+'</span><button class="btn sm" data-act="trade-open" data-g="'+g+'">'+(open?'Свернуть':'Торговать')+'</button></div>';
+    if(open){
+      const q=S.ui.tradeQty||20;
+      const stockCity=unlockedCities()[0].id;
+      h+='<div class="trade"><div class="between wrap"><b style="font-size:13px">Сделка · '+GOODS[g].name+' · '+CITY[stockCity].name+'</b><span class="chip">цена '+full(m.price)+'</span></div>';
+      h+='<div class="row wrap" style="margin-top:10px"><select data-bind="tradeCity" style="max-width:170px">'+unlockedCities().map(c=>'<option value="'+c.id+'"'+(c.id===(S.ui.tradeCity||stockCity)?' selected':'')+'>'+c.name+'</option>').join('')+'</select>';
+      h+='<div class="step"><button data-act="tq" data-d="-10">−</button><input type="number" min="1" step="1" value="'+q+'" data-bind="tradeQty" style="max-width:96px" aria-label="Количество тонн"><button data-act="tq" data-d="10">+</button></div>';
+      h+='<div class="pick">'+[10,50,100].map(v=>'<button data-act="tqp" data-v="'+v+'">'+v+' т</button>').join('')+'<button data-act="tqp" data-v="max">Максимум</button></div></div>';
+      const tc=S.ui.tradeCity||stockCity;
+      h+='<div class="between wrap" style="margin-top:11px"><span class="hint">Сумма: <b class="mono amb">'+full(q*m.price)+'</b> · на складе '+tn(S.inv[tc][g].qty)+'</span><span class="row"><button class="btn ok sm" data-act="buy" data-g="'+g+'">Купить '+q+' т</button><button class="btn sm" data-act="sellg" data-g="'+g+'">Продать '+q+' т</button></span></div></div>';
+    }
+  });
+  h+='</div>';
+  h+='<div class="card"><div class="between"><span class="lbl">Автопродажа излишков</span><span class="hint">продавать всё свыше 150 т в конце недели</span></div><div class="pick" style="margin-top:10px">';
+  GL.forEach(g=>{h+='<button data-act="as" data-g="'+g+'" class="'+(S.autoSell[g]?'on':'')+'">'+GOODS[g].name+'</button>';});
+  h+='</div></div>';
+  h+='<div class="two"><div class="card"><span class="lbl">Контракты на поставку</span><div class="stack" style="margin-top:10px">';
+  S.offers.forEach(o=>{
+    h+='<div class="mini"><div class="between"><b style="font-size:12.5px;color:'+GOODS[o.good].color+'">'+GOODS[o.good].name+' · '+o.tons+' т/нед</b><span class="chip ok">'+full(o.price)+'/т</span></div><div class="hint">'+CITY[o.city].name+' · '+o.weeks+' нед. · выше биржи на '+Math.round((o.price/S.market[o.good].price-1)*100)+'% · штраф 25% за недопоставку</div><button class="btn sm wide ok" style="margin-top:8px" data-act="accept" data-id="'+o.id+'">Принять контракт</button></div>';
+  });
+  if(!S.offers.length)h+='<div class="empty">Новые предложения появятся после пересчёта</div>';
+  h+='</div></div>';
+  h+='<div class="card"><span class="lbl">Активные обязательства</span><div class="stack" style="margin-top:10px">';
+  S.active.forEach(k=>{
+    const have=S.inv[k.city][k.good].qty,ok=have>=k.tons;
+    h+='<div class="mini"><div class="between"><b style="font-size:12.5px">'+GOODS[k.good].name+' · '+k.tons+' т</b><span class="chip '+(ok?'ok':'bad')+'">'+(ok?'готово':'дефицит')+'</span></div><div class="hint">'+CITY[k.city].name+' · осталось '+k.weeks+' нед. · '+full(k.price)+'/т · запас '+tn(have)+'</div><div class="bar t" style="margin-top:7px"><i style="width:'+clamp(have/k.tons*100,0,100)+'%"></i></div></div>';
+  });
+  if(!S.active.length)h+='<div class="empty">Обязательств нет</div>';
+  h+='</div><div class="sep"></div><span class="lbl">Кредитная линия</span><div class="between mono" style="margin:8px 0 6px"><span>'+cr(S.loan)+'</span><span class="dim">лимит '+cr(maxLoan())+'</span></div><div class="bar"><i style="width:'+clamp(S.loan/maxLoan()*100,0,100)+'%"></i></div><div class="hint">Ставка 2.5% в неделю · проценты '+full(S.loan*.025)+'</div><div class="row" style="margin-top:10px"><button class="btn sm grow" data-act="borrow" '+(S.loan>=maxLoan()?'disabled':'')+'>Взять 1 млн</button><button class="btn sm grow" data-act="repay" '+(S.loan<=0||S.cash<=0?'disabled':'')+'>Погасить</button></div></div></div>';
+  return h;
+}
+/* ---- REPORTS ---- */
+function viewReports(){
+  const r=S.lastRep;
+  let h='<div class="viewhead"><div><span class="tagline">Финансовая отчётность</span><h2>Отчёт недели</h2><p>Настоящий P&L: выручка, себестоимость, издержки, налоги. Сравнивайте недели и находите, где утекает маржа.</p></div><span class="chip">'+(r?('Неделя '+r.week):'Нет данных')+'</span></div>';
+  if(!r){h+='<div class="card"><div class="empty">Сделайте первый пересчёт, чтобы получить отчёт.<br><br><button class="btn pri" data-act="settle">Пересчитать неделю</button></div></div>';return h;}
+  const gross=r.rev-r.cogs;
+  const line=(n,v,cls)=>'<div class="plrow '+(cls||'')+'"><span>'+n+'</span><span class="num '+(v<0?'down':'')+'">'+full(v)+'</span></div>';
+  h+='<div class="two"><div class="card"><span class="lbl">Прибыли и убытки · неделя '+r.week+'</span><div class="pl" style="margin-top:8px">';
+  h+=line('Выручка всего',r.rev,'tot');
+  h+=line('Розничные продажи',r.retail,'sub');
+  h+=line('Контракты и бонусы',r.contractRev,'sub');
+  h+=line('Продажи на бирже',r.tradeRev,'sub');
+  h+=line('Себестоимость и порча',-r.cogs);
+  h+=line('Валовая прибыль',gross,'tot');
+  h+=line('Зарплата',-r.payroll);
+  h+=line('Аренда',-r.rent);
+  h+=line('Амортизация',-r.dep);
+  h+=line('Маркетинг',-r.mkt);
+  h+=line('Проценты по кредиту',-r.interest);
+  if(r.penalty)h+=line('Штрафы по контрактам',-r.penalty);
+  h+=line('Налог на прибыль ('+Math.round(r.rate*100)+'%)',-r.tax);
+  h+='<div class="plrow grand'+(r.net<0?' neg':'')+'"><span>Чистая прибыль</span><span class="num '+(r.net>=0?'up':'down')+'">'+full(r.net)+'</span></div>';
+  h+='</div><div class="hint">Закупки за неделю (движение денег): '+full(r.purchases)+' · продано '+tn(r.sold)+'.</div></div>';
+  h+='<div class="stack"><div class="card"><span class="lbl">Выручка по каналам</span><div class="chartbox" style="margin-top:10px"><canvas id="catChart"></canvas></div></div>';
+  h+='<div class="card"><span class="lbl">Доля рынка по категориям</span><div class="stack" style="margin-top:10px">';
+  const agg={};r.shares.forEach(s=>{agg[s.cat]=(agg[s.cat]||[]);agg[s.cat].push(s);});
+  Object.keys(CATS).forEach(cat=>{
+    const arr=agg[cat]||[];const av=arr.length?arr.reduce((a,s)=>a+s.share,0)/arr.length:0;
+    h+='<div><div class="between" style="font-size:12px"><span>'+CATS[cat].name+'</span><span class="mono" style="color:'+CATS[cat].color+'">'+nf1.format(av*100)+'%</span></div><div class="bar" style="margin-top:5px"><i style="width:'+clamp(av*100,0,100)+'%;background:linear-gradient(90deg,'+CATS[cat].color+','+CATS[cat].color+'66)"></i></div></div>';
+  });
+  h+='</div><div class="hint">Конкурентов в городах: '+unlockedCities().reduce((a,c)=>a+Object.keys(CATS).reduce((b,k)=>b+S.rivals[c.id][k].length,0),0)+'.</div></div></div></div>';
+  h+='<div class="card"><span class="lbl">Выручка и прибыль по неделям</span><div class="chartbox" style="margin-top:10px"><canvas id="revChart"></canvas></div><div class="legend"><span><i style="background:#B8E62D"></i>Выручка</span><span><i style="background:#2DD4BF"></i>Прибыль +</span><span><i style="background:#F2555A"></i>Убыток −</span></div></div>';
+  h+='<div class="card tight"><span class="lbl" style="padding:6px 10px;display:block">История недель</span><div class="scroll"><table class="tbl"><thead><tr><th>Неделя</th><th class="r">Выручка</th><th class="r">Прибыль</th><th class="r">Капитализация</th><th class="r">Кэш</th></tr></thead><tbody>';
+  [...S.history].reverse().forEach(p=>{
+    h+='<tr><td class="mono">Н'+p.week+'</td><td class="num">'+full(p.rev)+'</td><td class="num '+(p.net>=0?'up':'down')+'">'+full(p.net)+'</td><td class="num amb">'+full(p.cap)+'</td><td class="num">'+full(p.cash)+'</td></tr>';
+  });
+  h+='</tbody></table></div></div>';
+  return h;
+}
+/* ---- GROWTH ---- */
+function viewGrowth(){
+  const need=xpNeed(S.level);
+  let h='<div class="viewhead"><div><span class="tagline">Уровень, технологии, рынки</span><h2>Рост компании</h2><p>Прибыль даёт опыт. Уровень открывает слоты предприятий, новые города и уровни технологий.</p></div><span class="chip vio">'+S.rp+' RP</span></div>';
+  h+='<div class="card"><div class="between wrap"><div><span class="lbl">Уровень компании</span><h3 style="font-size:26px;margin-top:4px" class="amb">'+S.level+' <span class="dim" style="font-size:14px">/ 30</span></h3></div><div class="three grow" style="max-width:520px"><div class="mini"><span class="lbl">Слотов</span><b>'+S.ents.length+' / '+slots(S.level)+'</b></div><div class="mini"><span class="lbl">Тех. уровень</span><b>'+techMax(S.level)+' / 5</b></div><div class="mini"><span class="lbl">Бренд</span><b>'+nf2.format(S.brand)+'</b></div></div></div>';
+  h+='<div class="between mono" style="margin:12px 0 6px;font-size:12px"><span>'+Math.floor(S.xp)+' XP</span><span class="dim">до уровня '+need+' XP</span></div><div class="bar b"><i style="width:'+clamp(S.xp/need*100,0,100)+'%"></i></div>';
+  h+='<div class="sep"></div><div class="ctl"><div class="between"><span>Рекламный бюджет недели</span><span class="val" id="mkv">'+full(S.marketing)+'</span></div><input type="range" min="0" max="600000" step="10000" value="'+S.marketing+'" data-bind="marketing" aria-label="Рекламный бюджет"><div class="hint" id="mkh">Бренд растёт при бюджете выше 120 тыс CR на город. Сейчас городов: '+unlockedCities().length+'.</div></div></div>';
+  h+='<div class="techgrid">';
+  Object.keys(TECHS).forEach(k=>{
+    const t=TECHS[k],lv=S.tech[k],mx=techMax(S.level),cost=techCost(k),rp=techRP(k);
+    const can=lv<5&&lv<mx&&S.cash>=cost&&S.rp>=rp;
+    h+='<div class="card"><div class="row"><span class="ic" style="width:36px;height:36px;border-radius:9px;display:grid;place-items:center;background:rgba(255,255,255,.05);border:1px solid var(--line2);color:'+t.color+'">'+sv(t.icon,18)+'</span><div class="grow"><b style="font-size:14px">'+t.name+'</b><div class="hint">'+t.desc+'</div></div><span class="chip" style="color:'+t.color+';border-color:'+t.color+'55">'+lv+' / 5</span></div>';
+    h+='<div class="pips" style="margin-top:11px">'+Array.from({length:5},(_,i)=>'<i class="'+(i<lv?'on':'')+'"></i>').join('')+'</div>';
+    h+='<div class="between" style="margin-top:11px"><span class="hint">'+(lv>=5?'Максимальный уровень':lv>=mx?'Нужен уровень компании '+(mx*2):('Стоимость '+cr(cost)+' CR'+(rp?' + '+rp+' RP':'')))+'</span><button class="btn sm" data-act="tech" data-k="'+k+'" '+(can?'':'disabled')+'>'+sv('up',14)+'Изучить</button></div></div>';
+  });
+  h+='</div>';
+  h+='<div class="card"><span class="lbl">Рынки сбыта</span><div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin-top:10px">';
+  CITIES.forEach(c=>{
+    const un=S.unlocked[c.id];
+    h+='<div class="mini" style="'+(un?'border-color:rgba(45,212,191,.4)':'opacity:.6')+'"><div class="between"><b style="font-size:13px">'+sv('city',15)+' '+c.name+'</b><span class="chip '+(un?'ok':'')+'">'+(un?'открыт':'ур.'+c.unlock)+'</span></div><div class="hint" style="line-height:1.7">'+c.country+' · население '+nf.format(c.pop)+'<br>достаток ×'+nf2.format(c.wealth)+' · зарплата '+full(c.wage)+'<br>налог '+Math.round(c.tax*100)+'% · цены ×'+nf2.format(c.priceIndex)+'</div></div>';
+  });
+  h+='</div></div>';
+  h+='<div class="card"><div class="between"><span class="lbl">Достижения</span><span class="chip">'+Object.keys(S.ach).length+' / '+ACHS.length+'</span></div><div class="achgrid" style="margin-top:10px">';
+  ACHS.forEach(a=>{h+='<div class="ach'+(S.ach[a.id]?' got':'')+'"><b>'+(S.ach[a.id]?'★ ':'☆ ')+a.name+'</b><span>'+a.desc+'</span></div>';});
+  h+='</div></div>';
+  return h;
+}
+
+/* ---------------- MODALS ---------------- */
+let modalKind=null,buildType='shop',buildCity='nord',confirmData=null;
+function openModal(kind,html){
+  modalKind=kind;$('#modalBody').innerHTML=html;$('#modal').classList.add('on');document.body.classList.add('locked');
+  requestAnimationFrame(drawCharts);
+}
+function closeModal(){modalKind=null;$('#modal').classList.remove('on');document.body.classList.remove('locked');}
+function buildModal(){
+  const free=slots(S.level)-S.ents.length;
+  let h='<button class="btn ico x" data-act="close" aria-label="Закрыть">'+sv('close',16)+'</button><span class="tagline">Новое предприятие</span><h3>Расширение империи</h3><p class="hint" style="margin:6px 0 14px">Свободных слотов: '+free+' · кэш '+cr(S.cash)+' CR</p>';
+  h+='<div class="typecards">';
+  Object.keys(TYPES).forEach(k=>{
+    const t=TYPES[k],can=S.cash>=t.cost;
+    h+='<button class="typecard'+(buildType===k?' on':'')+'" data-act="btype" data-k="'+k+'" style="'+(can?'':'opacity:.55')+'"><span style="color:var(--amber)">'+sv(t.icon,20)+'</span><b>'+t.name+'</b><span>'+t.desc+'</span><span class="c">'+cr(t.cost)+' CR</span></button>';
+  });
+  h+='</div>';
+  h+='<div class="sep"></div><span class="lbl">Город</span><div class="pick" style="margin-top:8px">';
+  CITIES.forEach(c=>{h+='<button data-act="bcity" data-c="'+c.id+'" class="'+(buildCity===c.id?'on':'')+'" '+(S.unlocked[c.id]?'':'disabled style="opacity:.45"')+'>'+c.name+(S.unlocked[c.id]?'':' · ур.'+c.unlock)+'</button>';});
+  h+='</div>';
+  const t=TYPES[buildType];
+  h+='<div class="sep"></div><div class="between wrap"><span class="hint">Аренда '+full(t.rent*CITY[buildCity].rent)+' / нед · персонал '+t.workers+' чел.</span><button class="btn pri" data-act="build-do" '+(free<=0||S.cash<t.cost?'disabled':'')+'>'+sv('plus',16)+'Построить за '+cr(t.cost)+'</button></div>';
+  openModal('build',h);
+}
+function levelModal(list){
+  const l=list[list.length-1];
+  let h='<span class="tagline">Повышение</span><h3 style="font-size:26px">Уровень '+l.level+'</h3><p class="hint" style="margin:8px 0 14px">Компания выросла. Открыты новые возможности:</p><div class="stack">';
+  list.forEach(x=>x.un.forEach(u=>{h+='<div class="item ok"><span style="color:var(--teal)">'+sv('check',16)+'</span><span>'+u+'</span></div>';}));
+  h+='</div><button class="btn pri wide" style="margin-top:16px" data-act="close">Продолжить</button>';
+  openModal('level',h);
+  sfx('level');
+  burst(innerWidth/2,innerHeight*.4,70,['#F2A93B','#2DD4BF','#B8E62D','#FF5CC8','#4C8DFF']);
+}
+function resultModal(kind){
+  const cap=capital(),win=kind==='win';
+  const title=win?'Империя построена':kind==='bankrupt'?'Банкротство':'Сезон завершён';
+  const sub=win?'Целевая капитализация достигнута за '+S.history.length+' недель.':kind==='bankrupt'?'Банк отказал в кредитовании: деньги закончились.':'Цель '+cr(S.target)+' CR не достигнута к концу сезона.';
+  let h='<span class="tagline" style="color:'+(win?'var(--teal)':'var(--red)')+'">'+(win?'Победа':'Поражение')+'</span><h3 style="font-size:28px">'+title+'</h3><p class="hint" style="margin:8px 0 14px">'+sub+'</p>';
+  h+='<div class="three"><div class="mini"><span class="lbl">Капитализация</span><b class="amb">'+cr(cap)+'</b></div><div class="mini"><span class="lbl">Прибыль всего</span><b class="'+(S.stats.net>=0?'up':'down')+'">'+cr(S.stats.net)+'</b></div><div class="mini"><span class="lbl">Выручка всего</span><b>'+cr(S.stats.rev)+'</b></div></div>';
+  h+='<div class="three" style="margin-top:10px"><div class="mini"><span class="lbl">Недель сыграно</span><b>'+S.history.length+'</b></div><div class="mini"><span class="lbl">Предприятий</span><b>'+S.ents.length+'</b></div><div class="mini"><span class="lbl">Уровень</span><b>'+S.level+'</b></div></div>';
+  h+='<div class="card tight" style="margin-top:12px"><span class="lbl">История капитала</span><div class="chartbox" style="margin-top:8px"><canvas id="resChart"></canvas></div></div>';
+  h+='<div class="row wrap" style="margin-top:14px"><button class="btn pri grow" data-act="newseason">'+sv('crown',16)+'Новый сезон</button>'+(win?'<button class="btn ok grow" data-act="endless">Свободная игра</button>':'')+'<span class="chip">seed '+S.seed+'</span></div>';
+  openModal('result',h);
+  sfx(win?'win':'lose');
+  if(win)burst(innerWidth/2,innerHeight*.35,110,['#F2A93B','#2DD4BF','#B8E62D','#FF5CC8','#4C8DFF','#A78BFA']);
+}
+function confirmModal(title,text,act,id){
+  confirmData={act,id};
+  openModal('confirm','<span class="tagline">Подтверждение</span><h3>'+title+'</h3><p class="hint" style="margin:10px 0 16px">'+text+'</p><div class="row"><button class="btn pri grow" data-act="confirm-yes">Подтвердить</button><button class="btn grow" data-act="close">Отмена</button></div>');
+}
+
+/* ---------------- SETTLEMENT ---------------- */
+const PHASES=['Снабжение','Производство','Логистика','Розница','Финансы','Макро'];
+function paintPhases(idx){
+  $('#phases').innerHTML=PHASES.map((p,i)=>'<div class="phase '+(i<idx?'done':i===idx?'act':'')+'"><i></i>'+p+'</div>').join('');
+}
+function startSettle(){
+  if(!S||S.phase!=='play')return;
+  initAudio();
+  const rep=computeWeek();
+  S.phase='settling';
+  settle={t:0,idx:-1,rep,gen:generation};
+  $('#settleWeek').textContent='Неделя '+rep.week;
+  paintPhases(0);
+  $('#settleStrip').classList.add('on');
+  document.body.classList.add('busy');
+  $('#settleBtn').disabled=true;
+  sfx('tick');
+}
+function finishSettle(){
+  const rep=settle.rep;settle=null;
+  S.phase='play';S.cd=weekMs();
+  $('#settleStrip').classList.remove('on');
+  document.body.classList.remove('busy');
+  chartAnim=0;
+  const cashEl=$('#cashVal').getBoundingClientRect();
+  if(rep.rev>0){
+    floatText('+'+cr(rep.rev)+' CR',cashEl.left-40,cashEl.bottom+6,'#2DD4BF');
+    burst(cashEl.left+cashEl.width/2,cashEl.bottom+10,Math.min(40,8+Math.round(rep.rev/120000)),['#F2A93B','#E8C07D','#2DD4BF']);
+    sfx('cash');
+  }
+  const netEl=$('#capVal').getBoundingClientRect();
+  floatText((rep.net>=0?'+':'−')+cr(Math.abs(rep.net))+' прибыль',netEl.left-30,netEl.bottom+6,rep.net>=0?'#2DD4BF':'#F2555A');
+  render();
+  toast('Неделя '+rep.week+' закрыта',(rep.net>=0?'Прибыль ':'Убыток ')+cr(Math.abs(rep.net))+' CR · выручка '+cr(rep.rev),rep.net>=0?'ok':'bad',rep.net>=0?'check':'warn');
+  if(rep.event)toast(rep.event.name,rep.event.txt,rep.event.tone,'bolt');
+  if(rep.newAch.length)rep.newAch.forEach(id=>{const a=ACHS.find(x=>x.id===id);toast('Достижение: '+a.name,a.desc,'ok','crown');});
+  if(rep.net<0)sfx('bad');
+  save();
+  if(rep.levelUps.length){levelModal(rep.levelUps);return;}
+  if(rep.win&&!S.endless){resultModal('win');return;}
+  if(rep.lose){resultModal(rep.lose);return;}
+}
+
+/* ---------------- SAVE ---------------- */
+function save(){
+  try{
+    const c=Object.assign({},S);delete c.lastRep;
+    localStorage.setItem(SAVE,JSON.stringify(c));
+  }catch(e){}
+}
+function loadSave(){
+  try{
+    const raw=localStorage.getItem(SAVE);if(!raw)return null;
+    const o=JSON.parse(raw);
+    if(!o||o.v!==3||!o.ents||!o.inv||!o.market)return null;
+    return o;
+  }catch(e){return null;}
+}
+function applySave(o){
+  S=o;S.phase='play';S.ui=S.ui||{tab:'overview',sel:null,speed:0,muted:false,trade:null};
+  S.ui.dragging=false;S.ui.speed=0;S.cd=0;
+  if(!S.ents.find(e=>e.id===S.ui.sel))S.ui.sel=S.ents[0]?S.ents[0].id:null;
+  generation++;settle=null;
+  $('#brief').classList.add('off');
+  chartAnim=0;render();
+  toast('Сезон восстановлен','Неделя '+S.week+' · '+cr(capital())+' CR','info','info');
+}
+
+/* ---------------- LOOP ---------------- */
+function loop(t){
+  rafId=requestAnimationFrame(loop);
+  const dt=Math.min(64,t-(lastT||t));lastT=t;
+  stepParts(dt);
+  if(chartAnim<1){chartAnim=Math.min(1,chartAnim+dt/700);const cv=$('#capChart');if(cv)drawCap(cv,chartAnim);}
+  if(!S)return;
+  if(S.phase==='settling'&&settle){
+    if(settle.gen!==generation){settle=null;return;}
+    settle.t+=dt;
+    const idx=Math.min(PHASES.length-1,Math.floor(settle.t/250));
+    if(idx!==settle.idx){settle.idx=idx;paintPhases(idx);if(idx>0)sfx('click');}
+    if(settle.t>=PHASES.length*250+180)finishSettle();
+    return;
+  }
+  if(S.phase!=='play')return;
+  const modalOpen=$('#modal').classList.contains('on')||!$('#brief').classList.contains('off');
+  const ms=weekMs();
+  const arc=$('#ringArc'),txt=$('#cdText');
+  if(ms>0&&!modalOpen&&!S.ui.dragging){
+    S.cd-=dt;
+    const p=clamp(S.cd/ms,0,1);
+    arc.style.strokeDashoffset=(113.1*(1-p)).toFixed(1);
+    arc.setAttribute('stroke','#F2A93B');
+    txt.textContent=Math.ceil(S.cd/1000)+'с';
+    if(S.cd<=0)startSettle();
+  }else{
+    arc.style.strokeDashoffset='0';
+    arc.setAttribute('stroke',ms>0?'#65748A':'#65748A');
+    txt.textContent='II';
+  }
+}
+
+/* ---------------- ACTIONS ---------------- */
+function setTab(v){S.ui.tab=v;if(v!=='biz')S.ui.trade=null;S.ui.dragging=false;render();sfx('click');window.scrollTo({top:0,behavior:'smooth'});}
+function entById(id){return S.ents.find(e=>e.id===+id);}
+function doBuild(){
+  const t=TYPES[buildType];
+  if(S.ents.length>=slots(S.level)||S.cash<t.cost){sfx('err');return;}
+  S.cash-=t.cost;
+  const e=makeEnt(buildType,buildCity);
+  if(e.type==='factory'){
+    const hasMine=S.ents.some(x=>x.type==='mine'&&x.city===buildCity);
+    const hasFarm=S.ents.some(x=>x.type==='farm'&&x.city===buildCity);
+    e.recipe=hasFarm?'flour':hasMine?'steel':'flour';
+  }
+  S.ui.sel=e.id;S.ui.tab='biz';
+  closeModal();sfx('build');
+  toast('Построено: '+e.name,CITY[buildCity].name+' · '+cr(t.cost)+' CR','ok','check');
+  news('Построено предприятие «'+e.name+'» в '+CITY[buildCity].name+'.','ok');
+  const r=$('#settleBtn').getBoundingClientRect();
+  burst(r.left+r.width/2,r.top,26,['#F2A93B','#4C8DFF','#A78BFA']);
+  save();render();
+}
+function trade(g,dir){
+  const q=Math.max(1,Math.round(S.ui.tradeQty||20));
+  const c=S.ui.tradeCity||unlockedCities()[0].id;
+  const p=S.market[g].price;
+  if(dir>0){
+    const cost=q*p;
+    if(S.cash<cost){sfx('err');toast('Недостаточно денег','Нужно '+full(cost),'bad','warn');return;}
+    S.cash-=cost;addInv(c,g,q,MQ,p);
+    toast('Куплено '+q+' т '+GOODS[g].name,full(cost)+' · '+CITY[c].name,'info','coin');
+    sfx('cash');
+  }else{
+    const have=S.inv[c][g].qty;
+    if(have<1){sfx('err');toast('Нечего продавать','На складе '+CITY[c].name+' пусто','bad','warn');return;}
+    const sell=Math.min(q,have);const t=takeInv(c,g,sell);const rev=sell*p*.98;
+    S.cash+=rev;
+    toast('Продано '+nf1.format(sell)+' т '+GOODS[g].name,full(rev)+' (спред 2%)','ok','coin');
+    sfx('cash');
+    const r=$('#cashVal').getBoundingClientRect();
+    floatText('+'+cr(rev),r.left-30,r.bottom+4,'#2DD4BF');
+    burst(r.left+r.width/2,r.bottom+8,18,['#2DD4BF','#B8E62D']);
+  }
+  save();render();
+}
+function action(act,el){
+  const id=el&&el.dataset.id;
+  switch(act){
+    case 'tab':setTab(el.dataset.v);break;
+    case 'speed':{
+      S.ui.speed=+el.dataset.v;S.cd=weekMs();updateTop();sfx('click');
+      toast(S.ui.speed?'Скорость ×'+S.ui.speed:'Пауза',S.ui.speed?'Неделя длится '+(weekMs()/1000)+' с':'Планируйте спокойно',S.ui.speed?'info':'warn','bolt');
+      break;}
+    case 'mute':S.ui.muted=!S.ui.muted;initAudio();updateTop();if(!S.ui.muted)sfx('click');save();break;
+    case 'restart':confirmModal('Начать новый сезон?','Текущий прогресс (неделя '+S.week+', '+cr(capital())+' CR) будет удалён.','restart',null);break;
+    case 'settle':startSettle();break;
+    case 'start':{
+      initAudio();
+      newGame(S?S.ui.diff:'normal',(Math.random()*4294967295)>>>0);
+      generation++;settle=null;
+      $('#brief').classList.add('off');chartAnim=0;
+      sfx('start');render();save();
+      toast('Сезон открыт','Цель: '+cr(S.target)+' CR за '+S.seasonWeeks+' недель','ok','crown');
+      break;}
+    case 'continue':{const o=loadSave();if(o){initAudio();applySave(o);sfx('start');}break;}
+    case 'diff':{
+      const k=el.dataset.k;S.ui.diff=k;
+      $$('.diff').forEach(d=>d.classList.toggle('on',d.dataset.k===k));
+      $('#seedChip').textContent='цель '+cr(DIFF[k].target)+' CR · '+DIFF[k].weeks+' недель';
+      sfx('click');break;}
+    case 'sel':{S.ui.sel=+id;S.ui.tab='biz';render();sfx('click');break;}
+    case 'back':S.ui.sel=null;S.ui.tab='biz';render();break;
+    case 'step':{
+      const e=entById(id);if(!e)break;
+      const k=el.dataset.k,d=+el.dataset.d;
+      e[k]=clamp(e[k]+d,0,Math.round(reqWorkers(e)*1.6));
+      render();sfx('click');break;}
+    case 'sw':{
+      const e=entById(id);if(!e)break;
+      e[el.dataset.k]=!e[el.dataset.k];render();sfx('click');break;}
+    case 'good':{
+      const e=entById(id),g=el.dataset.g;if(!e)break;
+      const i=e.sells.findIndex(s=>s.good===g);
+      if(i>=0)e.sells.splice(i,1);
+      else{if(e.sells.length>=3){sfx('err');toast('Максимум 3 товара','Уберите один из ассортимента','warn','warn');break;}e.sells.push({good:g,priceMul:1});}
+      render();sfx('click');break;}
+    case 'upg':{
+      const e=entById(id);if(!e)break;const c=upgCost(e);
+      if(e.level>=10||S.cash<c){sfx('err');break;}
+      S.cash-=c;e.level++;e.book+=c;e.workers=Math.max(e.workers,reqWorkers(e));
+      sfx('build');toast('Улучшено: '+e.name,'Уровень '+e.level+' · +35% мощности','ok','up');
+      save();render();break;}
+    case 'equip':{
+      const e=entById(id);if(!e)break;const c=equipCost(e);
+      if(e.equip>=5||S.cash<c){sfx('err');break;}
+      S.cash-=c;e.equip++;e.book+=c;
+      sfx('build');toast('Оборудование обновлено',e.name+' · класс '+e.equip,'ok','bolt');
+      save();render();break;}
+    case 'sell-open':{const e=entById(id);if(e)confirmModal('Продать «'+e.name+'»?','Вы получите '+cr(e.book*.6)+' CR. Предприятие будет удалено.','sell',e.id);break;}
+    case 'build-open':buildType='shop';buildCity=unlockedCities()[0].id;buildModal();sfx('click');break;
+    case 'btype':buildType=el.dataset.k;buildModal();sfx('click');break;
+    case 'bcity':buildCity=el.dataset.c;buildModal();sfx('click');break;
+    case 'build-do':doBuild();break;
+    case 'tech':{
+      const k=el.dataset.k,c=techCost(k),rp=techRP(k);
+      if(S.tech[k]>=5||S.tech[k]>=techMax(S.level)||S.cash<c||S.rp<rp){sfx('err');break;}
+      S.cash-=c;S.rp-=rp;S.tech[k]++;
+      sfx('good');toast('Технология изучена',TECHS[k].name+' · уровень '+S.tech[k],'ok','check');
+      news('Внедрена технология «'+TECHS[k].name+'» уровня '+S.tech[k]+'.','ok');
+      save();render();break;}
+    case 'trade-open':{
+      const g=el.dataset.g;
+      S.ui.trade=S.ui.trade===g?null:g;
+      if(S.ui.trade){S.ui.tradeQty=20;S.ui.tradeCity=S.ui.tradeCity||unlockedCities()[0].id;}
+      render();sfx('click');break;}
+    case 'tq':S.ui.tradeQty=Math.max(1,(S.ui.tradeQty||20)+ +el.dataset.d);render();break;
+    case 'tqp':{
+      const g=S.ui.trade,c=S.ui.tradeCity||unlockedCities()[0].id;
+      S.ui.tradeQty=el.dataset.v==='max'?Math.max(1,Math.floor(S.cash/S.market[g].price)):Math.min(+el.dataset.v,9999);
+      render();sfx('click');break;}
+    case 'buy':trade(el.dataset.g,1);break;
+    case 'sellg':trade(el.dataset.g,-1);break;
+    case 'as':S.autoSell[el.dataset.g]=!S.autoSell[el.dataset.g];render();sfx('click');save();break;
+    case 'accept':{
+      const o=S.offers.find(x=>x.id===+id);if(!o)break;
+      S.offers=S.offers.filter(x=>x.id!==+id);
+      S.active.push(Object.assign({},o));
+      sfx('good');toast('Контракт принят',o.tons+' т '+GOODS[o.good].name+' × '+o.weeks+' нед.','ok','doc');
+      news('Заключён контракт: '+o.tons+' т '+GOODS[o.good].name+' в '+CITY[o.city].name+'.','info');
+      save();render();break;}
+    case 'borrow':{
+      const amt=Math.min(1e6,Math.max(0,maxLoan()-S.loan));
+      if(amt<1000){sfx('err');break;}
+      S.loan+=amt;S.cash+=amt;sfx('cash');
+      toast('Кредит получен',full(amt)+' под 2.5% в неделю','warn','coin');
+      save();render();break;}
+    case 'repay':{
+      const amt=Math.min(S.loan,S.cash);
+      if(amt<1){sfx('err');break;}
+      S.loan-=amt;S.cash-=amt;sfx('click');
+      toast('Кредит погашен',full(amt)+' · остаток '+cr(S.loan),'ok','check');
+      save();render();break;}
+    case 'close':closeModal();sfx('click');break;
+    case 'confirm-yes':{
+      const d=confirmData;closeModal();
+      if(!d)break;
+      if(d.act==='restart'){
+        try{localStorage.removeItem(SAVE);}catch(e){}
+        generation++;settle=null;parts=[];
+        document.body.classList.remove('busy');
+        $('#settleStrip').classList.remove('on');
+        showBrief();
+      }else if(d.act==='sell'){
+        const e=entById(d.id);
+        if(e){S.cash+=e.book*.6;S.ents=S.ents.filter(x=>x.id!==e.id);
+          S.ui.sel=S.ents[0]?S.ents[0].id:null;
+          news('Продано предприятие «'+e.name+'» за '+cr(e.book*.6)+' CR.','warn');
+          toast('Предприятие продано','+'+cr(e.book*.6)+' CR','warn','coin');sfx('cash');save();render();}
+      }
+      break;}
+    case 'newseason':{
+      closeModal();
+      try{localStorage.removeItem(SAVE);}catch(e){}
+      generation++;settle=null;parts=[];showBrief();break;}
+    case 'endless':{
+      S.endless=true;S.target=Math.round(S.target*1.8);closeModal();
+      toast('Свободная игра','Новая цель: '+cr(S.target)+' CR','ok','crown');
+      save();render();break;}
+  }
+}
+function bindInput(el){
+  const k=el.dataset.bind,id=el.dataset.id;
+  if(k==='marketing'){
+    S.marketing=+el.value;
+    const v=$('#mkv');if(v)v.textContent=full(S.marketing);
+    updateAction();return;
+  }
+  if(k==='tradeQty'){S.ui.tradeQty=Math.max(1,Math.round(+el.value||1));updateAction();return;}
+  const e=entById(id);if(!e)return;
+  if(k==='name'){e.name=el.value.slice(0,42)||TYPES[e.type].name;return;}
+  if(k==='recipe'){e.recipe=el.value;e.workers=clamp(e.workers,0,Math.round(reqWorkers(e)*1.6));render();return;}
+  if(k==='priceMul'){
+    const i=+el.dataset.i;e.sells[i].priceMul=+el.value;
+    const c=CITY[e.city],sl=e.sells[i];
+    const price=refPrice(sl.good,c)*sl.priceMul;
+    const a=$('#pr'+e.id+'_'+i);if(a)a.textContent=full(price);
+    const b=$('#pd'+e.id+'_'+i);if(b)b.textContent=(sl.priceMul>1?'дороже':'дешевле')+' эталона на '+Math.round(Math.abs(sl.priceMul-1)*100)+'%';
+    const m=$('#pm'+e.id+'_'+i);if(m)m.textContent='Маржа с тонны: '+full(price-S.market[sl.good].price);
+    updateAction();return;
+  }
+  e[k]=+el.value;
+  if(k==='workers'){const v=$('#wv'+e.id);if(v)v.textContent=e.workers;}
+  if(k==='wageMul'){const v=$('#gv'+e.id);if(v)v.textContent=Math.round(e.wageMul*100)+'%';}
+  if(k==='volume'){const v=$('#vv'+e.id);if(v)v.textContent=Math.round(e.volume*100)+'%';}
+  if(k==='maxPrice'){const v=$('#mv'+e.id);if(v)v.textContent=Math.round(e.maxPrice*100)+'%';}
+  const ph=$('#ph'+e.id);
+  if(ph)ph.textContent='Фонд оплаты: '+full(e.workers*CITY[e.city].wage*(1+S.inflation)*e.wageMul*DIFF[S.difficulty].cost)+' / нед.';
+  const pv=$('#pv'+e.id);
+  if(pv&&e.type==='factory')pv.textContent='Плановый выпуск: '+tn(capOf(e)*e.volume)+' '+GOODS[REC[e.recipe].out].name;
+  updateAction();
+}
+/* ---------------- BRIEFING ---------------- */
+function showBrief(){
+  const sv0=loadSave();
+  const cur=(S&&S.ui&&S.ui.diff)||'normal';
+  $('#diffs').innerHTML=Object.keys(DIFF).map(k=>{
+    const d=DIFF[k];
+    return '<button class="diff'+(k===cur?' on':'')+'" data-act="diff" data-k="'+k+'"><b>'+d.name+'</b><div class="d">'+d.desc+'</div><div class="kv"><span>Цель</span><span>'+cr(d.target)+' CR</span></div><div class="kv"><span>Недель</span><span>'+d.weeks+'</span></div><div class="kv"><span>Старт</span><span>'+cr(d.start)+' CR</span></div><div class="kv"><span>Конкурентов</span><span>'+d.rivals+' на категорию</span></div></button>';
+  }).join('');
+  $('#seedChip').textContent='цель '+cr(DIFF[cur].target)+' CR · '+DIFF[cur].weeks+' недель';
+  const cb=$('#contBtn');
+  if(sv0){cb.style.display='';cb.textContent='Продолжить · неделя '+sv0.week+' · '+cr(sv0.cash)+' CR';}
+  else cb.style.display='none';
+  const items=GL.map(g=>'<span>'+GOODS[g].name.toUpperCase()+' <b style="color:'+GOODS[g].color+'">'+nf.format(GOODS[g].mkt)+'</b> CR/т</span>').join('');
+  $('#marq').innerHTML=items+items;
+  $('#brief').classList.remove('off');
+  if(!S){newGame(cur,12345);S.ui.diff=cur;}
+  updateTop();
+}
+/* ---------------- EVENTS ---------------- */
+document.addEventListener('click',ev=>{
+  const el=ev.target.closest('[data-act]');
+  if(!el)return;
+  if(el.disabled)return;
+  ev.preventDefault();
+  initAudio();
+  action(el.dataset.act,el);
+});
+document.addEventListener('input',ev=>{
+  const el=ev.target.closest('[data-bind]');
+  if(!el)return;
+  bindInput(el);
+});
+document.addEventListener('change',ev=>{
+  const el=ev.target.closest('[data-bind]');
+  if(!el)return;
+  if(el.dataset.bind==='tradeCity'){S.ui.tradeCity=el.value;render();return;}
+  if(el.dataset.bind==='recipe'||el.tagName==='SELECT'){render();return;}
+  save();
+});
+document.addEventListener('pointerdown',ev=>{
+  if(ev.target.matches('input[type=range]'))S&&(S.ui.dragging=true);
+},{passive:true});
+window.addEventListener('pointerup',()=>{
+  if(S&&S.ui.dragging){S.ui.dragging=false;save();if(pendingRender)render();}
+},{passive:true});
+window.addEventListener('pointercancel',()=>{if(S)S.ui.dragging=false;},{passive:true});
+document.addEventListener('keydown',ev=>{
+  if(ev.key==='Escape'&&modalKind&&modalKind!=='result'){closeModal();return;}
+  const tag=(ev.target.tagName||'').toLowerCase();
+  if(tag==='input'||tag==='select'||tag==='textarea')return;
+  if(!S||!$('#brief').classList.contains('off'))return;
+  if(ev.code==='Space'){ev.preventDefault();action('speed',{dataset:{v:S.ui.speed?0:1}});return;}
+  if(ev.key==='Enter'){ev.preventDefault();if(S.phase==='play')startSettle();return;}
+  if(ev.key==='m'||ev.key==='M'||ev.key==='ь'){action('mute',{});return;}
+  const map={'1':'overview','2':'biz','3':'market','4':'reports','5':'growth'};
+  if(map[ev.key])setTab(map[ev.key]);
+});
+$('#modal').addEventListener('click',ev=>{
+  if(ev.target.id==='modal'&&modalKind!=='result')closeModal();
+});
+let rzT=0;
+window.addEventListener('resize',()=>{
+  sizeFx();
+  clearTimeout(rzT);
+  rzT=setTimeout(()=>{drawCharts();},120);
+});
+window.addEventListener('beforeunload',()=>{if(S&&$('#brief').classList.contains('off'))save();});
+/* ---------------- BOOT ---------------- */
+sizeFx();
+showBrief();
+rafId=requestAnimationFrame(loop);
+</script>
+</body>
+</html>
+```
